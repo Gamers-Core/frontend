@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import NextTopLoader from 'nextjs-toploader';
+import HolyLoader from 'holy-loader';
+import { hasLocale } from 'next-intl';
+import { notFound } from 'next/navigation';
 
+import { routing } from '@/i18n';
+import { Providers } from '@/components';
 import { cn } from '@/lib/utils';
 
 import './globals.css';
-import { Providers } from '@/components';
+import { getMessages } from 'next-intl/server';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -19,13 +23,24 @@ export const metadata: Metadata = {
   keywords: ['gaming', 'gear', 'best price', 'gamers core', 'controllers', 'gaming accessories'],
 };
 
-const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const RootLayout = async ({
+  children,
+  params,
+}: Readonly<{ children: React.ReactNode; params: Promise<{ locale: string }> }>) => {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) notFound();
+
+  const messages = await getMessages();
+
   return (
     <html lang="en" className={cn('h-full', 'antialiased', inter.variable)}>
       <body className="min-h-full flex flex-col">
-        <NextTopLoader color="oklch(0.424 0.199 265.638)" />
+        <HolyLoader color="oklch(0.424 0.199 265.638)" />
 
-        <Providers>{children}</Providers>
+        <Providers locale={locale} messages={messages}>
+          {children}
+        </Providers>
       </body>
     </html>
   );
