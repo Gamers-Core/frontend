@@ -34,7 +34,7 @@ const RootLayout = async ({
   const messages = await getMessages();
 
   return (
-    <html lang="en" className={cn('h-full', 'antialiased', inter.variable)}>
+    <html lang="en" className={cn('h-full', 'antialiased', inter.variable)} suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
         <HolyLoader color="oklch(0.424 0.199 265.638)" />
 
