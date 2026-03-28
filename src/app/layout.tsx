@@ -5,6 +5,7 @@ import NextTopLoader from 'nextjs-toploader';
 import { cn } from '@/lib/utils';
 
 import './globals.css';
+import { Providers } from '@/components';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -24,7 +25,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <body className="min-h-full flex flex-col">
         <NextTopLoader color="oklch(0.424 0.199 265.638)" />
 
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
