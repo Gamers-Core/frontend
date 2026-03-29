@@ -44,7 +44,7 @@ const RootLayout = async ({ children, params }: Readonly<RootLayoutProps>) => {
       className={cn('h-full', 'antialiased', cairo.variable, oxanium.variable)}
       suppressHydrationWarning
     >
-      <body className="min-w-dvw min-h-dvh flex flex-col justify-center">
+      <body className="min-h-svh flex flex-col justify-center">
         <HolyLoader color="oklch(0.424 0.199 265.638)" />
 
         <Providers locale={locale} messages={messages}>

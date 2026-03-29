@@ -20,19 +20,10 @@ export function ModeToggle({ className }: NavButtonProps) {
   return (
     <DropdownMenu dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className={cn('p-1 size-8 h-auto transition-colors duration-300 hover:text-foreground', className)}
-        >
-          <HugeiconsIcon
-            icon={Sun}
-            className="size-full scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 rtl:rotate-y-180 dark:hidden"
-          />
+        <Button variant="ghost" className={cn('p-1 size-8 h-auto', className)}>
+          <HugeiconsIcon icon={Sun} className="size-full rtl:rotate-y-180 dark:hidden" />
 
-          <HugeiconsIcon
-            icon={Moon02FreeIcons}
-            className="size-full scale-0  rotate-90 transition-all dark:scale-100 dark:rotate-0 rtl:rotate-y-180 hidden dark:inline-block"
-          />
+          <HugeiconsIcon icon={Moon02FreeIcons} className="size-full rtl:rotate-y-180 hidden dark:inline-block" />
 
           <span className="sr-only">Toggle theme</span>
         </Button>

@@ -20,7 +20,7 @@ export const Providers = ({ children, locale, messages }: ProvidersProps) => {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
-    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
       <NextIntlClientProvider messages={messages} locale={locale} timeZone="UTC">
         <QueryClientProvider client={queryClient}>
           <SidebarProvider className="flex flex-col items-center">
