@@ -24,48 +24,38 @@ export const TopBar = () => {
     <header
       className={cn(
         'fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-3 bg-transparent transition-colors duration-300 text-sm font-medium text-muted-foreground',
-        {
-          'bg-black dark:bg-white': isScrolled,
-        },
+        { 'bg-black dark:bg-white': isScrolled },
       )}
     >
       <SideMenu locale={locale} />
 
       <div className="flex items-center gap-4">
         <SidebarTrigger
-          className={cn('p-0 size-6 block sm:hidden hover:bg-transparent! hover:text-muted-foreground', {
+          className={cn('p-0 size-6 block md:hidden hover:bg-transparent! hover:text-muted-foreground', {
             'text-white dark:text-black': isScrolled,
           })}
         />
 
         <Logo
-          className={cn('dark:text-white text-black hidden xs:block sm:hidden md:block', {
-            'text-white dark:text-black': isScrolled,
-          })}
-        />
-        <Logo
-          isCompact
-          className={cn('dark:text-white text-black xs:hidden sm:block md:hidden', {
-            'text-white dark:text-black': isScrolled,
-          })}
+          className={cn('dark:text-white text-black block lg:block', { 'text-white dark:text-black': isScrolled })}
         />
 
-        <NavItems isScrolled={isScrolled} className="hidden sm:block" />
+        <nav className="hidden md:block">
+          <NavItems isInverted={isScrolled} />
+        </nav>
       </div>
 
       <div
         className={cn(
           'flex items-center gap-1.5 text-foreground hover:text-muted-foreground transition-colors duration-300',
-          {
-            'text-white dark:text-black hover:text-gray-400': isScrolled,
-          },
+          { 'text-white dark:text-black hover:text-gray-400': isScrolled },
         )}
       >
         <NavButton isScrolled={isScrolled} icon={Search} />
-        <NavButton isScrolled={isScrolled} icon={User} className="hidden sm:block" />
+        <NavButton isScrolled={isScrolled} icon={User} className="hidden md:block" />
         <NavButton isScrolled={isScrolled} icon={ShoppingBag} />
-        <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden sm:block')} />
-        <LocaleSwitcher className={cn(buttonClassName(isScrolled), 'hidden sm:block')} />
+        <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
+        <LocaleSwitcher className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
       </div>
     </header>
   );

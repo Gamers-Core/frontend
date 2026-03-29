@@ -14,7 +14,7 @@ interface NavButtonProps {
 
 export function ModeToggle({ className }: NavButtonProps) {
   const t = useTranslations();
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme: currentTheme, themes } = useTheme();
   const locale = useLocale();
 
   return (
@@ -38,15 +38,15 @@ export function ModeToggle({ className }: NavButtonProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center" className="min-w-24">
-        <DropdownMenuItem className={cn({ 'font-bold': theme === 'light' })} onClick={() => setTheme('light')}>
-          {t('mode_light')}
-        </DropdownMenuItem>
-        <DropdownMenuItem className={cn({ 'font-bold': theme === 'dark' })} onClick={() => setTheme('dark')}>
-          {t('mode_dark')}
-        </DropdownMenuItem>
-        <DropdownMenuItem className={cn({ 'font-bold': theme === 'system' })} onClick={() => setTheme('system')}>
-          {t('mode_system')}
-        </DropdownMenuItem>
+        {themes.map((theme) => (
+          <DropdownMenuItem
+            key={theme}
+            className={cn('text-md', { 'font-bold': theme === currentTheme })}
+            onClick={() => setTheme(theme)}
+          >
+            {t(`mode_${theme as Theme}`)}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
