@@ -1,17 +1,17 @@
 import { cn } from '@/lib/utils';
+
 import { Link } from './Link';
+import { LogoIcon } from '@/assets';
 
 interface LogoProps {
-  isFull?: boolean;
+  isCompact?: boolean;
   className?: string;
 }
 
-export const Logo = ({ isFull = true, className }: LogoProps) => (
-  <Link href="/" className={cn('flex items-center gap-2', className)}>
+export const Logo = ({ isCompact = false, className }: LogoProps) => (
+  <Link href="/" className={cn('flex items-center gap-2 w-fit p-1.5 text-inherit', className)}>
     {/* TODO: Add logo image when available */}
 
-    <p className="select-none text-2xl font-extrabold text-nowrap transition-colors duration-300">
-      {isFull && 'Gamers Core'}
-    </p>
+    <LogoIcon className="text-inherit" isCompact={isCompact} />
   </Link>
 );
