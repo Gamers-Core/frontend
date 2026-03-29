@@ -40,7 +40,9 @@ export const TopBar = () => {
           className={cn('dark:text-white text-black block lg:block', { 'text-white dark:text-black': isScrolled })}
         />
 
-        <NavItems isScrolled={isScrolled} className="hidden md:block" />
+        <nav className="hidden md:block">
+          <NavItems isInverted={isScrolled} />
+        </nav>
       </div>
 
       <div
