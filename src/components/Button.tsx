@@ -1,0 +1,35 @@
+import { ButtonHTMLAttributes } from 'react';
+
+import { cn } from '@/lib/utils';
+
+import { Button as ShadCNButton } from './ui/button';
+import { Spinner } from './ui';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  isLoading?: boolean;
+  isDisabled?: boolean;
+  icon?: React.ReactNode;
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  size?: 'default' | 'xs' | 'sm' | 'lg' | 'icon' | 'icon-xs' | 'icon-sm' | 'icon-lg';
+}
+
+export const Button = ({ children, isLoading, isDisabled, className, icon, size, ...props }: ButtonProps) => {
+  if (isLoading)
+    return (
+      <ShadCNButton
+        className={cn('opacity-80 cursor-not-allowed flex justify-center items-center', className)}
+        disabled
+        {...props}
+      >
+        <Spinner />
+      </ShadCNButton>
+    );
+
+  return (
+    <ShadCNButton size={size} disabled={isDisabled} className={cn('cursor-pointer', className)} {...props}>
+      {icon}
+
+      {children}
+    </ShadCNButton>
+  );
+};

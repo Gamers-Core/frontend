@@ -1,4 +1,10 @@
 {
   "ar": "Arabic",
-  "en": "English"
+  "en": "English",
+  "mode_light": "Light",
+  "mode_dark": "Dark",
+  "mode_system": "System",
+  "nav_shop": "Shop",
+  "nav_brands": "Brands",
+  "nav_faqs": "FAQs"
 }
