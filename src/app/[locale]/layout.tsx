@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Cairo, Oxanium } from 'next/font/google';
 import HolyLoader from 'holy-loader';
 import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
+import { getMessages } from 'next-intl/server';
 
 import { routing } from '@/i18n';
 import { Providers } from '@/components';
 import { cn } from '@/lib/utils';
 
 import './globals.css';
-import { getMessages } from 'next-intl/server';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const oxanium = Oxanium({ subsets: ['latin'], variable: '--font-oxanium' });
+const cairo = Cairo({ subsets: ['arabic'], variable: '--font-cairo' });
 
 export const metadata: Metadata = {
   title: 'Gamers Core',
@@ -23,18 +24,26 @@ export const metadata: Metadata = {
   keywords: ['gaming', 'gear', 'best price', 'gamers core', 'controllers', 'gaming accessories'],
 };
 
-const RootLayout = async ({
-  children,
-  params,
-}: Readonly<{ children: React.ReactNode; params: Promise<{ locale: string }> }>) => {
+interface RootLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}
+
+const RootLayout = async ({ children, params }: Readonly<RootLayoutProps>) => {
   const { locale } = await params;
+  const isArabic = locale === 'ar';
 
   if (!hasLocale(routing.locales, locale)) notFound();
 
   const messages = await getMessages();
 
   return (
-    <html lang="en" className={cn('h-full', 'antialiased', inter.variable)} suppressHydrationWarning>
+    <html
+      lang={locale}
+      dir={isArabic ? 'rtl' : 'ltr'}
+      className={cn('h-full', 'antialiased', cairo.variable, oxanium.variable)}
+      suppressHydrationWarning
+    >
       <body className="min-h-full flex flex-col">
         <HolyLoader color="oklch(0.424 0.199 265.638)" />
 
