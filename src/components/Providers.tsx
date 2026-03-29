@@ -23,7 +23,7 @@ export const Providers = ({ children, locale, messages }: ProvidersProps) => {
     <NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <NextIntlClientProvider messages={messages} locale={locale} timeZone="UTC">
         <QueryClientProvider client={queryClient}>
-          <SidebarProvider>
+          <SidebarProvider className="flex flex-col items-center">
             <TooltipProvider>{children}</TooltipProvider>
           </SidebarProvider>
           <ReactQueryDevtools initialIsOpen={false} />
