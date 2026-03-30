@@ -24,9 +24,7 @@ export const TopBar = () => {
     <div
       className={cn(
         'fixed top-0 inset-x-0 inset-e-(--removed-body-scroll-bar-size,0) z-50 transition-colors duration-300',
-        {
-          'bg-white dark:bg-black': isScrolled,
-        },
+        { 'bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-2xl': isScrolled },
       )}
     >
       <SideMenu locale={locale} />
@@ -46,13 +44,17 @@ export const TopBar = () => {
           <Logo className={cn('text-white block lg:block', { 'text-black dark:text-white': isScrolled })} />
 
           <nav className="hidden md:block">
-            <NavItems isInverted={isScrolled} />
+            <NavItems
+              className={cn('text-primary-foreground', {
+                'text-black dark:text-gray-400 hover:text-gray-800': isScrolled,
+              })}
+            />
           </nav>
         </div>
 
         <div
           className={cn('flex items-center gap-1.5 text-primary-foreground transition-colors duration-300', {
-            'text-black dark:text-white': isScrolled,
+            'text-gray-900 dark:text-white': isScrolled,
           })}
         >
           <NavButton isScrolled={isScrolled} icon={Search} />

@@ -17,7 +17,11 @@ export const SideMenu = ({ locale }: SideMenuProps) => {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <Sidebar variant="sidebar" side={locale === 'ar' ? 'right' : 'left'}>
+    <Sidebar
+      variant="sidebar"
+      side={locale === 'ar' ? 'right' : 'left'}
+      className="bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.2)]  backdrop-blur-2xl border-none!"
+    >
       <SidebarHeader className="p-4 pt-2">
         <Button
           variant="ghost"
@@ -29,7 +33,10 @@ export const SideMenu = ({ locale }: SideMenuProps) => {
 
       <SidebarContent className="px-4">
         <SidebarGroup>
-          <NavItems extended className="flex flex-col justify-start items-start text-3xl rtl:text-2xl gap-6" />
+          <NavItems
+            extended
+            className="flex flex-col justify-start items-start text-3xl rtl:text-2xl gap-6 text-black dark:text-gray-400"
+          />
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="flex flex-row gap-4 justify-between items-center p-4">
