@@ -10,7 +10,15 @@ export const Hero = () => {
 
   return (
     <section className="relative h-svh w-full">
-      <Image src="/assets/hero.jpg" alt="hero" fill className="size-full object-cover brightness-60 select-none" />
+      <Image
+        src="/assets/hero.jpg"
+        alt="hero"
+        fill
+        className="size-full object-cover brightness-60 select-none"
+        preload
+        fetchPriority="high"
+        loading="eager"
+      />
 
       <div className="absolute inset-0 flex flex-col items-center justify-between p-4 pt-40 pb-16 text-center">
         <div className="flex flex-col items-center justify-center gap-4 rtl:gap-8">
@@ -23,8 +31,8 @@ export const Hero = () => {
           </p>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-4">
-          <p className="text-xl lg:text-2xl text-white rtl:text-2xl rtl:lg:text-3xl transition-colors duration-300">
+        <div className="flex flex-col items-center justify-center gap-4 text-white">
+          <p className="text-xl lg:text-2xl rtl:text-2xl rtl:lg:text-3xl transition-colors duration-300">
             {t('home_hero_cta')}
           </p>
 
