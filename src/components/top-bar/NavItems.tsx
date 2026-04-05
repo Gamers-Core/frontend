@@ -21,9 +21,12 @@ export const NavItems = ({ className, extended = false }: NavItemsProps) => {
         <li key={href}>
           <Link
             href={href}
-            className={cn('font-medium hover:text-foreground transition-colors duration-300 flex items-center gap-2', {
-              'text-foreground': pathname.startsWith(href),
-            })}
+            className={cn(
+              'font-medium hover:dark:text-foreground transition-colors duration-300 flex items-center gap-2',
+              {
+                'text-foreground': pathname.startsWith(href),
+              },
+            )}
           >
             {extended && icon && (
               <HugeiconsIcon icon={icon} strokeWidth={2} className="size-6 inline-block rtl:rotate-y-180" />
