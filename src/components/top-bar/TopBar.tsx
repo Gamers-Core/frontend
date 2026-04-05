@@ -23,7 +23,7 @@ export const TopBar = () => {
   return (
     <div
       className={cn(
-        'fixed top-0 inset-x-0 inset-e-(--removed-body-scroll-bar-size,0) z-50 transition-colors duration-300',
+        'fixed top-0 inset-x-0 right-(--removed-body-scroll-bar-size,0) z-50 transition-colors duration-300',
         { 'bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-2xl': isScrolled },
       )}
     >
