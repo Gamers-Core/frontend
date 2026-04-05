@@ -64,7 +64,15 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
         )}
       >
         <div className="relative md:max-w-xl flex-1">
-          <Image src={media.url} width={media.width} height={media.height} alt={featured.title} />
+          <Image
+            src={media.url}
+            width={media.width}
+            height={media.height}
+            alt={featured.title}
+            loading="eager"
+            fetchPriority="high"
+            priority
+          />
 
           <p
             className={cn(
