@@ -20,10 +20,10 @@ export type BackendError = {
 
 export type MediaType = (typeof mediaTypes)[number];
 
-export interface MediaAttachmentDTO {
+export interface MediaAttachmentDTO<T extends MediaType = MediaType> {
   url: string;
 
-  type: MediaType;
+  type: T;
 
   width: number;
 
@@ -74,4 +74,9 @@ export interface FeaturedVariant {
   title: string;
 
   variant: VariantWithProductDTO;
+}
+
+export interface UserReview {
+  facebookURL: string;
+  image: MediaAttachmentDTO<'image'>;
 }

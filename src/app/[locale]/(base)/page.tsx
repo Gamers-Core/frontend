@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 
 import { FeaturedProducts, Hero } from '@/components';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { useFeaturedQuery } from '@/hooks';
+
+import { useFeaturedQuery, useUserReviewsQuery } from '@/hooks';
 
 export const metadata: Metadata = {
   title: 'Gamers Core',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   const queryClient = new QueryClient();
 
-  await Promise.all([queryClient.prefetchQuery(useFeaturedQuery)]);
+  await Promise.all([queryClient.prefetchQuery(useFeaturedQuery), queryClient.prefetchQuery(useUserReviewsQuery)]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
