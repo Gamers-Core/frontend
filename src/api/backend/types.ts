@@ -14,7 +14,7 @@ export interface AppError {
   message: string;
 }
 
-export type Error = {
+export type BackendError = {
   status: number;
 } & (ValidationErrors | AppError);
 

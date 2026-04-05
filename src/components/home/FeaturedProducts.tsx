@@ -46,7 +46,7 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
 
   const formatCurrency = useFormatCurrency();
 
-  const media = featured.variant.media[0];
+  const media = featured.variant.media[0] ?? featured.variant.product.media[0];
 
   return (
     <div

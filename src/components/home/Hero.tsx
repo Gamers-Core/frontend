@@ -15,11 +15,10 @@ export const Hero = () => {
       <Image
         src="/assets/hero.jpg"
         alt="hero"
-        fill
         className="size-full object-cover brightness-60 select-none"
-        preload
+        fill
+        priority
         fetchPriority="high"
-        loading="eager"
       />
 
       <div className="absolute inset-0 flex flex-col items-center justify-between p-4 pt-40 pb-16 text-center">
@@ -39,7 +38,7 @@ export const Hero = () => {
           </p>
 
           <Button
-            icon={<HugeiconsIcon icon={ArrowDown} className="size:10 lg:size-12" />}
+            icon={<HugeiconsIcon icon={ArrowDown} className="size-10 lg:size-12" />}
             onClick={() =>
               document.querySelector('#featured-products')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }

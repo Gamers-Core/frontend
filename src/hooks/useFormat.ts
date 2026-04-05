@@ -11,8 +11,8 @@ export const useFormatNumber = (locale?: Locale) => {
 };
 
 export const useFormatCurrency = (locale?: Locale) => {
-  const formatNumber = useFormatNumber(locale);
+  const format = useFormatNumber(locale);
 
   return (num: number, currency = 'EGP') =>
-    formatNumber(num, { style: 'currency', currency, trailingZeroDisplay: 'stripIfInteger' });
+    format(num, { style: 'currency', currency, trailingZeroDisplay: 'stripIfInteger' });
 };
