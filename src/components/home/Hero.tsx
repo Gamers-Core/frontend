@@ -19,6 +19,7 @@ export const Hero = () => {
         fill
         priority
         fetchPriority="high"
+        loading="eager"
       />
 
       <div className="absolute inset-0 flex flex-col items-center justify-between p-4 pt-40 pb-16 text-center">
