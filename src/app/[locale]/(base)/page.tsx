@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { Hero } from '@/components';
+import { FeaturedProducts, Hero } from '@/components';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { useFeaturedQuery } from '@/hooks';
 
@@ -17,6 +17,8 @@ export default async function Home() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Hero />
+
+      <FeaturedProducts />
     </HydrationBoundary>
   );
 }

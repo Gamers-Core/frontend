@@ -1,3 +1,5 @@
+'use client';
+
 import { HugeiconsIcon } from '@hugeicons/react';
 import { useTranslations } from 'next-intl';
 import { ArrowDown } from '@hugeicons/core-free-icons';
@@ -38,6 +40,9 @@ export const Hero = () => {
 
           <Button
             icon={<HugeiconsIcon icon={ArrowDown} className="size:10 lg:size-12" />}
+            onClick={() =>
+              document.querySelector('#featured-products')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
             variant="ghost"
             className="p-1 h-auto animate-ping animation-duration-1800 hover:animate-none hover:text-primary transition-colors duration-300 hover:scale-110 hover:bg-transparent!"
           />

@@ -20,7 +20,11 @@ export const Link = ({ keepSearchParams, isDisabled, className, children, ...pro
 
   if (isDisabled)
     return (
-      <Button isDisabled className={cn('bg-transparent p-0 min-h-0 h-auto min-w-0 w-auto', className)}>
+      <Button
+        isDisabled
+        variant="ghost"
+        className={cn('bg-transparent text-start p-0 min-h-0 h-auto min-w-0 w-auto', className)}
+      >
         {children}
       </Button>
     );
