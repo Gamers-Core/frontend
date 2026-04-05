@@ -17,3 +17,61 @@ export interface AppError {
 export type Error = {
   status: number;
 } & (ValidationErrors | AppError);
+
+export type MediaType = (typeof mediaTypes)[number];
+
+export interface MediaAttachmentDTO {
+  url: string;
+
+  type: MediaType;
+
+  width: number;
+
+  height: number;
+
+  format: string;
+
+  bytes: number;
+}
+
+export interface Variant {
+  externalId: string;
+
+  name: string;
+
+  price: number;
+
+  compareAt: number | null;
+
+  media: MediaAttachmentDTO[];
+}
+
+export interface BrandDTO {
+  name: string;
+}
+
+export interface Product {
+  id: number;
+
+  name: string;
+
+  title: string;
+
+  description: string;
+
+  variants: Variant[];
+
+  media: MediaAttachmentDTO[];
+
+  brand: BrandDTO | null;
+}
+
+interface VariantWithProductDTO extends Variant {
+  product: Product;
+}
+
+export interface FeaturedVariant {
+  title: string;
+
+  variant: VariantWithProductDTO;
+}
