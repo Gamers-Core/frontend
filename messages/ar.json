@@ -12,5 +12,9 @@
   "home_hero_cta": "ألق نظرة على منتجاتنا",
   "home_featured_title": "المنتجات المميزة",
   "home_featured_subtitle": "تحقق من بعض من أفضل منتجاتنا مبيعًا",
-  "home_featured_button": "تسوق الآن"
+  "home_featured_button": "تسوق الآن",
+  "home_reviews_title": "مراجعات المستخدمين",
+  "home_reviews_subtitle": "ماذا يقول عملاؤنا عن منتجاتنا",
+  "home_reviews_view_more": "عرض المزيد من المراجعات",
+  "title_click_to_view": "انقر للمراجعة"
 }

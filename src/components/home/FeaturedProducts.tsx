@@ -17,7 +17,7 @@ export const FeaturedProducts = () => {
   if (!featuredQuery.data?.length) return null;
 
   return (
-    <section id="featured-products" className="md:container w-full flex flex-col py-20 gap-10">
+    <section id="featured-products" className="md:container w-full flex flex-col pt-20 pb-10 gap-10">
       <div className="flex flex-col gap-2 md:gap-4 xl:gap-6">
         <h2 className="text-center text-4xl md:text-5xl xl:text-6xl font-bold">{t('home_featured_title')}</h2>
 

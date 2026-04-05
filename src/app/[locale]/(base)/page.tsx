@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
-
-import { FeaturedProducts, Hero } from '@/components';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
+import { FeaturedProducts, Hero, UserReviews } from '@/components';
 import { useFeaturedQuery, useUserReviewsQuery } from '@/hooks';
 
 export const metadata: Metadata = {
@@ -20,6 +19,8 @@ export default async function Home() {
       <Hero />
 
       <FeaturedProducts />
+
+      <UserReviews />
     </HydrationBoundary>
   );
 }
