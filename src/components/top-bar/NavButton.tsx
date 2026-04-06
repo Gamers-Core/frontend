@@ -13,7 +13,7 @@ interface NavButtonProps {
 
 export const NavButton = ({ isScrolled = false, icon, className }: NavButtonProps) => (
   <Button
-    icon={<HugeiconsIcon icon={icon} className="rtl:rotate-y-180 size-full" />}
+    icon={<HugeiconsIcon icon={icon} className="rtl:rotate-y-180 size-full transition-colors duration-300" />}
     variant="ghost"
     className={cn(buttonClassName(isScrolled), className)}
   />

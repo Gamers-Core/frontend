@@ -21,42 +21,49 @@ export const TopBar = () => {
   const locale = useLocale();
 
   return (
-    <header
+    <div
       className={cn(
-        'fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-3 bg-transparent transition-colors duration-300 text-sm font-medium text-muted-foreground',
-        { 'bg-black dark:bg-white': isScrolled },
+        'fixed top-0 inset-x-0 right-(--removed-body-scroll-bar-size,0) z-50 transition-colors duration-300',
+        { 'bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-2xl': isScrolled },
       )}
     >
       <SideMenu locale={locale} />
 
-      <div className="flex items-center gap-4">
-        <SidebarTrigger
-          className={cn('p-0 size-6 block md:hidden hover:bg-transparent! hover:text-muted-foreground', {
-            'text-white dark:text-black': isScrolled,
-          })}
-        />
-
-        <Logo
-          className={cn('dark:text-white text-black block lg:block', { 'text-white dark:text-black': isScrolled })}
-        />
-
-        <nav className="hidden md:block">
-          <NavItems isInverted={isScrolled} />
-        </nav>
-      </div>
-
-      <div
+      <header
         className={cn(
-          'flex items-center gap-1.5 text-foreground hover:text-muted-foreground transition-colors duration-300',
-          { 'text-white dark:text-black hover:text-gray-400': isScrolled },
+          'md:container mx-auto flex items-center justify-between px-4 py-3 bg-transparent transition-colors duration-300 text-sm font-medium text-muted-foreground',
         )}
       >
-        <NavButton isScrolled={isScrolled} icon={Search} />
-        <NavButton isScrolled={isScrolled} icon={User} className="hidden md:block" />
-        <NavButton isScrolled={isScrolled} icon={ShoppingBag} />
-        <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
-        <LocaleSwitcher className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
-      </div>
-    </header>
+        <div className="flex items-center gap-4">
+          <SidebarTrigger
+            className={cn('p-0 size-6 block md:hidden hover:bg-transparent! hover:text-muted-foreground', {
+              'text-black dark:text-white': isScrolled,
+            })}
+          />
+
+          <Logo className={cn('text-white block lg:block', { 'text-black dark:text-white': isScrolled })} />
+
+          <nav className="hidden md:block">
+            <NavItems
+              className={cn('text-primary-foreground', {
+                'text-black dark:text-gray-400 hover:text-gray-800': isScrolled,
+              })}
+            />
+          </nav>
+        </div>
+
+        <div
+          className={cn('flex items-center gap-1.5 text-primary-foreground transition-colors duration-300', {
+            'text-gray-900 dark:text-white': isScrolled,
+          })}
+        >
+          <NavButton isScrolled={isScrolled} icon={Search} />
+          <NavButton isScrolled={isScrolled} icon={User} className="hidden md:block" />
+          <NavButton isScrolled={isScrolled} icon={ShoppingBag} />
+          <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
+          <LocaleSwitcher className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
+        </div>
+      </header>
+    </div>
   );
 };

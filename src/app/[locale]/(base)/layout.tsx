@@ -9,7 +9,7 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
     <HydrationBoundary state={dehydrate(queryClient)}>
       <TopBar />
 
-      <main className="pt-16">{children}</main>
+      <main className="flex-1 w-full">{children}</main>
     </HydrationBoundary>
   );
 }

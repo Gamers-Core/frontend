@@ -6,5 +6,15 @@
   "mode_system": "System",
   "nav_shop": "Shop",
   "nav_brands": "Brands",
-  "nav_faqs": "FAQs"
+  "nav_faqs": "FAQs",
+  "home_hero_title": "A Place for Gamers",
+  "home_hero_subtitle": "Find the best gaming gear at the lowest prices",
+  "home_hero_cta": "Take a look at our products",
+  "home_featured_title": "Featured Products",
+  "home_featured_subtitle": "Check out some of our best-selling products",
+  "home_featured_button": "Shop Now",
+  "home_reviews_title": "User Reviews",
+  "home_reviews_subtitle": "What our customers are saying about our products",
+  "home_reviews_view_more": "View more reviews",
+  "title_click_to_view": "Click to view"
 }

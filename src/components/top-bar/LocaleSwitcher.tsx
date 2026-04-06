@@ -52,6 +52,7 @@ export const LocaleSwitcher = ({ isFull = false, className }: NavButtonProps) =>
               href={pathname}
               locale={locale}
               scroll
+              isDisabled={locale === currentLocale}
               className={cn('block w-full text-md', { 'font-bold': locale === currentLocale })}
             >
               {t(locale)}
