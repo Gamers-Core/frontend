@@ -19,7 +19,9 @@ export const RecommendedProducts = ({ id }: RecommendedProductsProps) => {
 
   if (!productsQuery.data) return null;
 
-  const products = productsQuery.data.filter((product) => product.id !== id);
+  const products = productsQuery.data.filter(
+    (product) => product.id !== id && product.variants.some(({ stock }) => !!stock),
+  );
 
   return (
     <section className="px-4 lg:px-0 md:container">
@@ -37,6 +39,8 @@ export const RecommendedProducts = ({ id }: RecommendedProductsProps) => {
 };
 
 const ProductCard = ({ id, media, name, variants }: Product) => {
+  const t = useTranslations();
+
   const formatCurrency = useFormatCurrency();
 
   const activeVariant = variants[0];
@@ -58,6 +62,12 @@ const ProductCard = ({ id, media, name, variants }: Product) => {
           </p>
         </div>
       </div>
+
+      {activeVariant.compareAt && (
+        <span className="absolute top-2.5 inset-e-2.5 text-foreground bg-background text-xs md:text-sm px-3 py-1.5 rounded-full font-bold transition-colors duration-300">
+          {t('sale')}
+        </span>
+      )}
     </Link>
   );
 };
