@@ -5,3 +5,4 @@ export * from './useFormat';
 export * from './products';
 export * from './useCarousel';
 export * from './useDisclosure';
+export * from './useSearchParams';

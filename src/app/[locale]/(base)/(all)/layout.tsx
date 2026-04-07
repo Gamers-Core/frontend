@@ -5,7 +5,7 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
     <>
       <TopBar />
 
-      <main className="flex-1 w-full pt-14">{children}</main>
+      <main className="flex-1 w-full py-14">{children}</main>
     </>
   );
 }

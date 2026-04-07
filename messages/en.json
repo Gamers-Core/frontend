@@ -16,5 +16,9 @@
   "home_reviews_title": "User Reviews",
   "home_reviews_subtitle": "What our customers are saying about our products",
   "home_reviews_view_more": "View more reviews",
-  "title_click_to_view": "Click to view"
+  "title_click_to_view": "Click to view",
+  "products_variants_title": "Variant: ",
+  "add_to_cart": "Add to Cart",
+  "buy_now": "Buy Now",
+  "description": "Description"
 }

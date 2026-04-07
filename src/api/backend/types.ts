@@ -43,6 +43,8 @@ export interface Variant {
 
   compareAt: number | null;
 
+  stock: number;
+
   media: MediaAttachment[];
 }
 
@@ -67,7 +69,7 @@ export interface Product {
 }
 
 interface VariantWithProduct extends Variant {
-  product: Product;
+  product: Omit<Product, 'variants'>;
 }
 
 export interface FeaturedVariant {

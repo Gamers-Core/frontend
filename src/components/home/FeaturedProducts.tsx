@@ -78,12 +78,9 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
         </div>
 
         <div
-          className={cn(
-            'flex flex-col flex-1 justify-end md:max-w-xl gap-5 md:pt-6 lg:pt-10 items-center md:items-start',
-            {
-              'md:items-center md:pt-0 lg:pt-0 md:max-w-2xl': !isMain,
-            },
-          )}
+          className={cn('flex flex-col flex-1 justify-center md:max-w-xl gap-5 md:gap-8 items-center md:items-start', {
+            'md:items-center md:pt-0 lg:pt-0 md:max-w-2xl': !isMain,
+          })}
         >
           <h3
             className={cn('text-3xl lg:text-4xl xl:text-5xl font-bold rtl:leading-snug', {
@@ -95,7 +92,10 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
 
           {isMain && (
             <p className="md:text-base lg:text-lg xl:text-2xl text-gray-500 line-clamp-4 lg:line-clamp-5 xl:line-clamp-6">
-              {featured.variant.product.description}
+              {featured.variant.product.description
+                .replace(/<[^>]*>/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim()}
             </p>
           )}
 

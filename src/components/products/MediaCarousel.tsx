@@ -2,34 +2,46 @@
 
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
+import { useEffect, useState } from 'react';
 
 import Lightbox, { SlideImage } from 'yet-another-react-lightbox';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 
 import { cn } from '@/lib/utils';
-import { Disclosure, useCarousel, useDisclosure } from '@/hooks';
+import { Disclosure, useCarousel, useDisclosure, useSearchParams } from '@/hooks';
 
 import { Button } from '../Button';
 import { Carousel, CarouselContent, CarouselItem } from '../ui';
-import { useState } from 'react';
 
 interface MediaCarouselProps {
   media: SlideImage[];
+  className?: string;
 }
 
-export const MediaCarousel = ({ media }: MediaCarouselProps) => {
+export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
   const locale = useLocale();
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const variant = useSearchParams().get('variant');
+
   const { selected, scrollTo, setApi } = useCarousel();
   const lightboxDisclosure = useDisclosure();
+
+  useEffect(() => {
+    scrollTo(0);
+  }, [variant, scrollTo]);
 
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
     <>
-      <Carousel className="relative flex-1" setApi={setApi} dir={direction} opts={{ direction, loop: true }}>
+      <Carousel
+        className={cn('relative flex-1', className)}
+        setApi={setApi}
+        dir={direction}
+        opts={{ direction, loop: true }}
+      >
         <CarouselContent>
           {media.map((mediaItem, index) => {
             const isFirst = index === 0;
@@ -47,7 +59,7 @@ export const MediaCarousel = ({ media }: MediaCarouselProps) => {
                   <Image
                     {...mediaItem}
                     alt={`Media ${index + 1}`}
-                    className="w-full"
+                    className="w-full select-none"
                     priority={isFirst}
                     fetchPriority={isFirst ? 'high' : 'auto'}
                     loading="eager"
