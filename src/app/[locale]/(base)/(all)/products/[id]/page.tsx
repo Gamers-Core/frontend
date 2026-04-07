@@ -2,6 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
+import { ProductListing } from '@/components';
 import { useProductQuery } from '@/hooks';
 import { PagePropsWithParams } from '@/app/types';
 
@@ -45,5 +46,9 @@ export default async function ProductPage({ params }: PageParams) {
 
   if (!product) return notFound();
 
-  return <HydrationBoundary state={dehydrate(queryClient)}></HydrationBoundary>;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ProductListing id={id} />
+    </HydrationBoundary>
+  );
 }

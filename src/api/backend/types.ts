@@ -20,7 +20,7 @@ export type BackendError = {
 
 export type MediaType = (typeof mediaTypes)[number];
 
-export interface MediaAttachmentDTO<T extends MediaType = MediaType> {
+export interface MediaAttachment<T extends MediaType = MediaType> {
   url: string;
 
   type: T;
@@ -43,10 +43,10 @@ export interface Variant {
 
   compareAt: number | null;
 
-  media: MediaAttachmentDTO[];
+  media: MediaAttachment[];
 }
 
-export interface BrandDTO {
+export interface Brand {
   name: string;
 }
 
@@ -61,22 +61,22 @@ export interface Product {
 
   variants: Variant[];
 
-  media: MediaAttachmentDTO[];
+  media: MediaAttachment[];
 
-  brand: BrandDTO | null;
+  brand: Brand | null;
 }
 
-interface VariantWithProductDTO extends Variant {
+interface VariantWithProduct extends Variant {
   product: Product;
 }
 
 export interface FeaturedVariant {
   title: string;
 
-  variant: VariantWithProductDTO;
+  variant: VariantWithProduct;
 }
 
 export interface UserReview {
   facebookURL: string;
-  image: MediaAttachmentDTO<'image'>;
+  image: MediaAttachment<'image'>;
 }
