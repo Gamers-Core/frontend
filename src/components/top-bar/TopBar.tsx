@@ -15,7 +15,11 @@ import { LocaleSwitcher } from './LocaleSwitcher';
 import { NavButton } from './NavButton';
 import { buttonClassName } from './helpers';
 
-export const TopBar = () => {
+interface TopBarProps {
+  isHome?: boolean;
+}
+
+export const TopBar = ({ isHome = false }: TopBarProps) => {
   const { isScrolled } = useScroll();
 
   const locale = useLocale();
@@ -31,22 +35,22 @@ export const TopBar = () => {
 
       <header
         className={cn(
-          'md:container mx-auto flex items-center justify-between px-4 py-3 bg-transparent transition-colors duration-300 text-sm font-medium text-muted-foreground',
+          'md:container flex items-center justify-between px-4 py-3 bg-transparent transition-colors duration-300 text-sm font-medium text-muted-foreground',
         )}
       >
         <div className="flex items-center gap-4">
           <SidebarTrigger
             className={cn('p-0 size-6 block md:hidden hover:bg-transparent! hover:text-muted-foreground', {
-              'text-black dark:text-white': isScrolled,
+              'text-black dark:text-white': isScrolled || !isHome,
             })}
           />
 
-          <Logo className={cn('text-white block lg:block', { 'text-black dark:text-white': isScrolled })} />
+          <Logo className={cn('text-white block lg:block', { 'text-black dark:text-white': isScrolled || !isHome })} />
 
           <nav className="hidden md:block">
             <NavItems
               className={cn('text-primary-foreground', {
-                'text-black dark:text-gray-400 hover:text-gray-800': isScrolled,
+                'text-black dark:text-gray-400 hover:text-gray-800': isScrolled || !isHome,
               })}
             />
           </nav>
@@ -54,7 +58,7 @@ export const TopBar = () => {
 
         <div
           className={cn('flex items-center gap-1.5 text-primary-foreground transition-colors duration-300', {
-            'text-gray-900 dark:text-white': isScrolled,
+            'text-gray-900 dark:text-white': isScrolled || !isHome,
           })}
         >
           <NavButton isScrolled={isScrolled} icon={Search} />

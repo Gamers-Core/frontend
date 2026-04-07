@@ -118,7 +118,7 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
           </div>
 
           <Link
-            href={`/products/${featured.variant.product.id}/${featured.variant.externalId}`}
+            href={`/products/${featured.variant.product.id}?variant=${featured.variant.externalId}`}
             className="w-fit text-lg md:text-xl lg:text-2xl h-auto px-6 py-4 bg-primary rounded-lg text-primary-foreground font-bold"
           >
             {t('home_featured_button')}
