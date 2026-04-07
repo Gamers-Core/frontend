@@ -60,8 +60,8 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
     >
       <div
         className={cn(
-          'flex container flex-col md:flex-row md:gap-2 lg:gap-4 xl:gap-10 justify-center py-6 md:py-15 px-4 md:px-8 lg:px-10 flex-1',
-          { 'flex-col md:flex-col px-6 lg:px-12 items-center xl:gap-6 lg:gap-2 md:gap-1': !isMain },
+          'flex container flex-col md:flex-row gap-10 lg:gap-4 xl:gap-10 justify-center py-6 md:py-15 px-4 md:px-8 lg:px-10 flex-1',
+          { 'flex-col md:flex-col px-6 lg:px-12 items-center xl:gap-6 lg:gap-2': !isMain },
         )}
       >
         <div className="relative flex items-center md:max-w-xl flex-1">
