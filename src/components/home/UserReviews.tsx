@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 
 import { UserReview } from '@/api';
 import { useUserReviewsQuery } from '@/hooks';
+import { formatMedia } from '@/helpers';
 
 import { Link } from '../Link';
 
@@ -54,7 +55,7 @@ const UserReviewCard = ({ facebookURL, image }: UserReview) => {
       className="block p-2 flex-1 md:min-w-110 md:max-w-160 bg-border rounded-lg"
     >
       <div className="rounded-lg overflow-hidden">
-        <Image {...image} src={image.url} alt="user Review" fetchPriority="high" className="w-full" />
+        <Image {...formatMedia(image)} alt="user Review" fetchPriority="high" className="w-full" />
       </div>
     </Link>
   );

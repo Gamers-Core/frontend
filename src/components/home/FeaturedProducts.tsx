@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { FeaturedVariant } from '@/api';
 import { useFeaturedQuery, useFormatCurrency } from '@/hooks';
 import { cn } from '@/lib/utils';
+import { formatMedia } from '@/helpers';
 
 import { Link } from '../Link';
 
@@ -51,7 +52,7 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
   return (
     <div
       className={cn(
-        'bg-sidebar-border text-center md:text-start rounded-lg hover:scale-101 transition-all duration-300',
+        'flex flex-col bg-sidebar-border text-center md:text-start rounded-lg hover:scale-101 transition-all duration-300',
         {
           'flex-1 min-w-fit md:min-w-xs lg:min-w-md xl:min-w-152 md:text-center': !isMain,
         },
@@ -59,20 +60,12 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
     >
       <div
         className={cn(
-          'flex container flex-col md:flex-row md:gap-2 lg:gap-4 xl:gap-10 justify-center py-6 md:py-15 px-4 md:px-8 lg:px-10',
+          'flex container flex-col md:flex-row md:gap-2 lg:gap-4 xl:gap-10 justify-center py-6 md:py-15 px-4 md:px-8 lg:px-10 flex-1',
           { 'flex-col md:flex-col px-6 lg:px-12 items-center xl:gap-6 lg:gap-2 md:gap-1': !isMain },
         )}
       >
-        <div className="relative md:max-w-xl flex-1">
-          <Image
-            src={media.url}
-            width={media.width}
-            height={media.height}
-            alt={featured.title}
-            loading="eager"
-            fetchPriority="high"
-            priority
-          />
+        <div className="relative flex items-center md:max-w-xl flex-1">
+          <Image {...formatMedia(media)} alt={featured.title} loading="eager" fetchPriority="high" priority />
 
           <p
             className={cn(
@@ -85,9 +78,12 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
         </div>
 
         <div
-          className={cn('flex flex-col flex-1 md:max-w-xl gap-5 md:pt-6 lg:pt-10 items-center md:items-start', {
-            'md:items-center md:pt-0 lg:pt-0 md:max-w-2xl': !isMain,
-          })}
+          className={cn(
+            'flex flex-col flex-1 justify-end md:max-w-xl gap-5 md:pt-6 lg:pt-10 items-center md:items-start',
+            {
+              'md:items-center md:pt-0 lg:pt-0 md:max-w-2xl': !isMain,
+            },
+          )}
         >
           <h3
             className={cn('text-3xl lg:text-4xl xl:text-5xl font-bold rtl:leading-snug', {
