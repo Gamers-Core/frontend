@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { Link } from '../Link';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui';
 import { Button } from '../Button';
+import { useSearchParams } from 'next/navigation';
 
 interface NavButtonProps {
   isFull?: boolean;
@@ -23,6 +24,8 @@ export const LocaleSwitcher = ({ isFull = false, className }: NavButtonProps) =>
 
   const t = useTranslations();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const currentLocale = useLocale();
 
   return (
@@ -49,7 +52,7 @@ export const LocaleSwitcher = ({ isFull = false, className }: NavButtonProps) =>
         {locales.map((locale) => (
           <DropdownMenuItem asChild key={locale}>
             <Link
-              href={pathname}
+              href={`${pathname}?${searchParams.toString()}`}
               locale={locale}
               scroll
               isDisabled={locale === currentLocale}
