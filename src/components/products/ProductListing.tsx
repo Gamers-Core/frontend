@@ -63,7 +63,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
             </p>
           </div>
 
-          <VariantSwitcher activeVariant={activeVariant} variants={productQuery.data.variants} />
+          <VariantSwitcher activeVariant={activeVariant} product={productQuery.data} />
         </div>
 
         <div className="mx-4 p-4 flex flex-col gap-2 bg-sidebar-border rounded-lg">

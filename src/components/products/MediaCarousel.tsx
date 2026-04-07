@@ -30,7 +30,8 @@ export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
 
   useEffect(() => {
     scrollTo(0);
-  }, [variant, scrollTo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [variant]);
 
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
 
@@ -62,7 +63,7 @@ export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
                     className="w-full select-none"
                     priority={isFirst}
                     fetchPriority={isFirst ? 'high' : 'auto'}
-                    loading="eager"
+                    loading={isFirst ? 'eager' : 'lazy'}
                   />
                 ) : null}
               </CarouselItem>
@@ -123,7 +124,7 @@ const LightboxCarousel = ({ media, activeIndex, setActiveIndex, ...disclosure }:
     render={{
       iconZoomIn: () => null,
       iconZoomOut: () => null,
-      slide: ({ slide }) => <Image {...slide} alt={slide.alt ?? ''} fetchPriority="auto" loading="eager" />,
+      slide: ({ slide }) => <Image {...slide} alt={slide.alt ?? ''} loading="lazy" fetchPriority="auto" />,
     }}
   />
 );

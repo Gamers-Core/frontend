@@ -9,8 +9,8 @@ import { PagePropsWithParams } from '@/app/types';
 type PageParams = PagePropsWithParams<{ id: string }>;
 
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
-  const id = (await params).id as unknown as number;
-  if (typeof Number(id) !== 'number') return notFound();
+  const id = Number((await params).id);
+  if (isNaN(id)) return notFound();
 
   const queryClient = new QueryClient();
 
@@ -32,8 +32,8 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
 }
 
 export default async function ProductPage({ params }: PageParams) {
-  const id = (await params).id as unknown as number;
-  if (typeof Number(id) !== 'number') return notFound();
+  const id = Number((await params).id);
+  if (isNaN(id)) return notFound();
 
   const queryClient = new QueryClient();
 

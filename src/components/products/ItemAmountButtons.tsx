@@ -21,7 +21,8 @@ export const ItemAmountButtons = ({ variant, amount, setAmount }: ItemAmountButt
 
   useEffect(() => {
     setAmount(1);
-  }, [variant.externalId, setAmount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [variant.externalId]);
 
   const onIncrease = () => setAmount((prev) => Math.min(variant.stock, prev + 1));
   const onDecrease = () => setAmount((prev) => Math.max(1, prev - 1));
