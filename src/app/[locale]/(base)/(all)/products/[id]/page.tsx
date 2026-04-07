@@ -2,8 +2,8 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-import { ProductListing } from '@/components';
-import { useProductQuery } from '@/hooks';
+import { ProductListing, RecommendedProducts } from '@/components';
+import { useProductQuery, useProductsQuery } from '@/hooks';
 import { PagePropsWithParams } from '@/app/types';
 
 type PageParams = PagePropsWithParams<{ id: string }>;
@@ -42,6 +42,7 @@ export default async function ProductPage({ params }: PageParams) {
       ...useProductQuery,
       queryKey: useProductQuery.queryKey(id),
     }),
+    queryClient.prefetchQuery(useProductsQuery),
   ]).catch(() => [null]);
 
   if (!product) return notFound();
@@ -49,6 +50,8 @@ export default async function ProductPage({ params }: PageParams) {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ProductListing id={id} />
+
+      <RecommendedProducts id={id} />
     </HydrationBoundary>
   );
 }

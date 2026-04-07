@@ -45,8 +45,8 @@ export const ProductListing = ({ id }: ProductListingProps) => {
         className="h-max md:px-4 md:min-w-md lg:min-w-lg xl:min-w-2xl 2xl:min-w-3xl lg:sticky lg:top-14"
       />
 
-      <div className="flex flex-col gap-4 min-w-0">
-        <div className="mx-4 p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
+      <div className="flex flex-col gap-4 min-w-0 px-4 lg:px-0">
+        <div className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
           <div className="flex flex-col gap-2">
             {productQuery.data.brand && (
               <p className="text-base text-sidebar-primary uppercase">{productQuery.data.brand.name}</p>
@@ -58,7 +58,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
           <div className="flex gap-2 items-center">
             <p className="text-xl text-sidebar-primary font-semibold">{formatCurrency(activeVariant.price)}</p>
 
-            <p className="text-ba md:text-base lg:text-lg xl:text-xl line-through text-sidebar-primary/70">
+            <p className="text-base md:text-base lg:text-lg xl:text-xl line-through text-sidebar-primary/70">
               {activeVariant.compareAt && formatCurrency(activeVariant.compareAt)}
             </p>
           </div>
@@ -66,7 +66,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
           <VariantSwitcher activeVariant={activeVariant} product={productQuery.data} />
         </div>
 
-        <div className="mx-4 p-4 flex flex-col gap-2 bg-sidebar-border rounded-lg">
+        <div className="p-4 flex flex-col gap-2 bg-sidebar-border rounded-lg">
           <div className="flex flex-1 gap-2">
             <ItemAmountButtons variant={activeVariant} amount={amount} setAmount={setAmount} />
 
@@ -84,7 +84,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
           </Button>
         </div>
 
-        <div className="mx-4 p-4 flex flex-col gap-6 bg-sidebar-border rounded-lg">
+        <div className="p-4 flex flex-col gap-6 bg-sidebar-border rounded-lg">
           <h3 className="text-2xl font-semibold text-sidebar-primary/90">{t('description')}</h3>
 
           <ProductDescription html={productQuery.data.description} />
