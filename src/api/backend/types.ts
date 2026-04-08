@@ -22,50 +22,41 @@ export type MediaType = (typeof mediaTypes)[number];
 
 export interface MediaAttachment<T extends MediaType = MediaType> {
   url: string;
-
   type: T;
-
   width: number;
-
   height: number;
-
   format: string;
-
   bytes: number;
 }
 
 export interface Variant {
   externalId: string;
-
   name: string;
-
   price: number;
-
   compareAt: number | null;
-
   stock: number;
-
   media: MediaAttachment[];
 }
 
 export interface Brand {
+  id: number;
+  name: string;
+}
+
+export interface Category {
+  id: number;
   name: string;
 }
 
 export interface Product {
   id: number;
-
   name: string;
-
   title: string;
-
   description: string;
-
   variants: Variant[];
-
   media: MediaAttachment[];
-
-  brand: Brand | null;
+  brand: Brand;
+  category: Category;
 }
 
 interface VariantWithProduct extends Variant {
@@ -74,7 +65,6 @@ interface VariantWithProduct extends Variant {
 
 export interface FeaturedVariant {
   title: string;
-
   variant: VariantWithProduct;
 }
 

@@ -48,9 +48,13 @@ export const ProductListing = ({ id }: ProductListingProps) => {
       <div className="flex flex-col gap-4 min-w-0 px-4 lg:px-0">
         <div className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
           <div className="flex flex-col gap-2">
-            {productQuery.data.brand && (
-              <p className="text-base text-sidebar-primary uppercase">{productQuery.data.brand.name}</p>
-            )}
+            <div>
+              <span className="text-lg text-sidebar-primary uppercase">{productQuery.data.brand.name}</span>
+
+              <span> {t('slash')} </span>
+
+              <span className="text-base text-muted-foreground/50 capitalize">{productQuery.data.category.name}</span>
+            </div>
 
             <h1 className="text-2xl">{productQuery.data.title}</h1>
           </div>
