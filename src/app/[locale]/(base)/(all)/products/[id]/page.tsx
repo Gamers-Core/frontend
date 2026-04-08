@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
 import { ProductListing, RecommendedProducts } from '@/components';
-import { useProductQuery, useProductsQuery } from '@/hooks';
+import { useProductQuery, useProductRecommendationsQuery } from '@/hooks';
 import { PagePropsWithParams } from '@/app/types';
 
 type PageParams = PagePropsWithParams<{ id: string }>;
@@ -42,7 +42,10 @@ export default async function ProductPage({ params }: PageParams) {
       ...useProductQuery,
       queryKey: useProductQuery.queryKey(id),
     }),
-    queryClient.prefetchQuery(useProductsQuery),
+    queryClient.prefetchQuery({
+      ...useProductRecommendationsQuery,
+      queryKey: useProductRecommendationsQuery.queryKey(id),
+    }),
   ]).catch(() => [null]);
 
   if (!product) return notFound();

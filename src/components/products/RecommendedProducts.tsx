@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-import { useFormatCurrency, useProductsQuery } from '@/hooks';
+import { useFormatCurrency, useProductRecommendationsQuery } from '@/hooks';
 import { Product } from '@/api';
 import { formatMedia } from '@/helpers';
 import { Link } from '@/i18n';
@@ -15,13 +15,9 @@ interface RecommendedProductsProps {
 export const RecommendedProducts = ({ id }: RecommendedProductsProps) => {
   const t = useTranslations();
 
-  const productsQuery = useProductsQuery();
+  const recommendedProductsQuery = useProductRecommendationsQuery(id);
 
-  if (!productsQuery.data) return null;
-
-  const products = productsQuery.data.filter(
-    (product) => product.id !== id && product.variants.some(({ stock }) => !!stock),
-  );
+  if (!recommendedProductsQuery.data) return null;
 
   return (
     <section className="px-4 lg:px-0 md:container">
@@ -29,7 +25,7 @@ export const RecommendedProducts = ({ id }: RecommendedProductsProps) => {
         <h3 className="text-2xl md:text-3xl font-semibold text-sidebar-primary/90">{t('recommended_products')}</h3>
 
         <div className="flex flex-row gap-6 overflow-x-auto p-2">
-          {products.map((product) => (
+          {recommendedProductsQuery.data.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
         </div>
@@ -48,7 +44,11 @@ const ProductCard = ({ id, media, name, variants, brand, category }: Product) =>
   return (
     <Link href={`/products/${id}`} className="flex flex-col relative gap-4 w-min">
       <div className="flex flex-col justify-center items-center size-60 md:size-75 bg-white dark:bg-border rounded-lg p-2">
-        <Image {...formatMedia(media[0])} alt={name} className="w-full object-contain rounded-lg overflow-hidden" />
+        <Image
+          {...formatMedia(activeVariant.media?.[0] ?? media[0])}
+          alt={name}
+          className="w-full object-contain rounded-lg overflow-hidden"
+        />
       </div>
 
       <div className="flex flex-col">

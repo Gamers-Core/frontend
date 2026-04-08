@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { gamersCore, Product } from '@/api';
+import { BackendError, gamersCore, Product } from '@/api';
 
 const queryKey = ['products'];
 
 const queryFn = () => gamersCore.get<Product[]>('/products').then((res) => res.data);
 
 export const useProductsQuery = () =>
-  useQuery({
+  useQuery<Product[], BackendError, Product[], typeof queryKey>({
     queryKey,
     queryFn,
     staleTime: 1000 * 60 * 5, // 5 minutes
