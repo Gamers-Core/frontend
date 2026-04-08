@@ -38,7 +38,7 @@ export const RecommendedProducts = ({ id }: RecommendedProductsProps) => {
   );
 };
 
-const ProductCard = ({ id, media, name, variants }: Product) => {
+const ProductCard = ({ id, media, name, variants, brand, category }: Product) => {
   const t = useTranslations();
 
   const formatCurrency = useFormatCurrency();
@@ -52,6 +52,14 @@ const ProductCard = ({ id, media, name, variants }: Product) => {
       </div>
 
       <div className="flex flex-col">
+        <div>
+          <span className="text-sm text-sidebar-primary uppercase">{brand.name}</span>
+
+          <span> {t('slash')} </span>
+
+          <span className="text-xs text-muted-foreground/50 capitalize">{category.name}</span>
+        </div>
+
         <h4 className="text-lg">{name}</h4>
 
         <div className="flex gap-2 items-center">

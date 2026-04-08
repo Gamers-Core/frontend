@@ -82,13 +82,26 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
             'md:items-center md:pt-0 lg:pt-0 md:max-w-2xl': !isMain,
           })}
         >
-          <h3
-            className={cn('text-3xl lg:text-4xl xl:text-5xl font-bold rtl:leading-snug', {
-              'md:text-2xl lg:text-3xl xl:text-4xl': !isMain,
-            })}
-          >
-            {featured.variant.product.name}
-          </h3>
+          <div className="flex flex-col gap-2">
+            <div>
+              <span className="text-sm md:text-base lg:text-lg text-sidebar-primary uppercase">
+                {featured.variant.product.brand.name}
+              </span>
+
+              <span> {t('slash')} </span>
+
+              <span className="text-xs md:text-sm lg:text-base text-muted-foreground/50 capitalize">
+                {featured.variant.product.category.name}
+              </span>
+            </div>
+            <h3
+              className={cn('text-3xl lg:text-4xl xl:text-5xl font-bold rtl:leading-snug', {
+                'md:text-2xl lg:text-3xl xl:text-4xl': !isMain,
+              })}
+            >
+              {featured.variant.product.name}
+            </h3>
+          </div>
 
           {isMain && (
             <p className="md:text-base lg:text-lg xl:text-2xl text-gray-500 line-clamp-4 lg:line-clamp-5 xl:line-clamp-6">
