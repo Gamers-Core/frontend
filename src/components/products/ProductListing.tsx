@@ -37,6 +37,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
     ...formatMedia(mediaItem),
     type: 'image',
   }));
+  const hasStock = activeVariant.stock > 0;
 
   return (
     <section className="flex flex-col lg:flex-row lg:gap-8 md:container">
@@ -77,14 +78,15 @@ export const ProductListing = ({ id }: ProductListingProps) => {
             <Button
               icon={<HugeiconsIcon icon={ShoppingBagAddIcon} className="size-5 rtl:rotate-y-180" />}
               variant="ghost"
+              isDisabled={!hasStock}
               className="flex-1 h-auto rounded-lg text-base gap-2 bg-primary/30 hover:bg-primary/50 hover:dark:bg-primary/50"
             >
-              {t('add_to_cart')}
+              {t(hasStock ? 'add_to_cart' : 'out_of_stock')}
             </Button>
           </div>
 
-          <Button variant="default" className="flex-1 h-auto rounded-lg text-base min-h-12">
-            {t('buy_now')}
+          <Button variant="default" isDisabled={!hasStock} className="flex-1 h-auto rounded-lg text-base min-h-12">
+            {t(hasStock ? 'buy_now' : 'out_of_stock')}
           </Button>
         </div>
 

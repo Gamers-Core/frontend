@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { MinusSignFreeIcons, PlusSignFreeIcons } from '@hugeicons/core-free-icons';
+import { useTranslations } from 'next-intl';
 
 import { Variant } from '@/api';
 import { useFormatNumber } from '@/hooks';
@@ -17,6 +18,8 @@ interface ItemAmountButtonsProps {
 }
 
 export const ItemAmountButtons = ({ variant, amount, setAmount }: ItemAmountButtonsProps) => {
+  const t = useTranslations();
+
   const formatNumber = useFormatNumber();
 
   useEffect(() => {
@@ -32,11 +35,23 @@ export const ItemAmountButtons = ({ variant, amount, setAmount }: ItemAmountButt
 
   return (
     <div className="flex bg-ring/40 dark:bg-background rounded-lg gap-1 min-h-14 w-fit p-1">
-      <AmountButton icon={<HugeiconsIcon icon={MinusSignFreeIcons} />} isDisabled={!canDecrease} onClick={onDecrease} />
+      <AmountButton
+        title={t('title_decrease_amount')}
+        icon={<HugeiconsIcon icon={MinusSignFreeIcons} />}
+        isDisabled={!canDecrease}
+        onClick={onDecrease}
+      />
 
-      <p className="text-lg font-normal select-none flex items-center justify-center w-5">{formatNumber(amount)}</p>
+      <p className="text-lg font-normal select-none flex items-center justify-center w-5">
+        {formatNumber(Math.min(amount, variant.stock))}
+      </p>
 
-      <AmountButton icon={<HugeiconsIcon icon={PlusSignFreeIcons} />} isDisabled={!canIncrease} onClick={onIncrease} />
+      <AmountButton
+        title={t(canIncrease ? 'title_increase_amount' : 'title_max_stock_reached')}
+        icon={<HugeiconsIcon icon={PlusSignFreeIcons} />}
+        isDisabled={!canIncrease}
+        onClick={onIncrease}
+      />
     </div>
   );
 };
@@ -45,6 +60,7 @@ interface AmountButtonProps {
   icon: React.ReactNode;
   onClick: () => void;
   isDisabled?: boolean;
+  title?: string;
 }
 
 const AmountButton = (props: AmountButtonProps) => (

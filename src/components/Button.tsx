@@ -26,7 +26,12 @@ export const Button = ({ children, isLoading, isDisabled, className, icon, size,
     );
 
   return (
-    <ShadCNButton size={size} disabled={isDisabled} className={cn('cursor-pointer', className)} {...props}>
+    <ShadCNButton
+      size={size}
+      disabled={isDisabled}
+      className={cn('cursor-pointer', { 'cursor-not-allowed': isDisabled }, className)}
+      {...props}
+    >
       {icon}
 
       {children}

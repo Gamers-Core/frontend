@@ -1,4 +1,5 @@
 {
+  "slash": "/",
   "ar": "Arabic",
   "en": "English",
   "mode_light": "Light",
@@ -18,10 +19,13 @@
   "home_reviews_view_more": "View more reviews",
   "title_click_to_view": "Click to view",
   "products_variants_title": "Variant: ",
+  "title_increase_amount": "Increase amount",
+  "title_decrease_amount": "Decrease amount",
+  "title_max_stock_reached": "Maximum stock reached",
   "add_to_cart": "Add to Cart",
   "buy_now": "Buy Now",
   "description": "Description",
   "recommended_products": "Recommended Products",
   "sale": "Sale",
-  "slash": "/"
+  "out_of_stock": "Out of Stock"
 }
