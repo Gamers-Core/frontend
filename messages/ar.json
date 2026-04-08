@@ -16,5 +16,12 @@
   "home_reviews_title": "مراجعات المستخدمين",
   "home_reviews_subtitle": "ماذا يقول عملاؤنا عن منتجاتنا",
   "home_reviews_view_more": "عرض المزيد من المراجعات",
-  "title_click_to_view": "انقر للمراجعة"
+  "title_click_to_view": "انقر للعرض",
+  "products_variants_title": "النوع: ",
+  "add_to_cart": "أضف إلى السلة",
+  "buy_now": "اشترِ الآن",
+  "description": "الوصف",
+  "recommended_products": "منتجات موصى بها",
+  "sale": "تخفيض",
+  "slash": "\\"
 }

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { FeaturedProducts, Hero, UserReviews } from '@/components';
+import { FeaturedProducts, Hero, TopBar, UserReviews } from '@/components';
 import { useFeaturedQuery, useUserReviewsQuery } from '@/hooks';
 
 export const metadata: Metadata = {
@@ -16,11 +16,15 @@ export default async function Home() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Hero />
+      <TopBar isHome />
 
-      <FeaturedProducts />
+      <main className="flex-1 w-full">
+        <Hero />
 
-      <UserReviews />
+        <FeaturedProducts />
+
+        <UserReviews />
+      </main>
     </HydrationBoundary>
   );
 }

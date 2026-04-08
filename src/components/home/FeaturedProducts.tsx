@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { FeaturedVariant } from '@/api';
 import { useFeaturedQuery, useFormatCurrency } from '@/hooks';
 import { cn } from '@/lib/utils';
+import { formatMedia } from '@/helpers';
 
 import { Link } from '../Link';
 
@@ -51,7 +52,7 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
   return (
     <div
       className={cn(
-        'bg-sidebar-border text-center md:text-start rounded-lg hover:scale-101 transition-all duration-300',
+        'flex flex-col bg-sidebar-border text-center md:text-start rounded-lg hover:scale-101 transition-all duration-300',
         {
           'flex-1 min-w-fit md:min-w-xs lg:min-w-md xl:min-w-152 md:text-center': !isMain,
         },
@@ -59,20 +60,12 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
     >
       <div
         className={cn(
-          'flex container flex-col md:flex-row md:gap-2 lg:gap-4 xl:gap-10 justify-center py-6 md:py-15 px-4 md:px-8 lg:px-10',
-          { 'flex-col md:flex-col px-6 lg:px-12 items-center xl:gap-6 lg:gap-2 md:gap-1': !isMain },
+          'flex container flex-col md:flex-row gap-10 lg:gap-4 xl:gap-10 justify-center py-6 md:py-15 px-4 md:px-8 lg:px-10 flex-1',
+          { 'flex-col md:flex-col px-6 lg:px-12 items-center xl:gap-6 lg:gap-2': !isMain },
         )}
       >
-        <div className="relative md:max-w-xl flex-1">
-          <Image
-            src={media.url}
-            width={media.width}
-            height={media.height}
-            alt={featured.title}
-            loading="eager"
-            fetchPriority="high"
-            priority
-          />
+        <div className="relative flex items-center md:max-w-xl flex-1">
+          <Image {...formatMedia(media)} alt={featured.title} loading="eager" fetchPriority="high" priority />
 
           <p
             className={cn(
@@ -85,21 +78,37 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
         </div>
 
         <div
-          className={cn('flex flex-col flex-1 md:max-w-xl gap-5 md:pt-6 lg:pt-10 items-center md:items-start', {
+          className={cn('flex flex-col flex-1 justify-center md:max-w-xl gap-5 md:gap-8 items-center md:items-start', {
             'md:items-center md:pt-0 lg:pt-0 md:max-w-2xl': !isMain,
           })}
         >
-          <h3
-            className={cn('text-3xl lg:text-4xl xl:text-5xl font-bold rtl:leading-snug', {
-              'md:text-2xl lg:text-3xl xl:text-4xl': !isMain,
-            })}
-          >
-            {featured.variant.product.name}
-          </h3>
+          <div className="flex flex-col gap-2">
+            <div>
+              <span className="text-sm md:text-base lg:text-lg text-sidebar-primary uppercase">
+                {featured.variant.product.brand.name}
+              </span>
+
+              <span> {t('slash')} </span>
+
+              <span className="text-xs md:text-sm lg:text-base text-muted-foreground/50 capitalize">
+                {featured.variant.product.category.name}
+              </span>
+            </div>
+            <h3
+              className={cn('text-3xl lg:text-4xl xl:text-5xl font-bold rtl:leading-snug', {
+                'md:text-2xl lg:text-3xl xl:text-4xl': !isMain,
+              })}
+            >
+              {featured.variant.product.name}
+            </h3>
+          </div>
 
           {isMain && (
             <p className="md:text-base lg:text-lg xl:text-2xl text-gray-500 line-clamp-4 lg:line-clamp-5 xl:line-clamp-6">
-              {featured.variant.product.description}
+              {featured.variant.product.description
+                .replace(/<[^>]*>/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim()}
             </p>
           )}
 
@@ -118,7 +127,7 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
           </div>
 
           <Link
-            href={`/products/${featured.variant.product.id}/${featured.variant.externalId}`}
+            href={`/products/${featured.variant.product.id}?variant=${featured.variant.externalId}`}
             className="w-fit text-lg md:text-xl lg:text-2xl h-auto px-6 py-4 bg-primary rounded-lg text-primary-foreground font-bold"
           >
             {t('home_featured_button')}
