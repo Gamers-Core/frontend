@@ -55,7 +55,7 @@ const UserReviewCard = ({ facebookURL, image }: UserReview) => {
       className="block p-2 flex-1 md:min-w-110 md:max-w-160 bg-border rounded-lg"
     >
       <div className="rounded-lg overflow-hidden">
-        <Image {...formatMedia(image)} alt="user Review" fetchPriority="high" className="w-full" />
+        <Image {...formatMedia(image)} alt="user Review" loading="lazy" fetchPriority="auto" className="w-full" />
       </div>
     </Link>
   );
