@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+import { isClient } from '@/helpers';
+
 export interface CartItem {
   externalId: string;
   productId: number;
@@ -37,50 +39,60 @@ const defaultState: CartStoreState = {
   total: 0,
 };
 
-const computeDerived = (items: CartItem[]) => ({
-  count: items.reduce((sum, item) => sum + item.quantity, 0),
-  total: items.reduce((sum, item) => sum + item.price * item.quantity, 0),
-  compareAtTotal: items.reduce((sum, item) => sum + (item.compareAt ?? 0) * item.quantity, 0),
-});
+const withDerived = (items: CartItem[]) => {
+  let count = 0;
+  let total = 0;
+  let compareAtTotal = 0;
+
+  items.forEach((item) => {
+    count += item.quantity;
+    total += item.price * item.quantity;
+    compareAtTotal += (item.compareAt ?? 0) * item.quantity;
+  });
+
+  return {
+    items,
+    count,
+    total,
+    compareAtTotal,
+  };
+};
 
 export const useCartStore = create<CartStore>()(
   persist(
     (set) => ({
       ...defaultState,
-      setItems: (items) => set({ items, ...computeDerived(items) }),
+      setItems: (items) => set(withDerived(items)),
       setItem: (item) =>
         set((state) => {
           const exists = state.items.find((i) => i.externalId === item.externalId);
           const items = exists
             ? state.items.map((i) => (i.externalId === item.externalId ? item : i))
             : [...state.items, item];
-          return { items, ...computeDerived(items) };
+          return withDerived(items);
         }),
       updateItem: (externalId, update) =>
         set((state) => {
           const items = state.items.map((i) =>
             i.externalId === externalId ? { ...i, ...update, quantity: update.quantity ?? i.quantity } : i,
           );
-          return { items, ...computeDerived(items) };
+          return withDerived(items);
         }),
       removeItem: (externalId) =>
         set((state) => {
           const items = state.items.filter((i) => i.externalId !== externalId);
-          return { items, ...computeDerived(items) };
+          return withDerived(items);
         }),
       clearCart: () => set(defaultState),
     }),
     {
       name: 'cart',
-      storage: createJSONStorage(() => localStorage),
+      storage: isClient() ? createJSONStorage(() => localStorage) : undefined,
       partialize: ({ items }) => ({ items }),
       onRehydrateStorage: () => (state) => {
         if (!state) return;
 
-        const derived = computeDerived(state.items);
-        state.count = derived.count;
-        state.compareAtTotal = derived.compareAtTotal;
-        state.total = derived.total;
+        state.setItems(state.items);
       },
     },
   ),
