@@ -32,5 +32,6 @@
   "cart_empty": "Cart is empty",
   "cart_checkout": "Checkout",
   "cart_total": "Total",
-  "cart_checkout_note": "Taxes and shipping calculated at checkout."
+  "cart_checkout_note": "Taxes and shipping calculated at checkout.",
+  "cart_close": "Close Cart"
 }

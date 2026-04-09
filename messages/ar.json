@@ -32,5 +32,6 @@
   "cart_empty": "السلة فارغة",
   "cart_checkout": "الدفع",
   "cart_total": "المجموع",
-  "cart_checkout_note": "الضرائب والشحن تحسب عند الدفع."
+  "cart_checkout_note": "الضرائب والشحن تحسب عند الدفع.",
+  "cart_close": "إغلاق السلة"
 }

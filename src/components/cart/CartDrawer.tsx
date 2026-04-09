@@ -33,10 +33,7 @@ export const CartDrawer = () => {
 
   return (
     <Drawer direction={direction} {...cartDrawerStore}>
-      <DrawerContent
-        className="bg-transparent before:backdrop-blur-lg before:bg-popover/60 h-full"
-        aria-describedby="cart-drawer-description"
-      >
+      <DrawerContent className="bg-transparent before:backdrop-blur-lg before:bg-popover/60 h-full">
         <DrawerHeader className="flex flex-row justify-between items-center">
           <div className="flex gap-2 items-center">
             <DrawerTitle className="text-3xl font-bold">{t('cart_title')}</DrawerTitle>
@@ -49,7 +46,7 @@ export const CartDrawer = () => {
           </div>
 
           <DrawerClose asChild>
-            <Button icon={<HugeiconsIcon icon={X} />} variant="outline" />
+            <Button icon={<HugeiconsIcon icon={X} />} variant="outline" aria-label={t('cart_close')} />
           </DrawerClose>
         </DrawerHeader>
 
