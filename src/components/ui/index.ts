@@ -7,3 +7,4 @@ export * from './skeleton';
 export * from './tooltip';
 export * from './dropdown-menu';
 export * from './carousel';
+export * from './drawer';
