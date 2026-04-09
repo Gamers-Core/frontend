@@ -33,13 +33,23 @@ export const useCartSync = () => {
       const freshVariant = product.data.variants.find((v) => v.externalId === item.externalId);
       if (!freshVariant) return;
 
+      const hasProductNameChanged = product.data.name !== item.productName;
+      const hasVariantNameChanged = freshVariant.name !== item.name;
+      const hasPriceChanged = freshVariant.price !== item.price;
+      const hasCompareAtChanged = freshVariant.compareAt !== item.compareAt;
+      const hasStockChanged = freshVariant.stock !== item.stock;
       const hasChanged =
-        freshVariant.price !== item.price ||
-        freshVariant.compareAt !== item.compareAt ||
-        freshVariant.stock !== item.stock;
+        hasProductNameChanged || hasVariantNameChanged || hasPriceChanged || hasCompareAtChanged || hasStockChanged;
 
       if (hasChanged)
-        setItem({ ...item, stock: freshVariant.stock, price: freshVariant.price, compareAt: freshVariant.compareAt });
+        setItem({
+          ...item,
+          productName: hasProductNameChanged ? product.data.name : item.productName,
+          name: hasVariantNameChanged ? freshVariant.name : item.name,
+          price: hasPriceChanged ? freshVariant.price : item.price,
+          compareAt: hasCompareAtChanged ? freshVariant.compareAt : item.compareAt,
+          stock: hasStockChanged ? freshVariant.stock : item.stock,
+        });
     });
   }, [productQueries, items, setItem]);
 };
