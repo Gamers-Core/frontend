@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Trash2, X } from '@hugeicons/core-free-icons';
@@ -7,17 +8,17 @@ import Image from 'next/image';
 
 import { useBreakpoint, useDebounce, useFormatCurrency, useFormatNumber } from '@/hooks';
 import { CartItem, useCartDrawerStore, useCartStore } from '@/stores';
+import { Link, useRouter } from '@/i18n';
 
 import { Button } from '../Button';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from '../ui';
-import { Link } from '@/i18n';
 import { ItemAmountButtons } from '../products';
-import { useEffect, useState } from 'react';
 
 export const CartDrawer = () => {
   const locale = useLocale();
   const t = useTranslations();
 
+  const router = useRouter();
   const formatCurrency = useFormatCurrency();
   const formatNumber = useFormatNumber();
   const cartDrawerStore = useCartDrawerStore((state) => state);
@@ -75,7 +76,9 @@ export const CartDrawer = () => {
 
               <p>{t('cart_checkout_note')}</p>
 
-              <Button className="w-full h-12">{t('cart_checkout')}</Button>
+              <Button className="w-full h-12" onClick={() => router.push('/checkout')}>
+                {t('cart_checkout')}
+              </Button>
             </DrawerFooter>
           </>
         ) : (

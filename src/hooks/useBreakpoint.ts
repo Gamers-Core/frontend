@@ -37,7 +37,5 @@ export const useBreakpoint = () => {
 
   const isMobile = breakpoint === 'phone';
 
-  console.log(breakpoint, isMobile);
-
   return { breakpoint, isAbove, isBelow, isMobile };
 };
