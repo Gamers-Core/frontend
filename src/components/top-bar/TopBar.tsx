@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, ShoppingBag, User } from '@hugeicons/core-free-icons';
+import { Search, User } from '@hugeicons/core-free-icons';
 import { useLocale } from 'next-intl';
 
 import { useScroll } from '@/hooks';
@@ -14,6 +14,7 @@ import { ModeToggle } from './ModeToggle';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { NavButton } from './NavButton';
 import { buttonClassName } from './helpers';
+import { CartButton } from '../cart';
 
 interface TopBarProps {
   isHome?: boolean;
@@ -63,7 +64,7 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
         >
           <NavButton isScrolled={isScrolled} icon={Search} />
           <NavButton isScrolled={isScrolled} icon={User} className="hidden md:block" />
-          <NavButton isScrolled={isScrolled} icon={ShoppingBag} />
+          <CartButton iconOnly className={buttonClassName(isScrolled)} />
           <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
           <LocaleSwitcher className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
         </div>

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { Button as ShadCNButton } from './ui/button';
 import { Spinner } from './ui';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   isDisabled?: boolean;
   icon?: React.ReactNode;

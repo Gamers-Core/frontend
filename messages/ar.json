@@ -27,5 +27,10 @@
   "description": "الوصف",
   "recommended_products": "منتجات موصى بها",
   "sale": "تخفيض",
-  "out_of_stock": "الكمية نفذت"
+  "out_of_stock": "الكمية نفذت",
+  "cart_title": "السلة",
+  "cart_empty": "السلة فارغة",
+  "cart_checkout": "الدفع",
+  "cart_total": "المجموع",
+  "cart_checkout_note": "الضرائب والشحن تحسب عند الدفع."
 }
