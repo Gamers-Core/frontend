@@ -7,18 +7,17 @@ interface ScrollProps {
 }
 
 export const useScroll = ({ threshold = 50 }: ScrollProps = {}) => {
-  const [state, setState] = useState({ isScrolled: false, scrollY: 0 });
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useLayoutEffect(() => {
     let ticking = false;
 
     const update = () => {
-      const scrollY = window.scrollY;
+      const shouldBeScrolled = window.scrollY > threshold;
 
-      setState((prev) => {
-        const next = { scrollY, isScrolled: scrollY > threshold };
-
-        return prev.scrollY === next.scrollY && prev.isScrolled === next.isScrolled ? prev : next;
+      setIsScrolled((prev) => {
+        if (prev === shouldBeScrolled) return prev;
+        return shouldBeScrolled;
       });
 
       ticking = false;
@@ -37,5 +36,5 @@ export const useScroll = ({ threshold = 50 }: ScrollProps = {}) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, [threshold]);
 
-  return state;
+  return { isScrolled };
 };
