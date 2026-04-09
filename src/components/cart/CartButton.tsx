@@ -33,6 +33,7 @@ export const CartButton = ({ iconOnly = false, className, ...props }: CartButton
           )}
         </div>
       }
+      aria-label={t('cart_title')}
       {...props}
       onClick={(e) => {
         props.onClick?.(e);
