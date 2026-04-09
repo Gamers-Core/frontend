@@ -1,18 +1,19 @@
 'use client';
 
-import { useEffect } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { MinusSignFreeIcons, PlusSignFreeIcons } from '@hugeicons/core-free-icons';
 import { useTranslations } from 'next-intl';
 
-import { Variant } from '@/api';
 import { useFormatNumber } from '@/hooks';
 import { cn } from '@/lib/utils';
 
 import { Button } from '../Button';
 
 interface ItemAmountButtonsProps {
-  variant: Variant;
+  variant: {
+    externalId: string;
+    stock: number;
+  };
   amount: number;
   setAmount: (amount: number | ((prev: number) => number)) => void;
 }
@@ -21,11 +22,6 @@ export const ItemAmountButtons = ({ variant, amount, setAmount }: ItemAmountButt
   const t = useTranslations();
 
   const formatNumber = useFormatNumber();
-
-  useEffect(() => {
-    setAmount(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variant.externalId]);
 
   const onIncrease = () => setAmount((prev) => Math.min(variant.stock, prev + 1));
   const onDecrease = () => setAmount((prev) => Math.max(1, prev - 1));
