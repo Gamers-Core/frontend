@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { useFormatCurrency, useProductRecommendationsQuery } from '@/hooks';
 import { Product } from '@/api';
 import { formatMedia } from '@/helpers';
-import { Link } from '@/i18n';
+
+import { Link } from '../Link';
 
 interface RecommendedProductsProps {
   id: number;

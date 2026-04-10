@@ -1,10 +1,11 @@
 import { useTranslations } from 'next-intl';
+import { HugeiconsIcon } from '@hugeicons/react';
 
-import { Link, usePathname } from '@/i18n';
+import { usePathname } from '@/i18n';
 import { cn } from '@/lib/utils';
 
 import { navItems } from './const';
-import { HugeiconsIcon } from '@hugeicons/react';
+import { Link } from '../Link';
 
 interface NavItemsProps {
   className?: string;

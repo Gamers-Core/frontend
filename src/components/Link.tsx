@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Link as NextLink } from '@/i18n';
 
+import { Link as NextLink } from '@/i18n';
 import { getSearchParams } from '@/helpers';
 import { cn } from '@/lib/utils';
 

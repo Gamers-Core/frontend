@@ -8,11 +8,12 @@ import Image from 'next/image';
 
 import { useBreakpoint, useDebounce, useFormatCurrency, useFormatNumber } from '@/hooks';
 import { CartItem, useCartDrawerStore, useCartStore } from '@/stores';
-import { Link, useRouter } from '@/i18n';
+import { useRouter } from '@/i18n';
 
 import { Button } from '../Button';
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from '../ui';
 import { ItemAmountButtons } from '../products';
+import { Link } from '../Link';
 
 export const CartDrawer = () => {
   const locale = useLocale();
