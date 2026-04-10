@@ -1,7 +1,7 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { defaultLocale, routing } from './i18n';
+import { routing } from './i18n';
 import { guestOnlyRoutes, publicRoutes } from './proxy/routes';
 import { isLoggedInHeaderKey } from './proxy/const';
 import { getIsAllowedPath } from './proxy/helpers';
@@ -10,9 +10,10 @@ const intlMiddleware = createMiddleware(routing);
 
 export const proxy = async (req: NextRequest) => {
   const session = req.cookies.get('session')?.value;
-  const locale = req.cookies.get('NEXT_LOCALE')?.value ?? defaultLocale;
 
-  const pathname = req.nextUrl.pathname.replace(new RegExp(`^/${locale}`), '') || '/';
+  const { pathname: rawPathname } = req.nextUrl;
+  const localePattern = new RegExp(`^/(${routing.locales.join('|')})`);
+  const pathname = rawPathname.replace(localePattern, '') || '/';
 
   const isLoggedIn = !!session;
   const isGuestOnlyPath = getIsAllowedPath(pathname, guestOnlyRoutes);
