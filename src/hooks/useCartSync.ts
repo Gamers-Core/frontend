@@ -13,21 +13,28 @@ export const useCartSync = () => {
   const items = useCartStore((state) => state.items);
   const setItem = useCartStore((state) => state.setItem);
 
+  const uniqueProductIds = [...new Set(items.map(({ productId }) => productId))];
+
   const productQueries = useQueries({
-    queries: items.map((item) => ({ ...useProductQuery, queryKey: useProductQuery.queryKey(item.productId) })),
+    queries: uniqueProductIds.map((productId) => ({
+      ...useProductQuery,
+      queryKey: useProductQuery.queryKey(productId),
+    })),
   });
 
+  const productQueryMap = new Map(uniqueProductIds.map((productId, index) => [productId, productQueries[index]]));
+
   useEffect(() => {
-    const currentIds = new Set(items.map((i) => i.externalId));
+    const currentIds = new Set(items.map(({ externalId }) => externalId));
     for (const key of syncedRef.current.keys()) if (!currentIds.has(key)) syncedRef.current.delete(key);
 
-    productQueries.forEach((product, index) => {
-      if (!product.isSuccess || product.isFetching) return;
+    items.forEach((item) => {
+      const product = productQueryMap.get(item.productId);
+      if (!product?.isSuccess || product.isFetching) return;
 
-      const item = items[index];
       const lastSynced = syncedRef.current.get(item.externalId);
-
       if (lastSynced === product.dataUpdatedAt) return;
+
       syncedRef.current.set(item.externalId, product.dataUpdatedAt);
 
       const freshVariant = product.data.variants.find((v) => v.externalId === item.externalId);
@@ -51,5 +58,6 @@ export const useCartSync = () => {
           stock: hasStockChanged ? freshVariant.stock : item.stock,
         });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productQueries, items, setItem]);
 };

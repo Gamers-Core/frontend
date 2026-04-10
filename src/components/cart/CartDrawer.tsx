@@ -76,7 +76,14 @@ export const CartDrawer = () => {
 
               <p>{t('cart_checkout_note')}</p>
 
-              <Button className="w-full h-12" onClick={() => router.push('/checkout')}>
+              <Button
+                className="w-full h-12"
+                onClick={() => {
+                  cartDrawerStore.onClose();
+
+                  router.push('/checkout');
+                }}
+              >
                 {t('cart_checkout')}
               </Button>
             </DrawerFooter>
