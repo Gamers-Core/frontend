@@ -45,7 +45,7 @@ export const SideMenu = ({ locale }: SideMenuProps) => {
         <div className="flex items-center gap-1.5">
           <ModeToggle className="size-8" />
 
-          <NavButton icon={User} />
+          <NavButton href="/profile" icon={User} />
         </div>
       </SidebarFooter>
     </Sidebar>

@@ -8,7 +8,7 @@ import { Button } from './Button';
 
 type NextLinkProps = ComponentProps<typeof NextLink>;
 
-interface LinkProps extends NextLinkProps {
+export interface LinkProps extends NextLinkProps {
   keepSearchParams?: boolean;
   isDisabled?: boolean;
 }
