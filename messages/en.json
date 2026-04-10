@@ -29,6 +29,7 @@
   "sale": "Sale",
   "out_of_stock": "Out of Stock",
   "cart_title": "Cart",
+  "cart_description": "Review your selected items",
   "cart_empty": "Cart is empty",
   "cart_checkout": "Checkout",
   "cart_total": "Total",

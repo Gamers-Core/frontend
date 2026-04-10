@@ -11,7 +11,7 @@ import { CartItem, useCartDrawerStore, useCartStore } from '@/stores';
 import { useRouter } from '@/i18n';
 
 import { Button } from '../Button';
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from '../ui';
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from '../ui';
 import { ItemAmountButtons } from '../products';
 import { Link } from '../Link';
 
@@ -39,6 +39,7 @@ export const CartDrawer = () => {
         <DrawerHeader className="flex flex-row justify-between items-center">
           <div className="flex gap-2 items-center">
             <DrawerTitle className="text-3xl font-bold">{t('cart_title')}</DrawerTitle>
+            <DrawerDescription className="hidden">{t('cart_description')}</DrawerDescription>
 
             {hasItems && (
               <p className="text-lg bg-muted min-w-6 h-6 px-2 flex justify-center items-center rounded-full">
