@@ -1,3 +1,5 @@
+import { Locale } from '@/i18n';
+
 import { mediaTypes } from './const';
 
 interface ValidationError {
@@ -71,4 +73,30 @@ export interface FeaturedVariant {
 export interface UserReview {
   facebookURL: string;
   image: MediaAttachment<'image'>;
+}
+
+export interface Address {
+  id: number;
+  phoneNumber: string;
+  detailedAddress: string;
+  districtId: string;
+  districtName: string;
+  cityId: string;
+  cityName: string;
+  nameAr: string;
+  isDefault: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface BasicUser {
+  id: number;
+  name: string;
+  email: string;
+  locale: Locale;
+  isMe: boolean;
+}
+
+export interface FullUserDTO extends BasicUser {
+  addresses: Address[];
 }

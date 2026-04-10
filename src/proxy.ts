@@ -12,7 +12,7 @@ export const proxy = async (req: NextRequest) => {
   const session = req.cookies.get('session')?.value;
   const locale = req.cookies.get('NEXT_LOCALE')?.value ?? defaultLocale;
 
-  const pathname = req.nextUrl.pathname.replace(`/${locale}`, '') || '/';
+  const pathname = req.nextUrl.pathname.replace(new RegExp(`^/${locale}`), '') || '/';
 
   const isLoggedIn = !!session;
   const isGuestOnlyPath = getIsAllowedPath(pathname, guestOnlyRoutes);
