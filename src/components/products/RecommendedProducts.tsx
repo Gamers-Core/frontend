@@ -73,7 +73,7 @@ const ProductCard = ({ id, media, name, variants, brand, category }: Product) =>
       </div>
 
       {activeVariant.compareAt && (
-        <span className="absolute top-2.5 inset-e-2.5 text-foreground bg-background text-xs md:text-sm px-3 py-1.5 rounded-full font-bold transition-colors duration-300">
+        <span className="absolute top-2.5 inset-e-2.5 text-foreground bg-muted dark:bg-background text-xs md:text-sm px-3 py-1.5 rounded-full font-bold transition-colors duration-300">
           {t('sale')}
         </span>
       )}

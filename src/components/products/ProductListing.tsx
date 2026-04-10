@@ -53,7 +53,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
   const hasStock = activeVariant.stock > 0;
 
   return (
-    <section className="flex flex-col lg:flex-row lg:gap-8 md:container">
+    <section className="flex flex-col gap-4 lg:flex-row lg:gap-8 md:container">
       <MediaCarousel
         media={media}
         className="h-max md:px-4 md:min-w-md lg:min-w-lg xl:min-w-2xl 2xl:min-w-3xl lg:sticky lg:top-14"
