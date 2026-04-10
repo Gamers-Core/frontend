@@ -6,3 +6,4 @@ export * from './Link';
 export * from './Logo';
 export * from './home';
 export * from './products';
+export * from './cart';

@@ -1,18 +1,20 @@
 'use client';
 
 import { SlideImage } from 'yet-another-react-lightbox';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ShoppingBagAddIcon } from '@hugeicons/core-free-icons';
 import { useTranslations } from 'next-intl';
 
 import { useFormatCurrency, useProductQuery, useSearchParams } from '@/hooks';
 import { formatMedia } from '@/helpers';
+import { useCartDrawerStore, useCartStore } from '@/stores';
 
 import { MediaCarousel } from './MediaCarousel';
 import { VariantSwitcher } from './VariantSwitcher';
 import { ItemAmountButtons } from './ItemAmountButtons';
 import { Button } from '../Button';
+import { useRouter } from '@/i18n';
 
 export interface ProductListingProps {
   id: number;
@@ -22,13 +24,24 @@ export const ProductListing = ({ id }: ProductListingProps) => {
   const [amount, setAmount] = useState(1);
   const t = useTranslations();
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const productQuery = useProductQuery(id);
   const formatCurrency = useFormatCurrency();
 
-  if (!productQuery.data) return <div>Product not found</div>;
+  const setItem = useCartStore((state) => state.setItem);
+  const setItems = useCartStore((state) => state.setItems);
+  const openCartDrawer = useCartDrawerStore((state) => state.onOpen);
 
   const variantExternalId = searchParams.get('variant');
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setAmount(1);
+  }, [variantExternalId]);
+
+  if (!productQuery.data) return <div>Product not found</div>;
+
   const selectedVariant = productQuery.data.variants.find((variant) => variant.externalId === variantExternalId);
 
   const activeVariant = selectedVariant ?? productQuery.data.variants[0];
@@ -37,6 +50,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
     ...formatMedia(mediaItem),
     type: 'image',
   }));
+  const hasStock = activeVariant.stock > 0;
 
   return (
     <section className="flex flex-col lg:flex-row lg:gap-8 md:container">
@@ -77,14 +91,51 @@ export const ProductListing = ({ id }: ProductListingProps) => {
             <Button
               icon={<HugeiconsIcon icon={ShoppingBagAddIcon} className="size-5 rtl:rotate-y-180" />}
               variant="ghost"
+              isDisabled={!hasStock}
               className="flex-1 h-auto rounded-lg text-base gap-2 bg-primary/30 hover:bg-primary/50 hover:dark:bg-primary/50"
+              onClick={() => {
+                setItem({
+                  externalId: activeVariant.externalId,
+                  productId: productQuery.data.id,
+                  productName: productQuery.data.name,
+                  name: activeVariant.name,
+                  stock: activeVariant.stock,
+                  price: activeVariant.price,
+                  compareAt: activeVariant.compareAt,
+                  imageURL: formatMedia(activeVariant.media[0] ?? productQuery.data.media[0]).src,
+                  quantity: amount,
+                });
+
+                openCartDrawer();
+              }}
             >
-              {t('add_to_cart')}
+              {t(hasStock ? 'add_to_cart' : 'out_of_stock')}
             </Button>
           </div>
 
-          <Button variant="default" className="flex-1 h-auto rounded-lg text-base min-h-12">
-            {t('buy_now')}
+          <Button
+            variant="default"
+            isDisabled={!hasStock}
+            className="flex-1 h-auto rounded-lg text-base min-h-12"
+            onClick={() => {
+              setItems([
+                {
+                  externalId: activeVariant.externalId,
+                  productId: productQuery.data.id,
+                  productName: productQuery.data.name,
+                  name: activeVariant.name,
+                  stock: activeVariant.stock,
+                  price: activeVariant.price,
+                  compareAt: activeVariant.compareAt,
+                  imageURL: (activeVariant.media[0] ?? productQuery.data.media[0]).url,
+                  quantity: amount,
+                },
+              ]);
+
+              router.push('/checkout');
+            }}
+          >
+            {t(hasStock ? 'buy_now' : 'out_of_stock')}
           </Button>
         </div>
 
