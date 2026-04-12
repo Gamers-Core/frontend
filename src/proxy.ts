@@ -32,6 +32,7 @@ export const proxy = async (req: NextRequest) => {
 
   const headers = new Headers(req.headers);
   headers.set(isLoggedInHeaderKey, String(isLoggedIn));
+  headers.set('x-pathname', req.nextUrl.pathname);
 
   const response = intlMiddleware(new NextRequest(req, { headers }));
   return response;

@@ -48,5 +48,13 @@
   "verify_otp_subtitle": "Enter the 6-digit code sent to your email",
   "verify_otp_resend": "Resend OTP",
   "verify_otp_resend_in": "Resend OTP ({count}s)",
-  "verify_otp_resend_success": "OTP resent successfully"
+  "verify_otp_resend_success": "OTP resent successfully",
+  "setup_account_title": "Setup Your Account",
+  "setup_account_subtitle": "Please enter your name to complete your profile",
+  "name_placeholder": "Your name",
+  "name_must_be_at_least_2_characters": "Name must be at least 2 characters",
+  "name_required": "Name is required",
+  "profile_update_success": "Profile updated successfully",
+  "name": "Name",
+  "save_changes": "Save Changes"
 }

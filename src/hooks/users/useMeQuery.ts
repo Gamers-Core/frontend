@@ -1,10 +1,7 @@
-'use client';
-
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { QueryFunctionContext, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
 
 import { BackendError, BasicUser, FullUserDTO, gamersCore } from '@/api';
-import { useAuthStore } from '@/stores';
 
 type MeQueryResult<T extends boolean> = T extends true ? FullUserDTO : BasicUser;
 
@@ -19,14 +16,12 @@ const queryFn = <T extends boolean = false>({ queryKey: [, isFull] }: QueryFunct
 
 export const useMeQuery = <T extends boolean = false>(
   isFull?: T,
-  forceEnabled: boolean = false,
-): UseQueryResult<MeQueryResult<T>, BackendError> => {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-
-  return useQuery<MeQueryResult<T>, BackendError, MeQueryResult<T>, QueryKey>({
+  enabled: boolean = false,
+): UseQueryResult<MeQueryResult<T>, AxiosError<BackendError>> => {
+  return useQuery<MeQueryResult<T>, AxiosError<BackendError>, MeQueryResult<T>, QueryKey>({
     queryKey: queryKey(isFull),
     queryFn: queryFn<T>,
-    enabled: forceEnabled || isLoggedIn,
+    enabled,
     retry: false,
     staleTime: 1000 * 60 * 5,
   });

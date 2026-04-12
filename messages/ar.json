@@ -48,5 +48,13 @@
   "verify_otp_subtitle": "أدخل الرمز المكون من 6 أرقام المرسل إلى بريدك الإلكتروني",
   "verify_otp_resend": "إعادة الإرسال",
   "verify_otp_resend_in": "إعادة الإرسال ({count}ث)",
-  "verify_otp_resend_success": "تم إعادة إرسال رمز التحقق بنجاح"
+  "verify_otp_resend_success": "تم إعادة إرسال رمز التحقق بنجاح",
+  "setup_account_title": "إعداد حسابك",
+  "setup_account_subtitle": "يرجى إدخال اسمك لإكمال ملفك الشخصي",
+  "name_must_be_at_least_2_characters": "يجب أن يكون الاسم 2 حرفًا على الأقل",
+  "name_required": "الاسم مطلوب",
+  "profile_update_success": "تم تحديث الملف الشخصي بنجاح",
+  "name": "الاسم",
+  "name_placeholder": "اسمك",
+  "save_changes": "حفظ التغييرات"
 }
