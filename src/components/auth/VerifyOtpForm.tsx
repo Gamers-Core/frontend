@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 
 import { useVerifyOTPMutation, useCounter, useResendOTPMutation, useFormatNumber } from '@/hooks';
-import { verifyOTPSchema, VerifyOTPSchema } from '@/api';
+import { setCookiesLocale, verifyOTPSchema, VerifyOTPSchema } from '@/api';
 import { Button, Field, FieldError, InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components';
 import { useRouter } from '@/i18n';
 import { useAuthStore } from '@/stores';
@@ -47,9 +47,15 @@ export const VerifyOTPForm = ({ sessionId }: VerifyOTPFormProps) => {
       { ...data, sessionId },
       {
         onSuccess: (res) => {
-          if (res.purpose === 'signin') setUser(res.user);
+          switch (res.purpose) {
+            case 'signin':
+              setUser(res.user);
 
-          router.push('/');
+              setCookiesLocale(res.user.locale);
+
+              router.push('/', { locale: res.user.locale });
+              break;
+          }
         },
         onError: (error) => {
           if (!error) return;

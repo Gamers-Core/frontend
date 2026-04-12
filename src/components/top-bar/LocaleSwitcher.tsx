@@ -1,17 +1,18 @@
 'use client';
 
-import { useLocale, useTranslations } from 'next-intl';
+import { Locale, useLocale, useTranslations } from 'next-intl';
 import { ChevronDown, LanguageSkillIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { useState } from 'react';
 
-import { locales, usePathname } from '@/i18n';
+import { locales, usePathname, useRouter } from '@/i18n';
 import { cn } from '@/lib/utils';
+import { useLocaleMutation } from '@/hooks';
 
-import { Link } from '../Link';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui';
 import { Button } from '../Button';
 import { useSearchParams } from 'next/navigation';
+import { useAuthStore } from '@/stores';
 
 interface NavButtonProps {
   isFull?: boolean;
@@ -23,10 +24,23 @@ export const LocaleSwitcher = ({ isFull = false, className }: NavButtonProps) =>
   const [open, setOpen] = useState(false);
 
   const t = useTranslations();
+  const currentLocale = useLocale();
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const localeMutation = useLocaleMutation();
 
-  const currentLocale = useLocale();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
+  const onLocaleChange = async (newLocale: Locale) => {
+    const search = searchParams.toString();
+    const url = `${pathname}${search ? `?${search}` : ''}`;
+
+    if (isLoggedIn) await localeMutation.mutateAsync(newLocale);
+
+    router.push(url, { locale: newLocale });
+  };
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} dir={currentLocale === 'ar' ? 'rtl' : 'ltr'}>
@@ -51,15 +65,14 @@ export const LocaleSwitcher = ({ isFull = false, className }: NavButtonProps) =>
       <DropdownMenuContent align="end" className="min-w-24">
         {locales.map((locale) => (
           <DropdownMenuItem asChild key={locale}>
-            <Link
-              href={`${pathname}?${searchParams.toString()}`}
-              locale={locale}
-              scroll
+            <Button
+              variant="ghost"
               isDisabled={locale === currentLocale}
-              className={cn('block w-full text-md', { 'font-bold': locale === currentLocale })}
+              className={cn('block w-full text-md h-auto text-start', { 'font-bold': locale === currentLocale })}
+              onClick={() => onLocaleChange(locale)}
             >
               {t(locale)}
-            </Link>
+            </Button>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

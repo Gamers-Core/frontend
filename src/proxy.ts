@@ -1,7 +1,8 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
+import { Locale } from 'next-intl';
 
-import { routing } from './i18n';
+import { defaultLocale, routing } from './i18n';
 import { guestOnlyRoutes, publicRoutes } from './proxy/routes';
 import { isLoggedInHeaderKey } from './proxy/const';
 import { getIsAllowedPath } from './proxy/helpers';
@@ -34,8 +35,16 @@ export const proxy = async (req: NextRequest) => {
   headers.set(isLoggedInHeaderKey, String(isLoggedIn));
   headers.set('x-pathname', req.nextUrl.pathname);
 
-  const response = intlMiddleware(new NextRequest(req, { headers }));
-  return response;
+  const localeMatch = rawPathname.match(localePattern) as RegExpMatchArray | [null];
+  const locale = (localeMatch?.[1] as Locale) || defaultLocale;
+  const appLocale = req.cookies.get('NEXT_LOCALE')?.value || locale;
+  const backendLocale = req.cookies.get('x-locale')?.value;
+
+  const alreadyOnCorrectLocale = rawPathname.startsWith(`/${backendLocale}`);
+  if (isLoggedIn && backendLocale && backendLocale !== appLocale && !alreadyOnCorrectLocale)
+    return NextResponse.redirect(new URL(`/${backendLocale}${pathname}`, req.url));
+
+  return intlMiddleware(new NextRequest(req, { headers }));
 };
 
 export const config = {
