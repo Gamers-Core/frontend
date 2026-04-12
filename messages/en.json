@@ -41,5 +41,12 @@
   "signin_title": "Sign In",
   "signin_subtitle": "Enter your email to sign in or create an account",
   "signin_send_success": "Sign in otp sent to your email",
-  "error_generic": "An error occurred. Please try again."
+  "error_generic": "An error occurred. Please try again.",
+  "otp_must_be_6_digits": "OTP must be 6 digits",
+  "otp_must_contain_only_digits": "OTP must contain only digits",
+  "verify_otp_title": "Verify OTP",
+  "verify_otp_subtitle": "Enter the 6-digit code sent to your email",
+  "verify_otp_resend": "Resend OTP",
+  "verify_otp_resend_in": "Resend OTP ({count}s)",
+  "verify_otp_resend_success": "OTP resent successfully"
 }

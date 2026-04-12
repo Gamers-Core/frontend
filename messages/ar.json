@@ -41,5 +41,12 @@
   "signin_title": "تسجيل الدخول",
   "signin_subtitle": "أدخل بريدك الإلكتروني لتسجيل الدخول أو إنشاء حساب",
   "signin_send_success": "تم إرسال رمز التحقق إلى بريدك الإلكتروني",
-  "error_generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  "error_generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+  "otp_must_be_6_digits": "يجب أن يكون رمز التحقق 6 أرقام",
+  "otp_must_contain_only_digits": "يجب أن يحتوي رمز التحقق على أرقام فقط",
+  "verify_otp_title": "تحقق من رمز التحقق",
+  "verify_otp_subtitle": "أدخل الرمز المكون من 6 أرقام المرسل إلى بريدك الإلكتروني",
+  "verify_otp_resend": "إعادة الإرسال",
+  "verify_otp_resend_in": "إعادة الإرسال ({count}ث)",
+  "verify_otp_resend_success": "تم إعادة إرسال رمز التحقق بنجاح"
 }

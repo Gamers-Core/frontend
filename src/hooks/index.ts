@@ -12,3 +12,5 @@ export * from './useCartSync';
 export * from './useAuthSync';
 export * from './auth';
 export * from './useErrorHandler';
+export * from './useCounter';
+export * from './users';
