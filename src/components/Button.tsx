@@ -21,7 +21,7 @@ export const Button = ({ children, isLoading, isDisabled, className, icon, size,
         disabled
         {...props}
       >
-        <Spinner />
+        <Spinner className="size-7.5" />
       </ShadCNButton>
     );
 

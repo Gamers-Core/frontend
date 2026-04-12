@@ -10,3 +10,5 @@ export * from './useBreakpoint';
 export * from './useDebounce';
 export * from './useCartSync';
 export * from './useAuthSync';
+export * from './auth';
+export * from './useErrorHandler';

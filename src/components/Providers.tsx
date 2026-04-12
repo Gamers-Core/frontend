@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { Locale } from '@/i18n';
 import { useAuthSync, useCartSync } from '@/hooks';
 
-import { SidebarProvider, TooltipProvider } from './ui';
+import { SidebarProvider, TooltipProvider, Toaster } from './ui';
 import { CartDrawer } from './cart';
 
 interface ProvidersProps {
@@ -32,6 +32,8 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
               <CartProvider />
 
               {children}
+
+              <Toaster duration={5000} richColors dir={locale === 'ar' ? 'rtl' : 'ltr'} position="top-center" />
             </TooltipProvider>
           </SidebarProvider>
           <ReactQueryDevtools initialIsOpen={false} />

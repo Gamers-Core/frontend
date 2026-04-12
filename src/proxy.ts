@@ -23,7 +23,7 @@ export const proxy = async (req: NextRequest) => {
 
   const isGuestAccessingProtectedRoute = !isGuestOnlyPath && !isPublicPath && !isLoggedIn;
   if (isGuestAccessingProtectedRoute) {
-    const newURL = new URL('/login', req.url);
+    const newURL = new URL('/signin', req.url);
 
     newURL.searchParams.set('from', encodeURIComponent(pathname + req.nextUrl.search));
 

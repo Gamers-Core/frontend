@@ -1,24 +1,25 @@
 import { Locale } from '@/i18n';
 
-import { mediaTypes } from './const';
+import { authPurposes, mediaTypes } from './const';
 
-interface ValidationError {
-  property: string;
-  codes: string[];
-  children: ValidationError[];
+interface ValidationError<P extends string = string> {
+  property: P;
+  keys: string[];
+  messages: string[];
+  children: ValidationError<P>[];
 }
 
-export interface ValidationErrors {
-  errors: ValidationError[];
-}
+export type ValidationErrors<K extends string = string> = {
+  errors: ValidationError<K>[];
+};
 
 export interface AppError {
   message: string;
 }
 
-export type BackendError = {
+export type BackendError<E extends ValidationErrors | AppError = ValidationErrors | AppError> = {
   status: number;
-} & (ValidationErrors | AppError);
+} & E;
 
 export type MediaType = (typeof mediaTypes)[number];
 
@@ -100,3 +101,20 @@ export interface BasicUser {
 export interface FullUserDTO extends BasicUser {
   addresses: Address[];
 }
+
+export interface OTPFlowResponse {
+  sessionId: string;
+}
+
+export interface OtpVerifyResultMap {
+  signin: {
+    user: BasicUser;
+    isNewUser: boolean;
+  };
+}
+
+export type AuthPurpose = (typeof authPurposes)[number];
+
+export type VerifyOTPResponse = {
+  [P in AuthPurpose]: { purpose: P } & OtpVerifyResultMap[P];
+};

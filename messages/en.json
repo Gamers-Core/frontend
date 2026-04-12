@@ -34,5 +34,12 @@
   "cart_checkout": "Checkout",
   "cart_total": "Total",
   "cart_checkout_note": "Taxes and shipping calculated at checkout.",
-  "cart_close": "Close Cart"
+  "cart_close": "Close Cart",
+  "auth_email_invalid": "Please enter a valid email address",
+  "auth_email_required": "Email is required",
+  "email": "Email",
+  "signin_title": "Sign In",
+  "signin_subtitle": "Enter your email to sign in or create an account",
+  "signin_send_success": "Sign in otp sent to your email",
+  "error_generic": "An error occurred. Please try again."
 }

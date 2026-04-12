@@ -8,3 +8,7 @@ export * from './tooltip';
 export * from './dropdown-menu';
 export * from './carousel';
 export * from './drawer';
+export * from './field';
+export * from './label';
+export * from './sonner';
+export * from './input-otp';
