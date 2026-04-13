@@ -57,7 +57,7 @@ export const SigninForm = ({ from }: SigninFormProps) => {
         name="email"
         control={form.control}
         render={({ field, fieldState }) => (
-          <Field {...field}>
+          <Field>
             <FieldLabel htmlFor="email" className="text-base md:text-xl text-foreground">
               {t('email')}
             </FieldLabel>

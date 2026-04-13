@@ -61,7 +61,7 @@ export const SetupAccountForm = ({ from }: SetupAccountFormProps) => {
         name="name"
         control={form.control}
         render={({ field, fieldState }) => (
-          <Field {...field}>
+          <Field>
             <FieldLabel htmlFor="name" className="text-base md:text-xl text-foreground">
               {t('name')}
             </FieldLabel>

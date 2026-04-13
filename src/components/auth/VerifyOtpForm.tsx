@@ -87,7 +87,7 @@ export const VerifyOTPForm = ({ sessionId }: VerifyOTPFormProps) => {
         name="otp"
         control={form.control}
         render={({ field, fieldState }) => (
-          <Field className="flex flex-col gap-2" {...field}>
+          <Field className="flex flex-col gap-2">
             <InputOTP
               maxLength={6}
               inputMode="numeric"
