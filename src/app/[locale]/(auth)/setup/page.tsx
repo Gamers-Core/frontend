@@ -45,7 +45,7 @@ export default async function Page(props: PagePropsWithSearchParams<{ from: stri
     <>
       <AuthHeader title="setup_account_title" subtitle="setup_account_subtitle" />
 
-      <SetupAccountForm />
+      <SetupAccountForm from={fromPath} />
     </>
   );
 }

@@ -19,7 +19,7 @@ interface SetupAccountFormProps {
   from?: string;
 }
 
-export const SetupAccountForm = ({ from }: SetupAccountFormProps) => {
+export const SetupAccountForm = ({ from = '/' }: SetupAccountFormProps) => {
   const t = useTranslations();
 
   const router = useRouter();
@@ -40,17 +40,7 @@ export const SetupAccountForm = ({ from }: SetupAccountFormProps) => {
         toast.success(t('profile_update_success'));
         setUser(user);
 
-        let fromPath = '/';
-
-        if (from) {
-          try {
-            fromPath = decodeURIComponent(from ?? '/');
-          } catch {
-            fromPath = '/';
-          }
-        }
-
-        router.push(fromPath, { locale: user.locale });
+        router.push(from, { locale: user.locale });
 
         form.reset();
       },
