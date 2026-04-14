@@ -109,6 +109,7 @@ export interface OTPFlowResponse {
 export interface OtpVerifyResultMap {
   signin: {
     user: BasicUser;
+    cart: Cart;
     isNewUser: boolean;
   };
 }
