@@ -9,7 +9,7 @@ import { getIsAllowedPath } from './proxy/helpers';
 
 const intlMiddleware = createMiddleware(routing);
 
-export const proxy = async (req: NextRequest) => {
+const proxy = async (req: NextRequest) => {
   const session = req.cookies.get('session')?.value;
 
   const { pathname: rawPathname } = req.nextUrl;
@@ -46,6 +46,8 @@ export const proxy = async (req: NextRequest) => {
 
   return intlMiddleware(new NextRequest(req, { headers }));
 };
+
+export default proxy;
 
 export const config = {
   matcher: ['/((?!api|_next|assets|favicon.ico|robots.txt|sitemap.xml).*)'],
