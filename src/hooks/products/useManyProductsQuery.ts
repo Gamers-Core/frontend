@@ -3,7 +3,9 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 import { BackendError, gamersCore, Product } from '@/api';
 
-const queryKey = (ids: number[]) => ['products', 'many', ...ids] as const;
+const normalizeIds = (ids: number[]) => Array.from(new Set(ids)).sort((a, b) => a - b);
+
+const queryKey = (ids: number[]) => ['products', 'many', ...normalizeIds(ids)] as const;
 
 type QueryKey = ReturnType<typeof queryKey>;
 
