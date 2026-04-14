@@ -11,7 +11,7 @@ type QueryKey = ReturnType<typeof queryKey>;
 
 const queryFn = <T extends boolean = false>({ queryKey: [, isFull] }: QueryFunctionContext<QueryKey>) =>
   gamersCore
-    .get<MeQueryResult<T>, AxiosResponse<MeQueryResult<T>>>(`/users/me/${isFull ? 'full' : ''}`)
+    .get<MeQueryResult<T>, AxiosResponse<MeQueryResult<T>>>(isFull ? '/users/me/full' : 'users/me')
     .then((res) => res.data);
 
 export const useMeQuery = <T extends boolean = false>(
