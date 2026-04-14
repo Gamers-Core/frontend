@@ -9,18 +9,22 @@ export const metadata: Metadata = {
   description: 'Verify your OTP to complete the sign-in process.',
 };
 
-export default async function Page(props: PagePropsWithSearchParams<{ sessionId: string }>) {
+export default async function Page(props: PagePropsWithSearchParams<{ sessionId: string; from?: string }>) {
   const searchParams = await props.searchParams;
 
   const sessionId = searchParams.sessionId;
+  const from = searchParams.from;
 
-  if (!sessionId) redirect('/signin');
+  const params = new URLSearchParams();
+  if (from) params.append('from', from);
+
+  if (!sessionId) redirect(`/signin?${params.toString()}`);
 
   return (
     <>
       <AuthHeader title="verify_otp_title" subtitle="verify_otp_subtitle" />
 
-      <VerifyOTPForm sessionId={sessionId} />
+      <VerifyOTPForm sessionId={sessionId} from={from} />
     </>
   );
 }

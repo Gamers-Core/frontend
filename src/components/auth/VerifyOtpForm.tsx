@@ -4,13 +4,13 @@ import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
+import { toast } from 'sonner';
 
-import { useVerifyOTPMutation, useCounter, useResendOTPMutation, useFormatNumber } from '@/hooks';
+import { useVerifyOTPMutation, useCounter, useResendOTPMutation, useFormatNumber, useSetCartData } from '@/hooks';
 import { setCookiesLocale, verifyOTPSchema, VerifyOTPSchema } from '@/api';
 import { Button, Field, FieldError, InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components';
 import { useRouter } from '@/i18n';
-import { useAuthStore } from '@/stores';
-import { toast } from 'sonner';
+import { mapBackendCartItemToCartItem, useAuthStore, useCartStore } from '@/stores';
 
 const defaultValues: VerifyOTPSchema = {
   otp: '',
@@ -18,23 +18,27 @@ const defaultValues: VerifyOTPSchema = {
 
 interface VerifyOTPFormProps {
   sessionId: string;
+  from?: string;
 }
 
-export const VerifyOTPForm = ({ sessionId }: VerifyOTPFormProps) => {
+export const VerifyOTPForm = ({ sessionId, from }: VerifyOTPFormProps) => {
   const t = useTranslations();
-
   const form = useForm<VerifyOTPSchema>({
     defaultValues,
     mode: 'onChange',
     resolver: zodResolver(verifyOTPSchema(t)),
   });
-  const router = useRouter();
+
+  const setUser = useAuthStore((state) => state.setUser);
+  const cartItemsCount = useCartStore((state) => state.items.length);
+  const setCartItems = useCartStore((state) => state.setItems);
 
   const verifyOTPMutation = useVerifyOTPMutation();
   const resendOTPMutation = useResendOTPMutation();
-  const setUser = useAuthStore((state) => state.setUser);
-  const formatNumber = useFormatNumber();
+  const setCartData = useSetCartData();
 
+  const formatNumber = useFormatNumber();
+  const router = useRouter();
   const resendCounter = useCounter({
     duration: 30,
     onComplete: resendOTPMutation.reset,
@@ -49,11 +53,25 @@ export const VerifyOTPForm = ({ sessionId }: VerifyOTPFormProps) => {
         onSuccess: (res) => {
           switch (res.purpose) {
             case 'signin':
+              setCartData(res.cart);
+              if (cartItemsCount === 0) setCartItems(res.cart.items.map(mapBackendCartItemToCartItem));
+
               setUser(res.user);
 
               setCookiesLocale(res.user.locale);
 
-              router.push('/', { locale: res.user.locale });
+              let fromPath = '/';
+
+              if (from) {
+                try {
+                  fromPath = decodeURIComponent(from ?? '/');
+                } catch {
+                  fromPath = '/';
+                }
+              }
+
+              router.push(fromPath, { locale: res.user.locale });
+
               break;
           }
         },

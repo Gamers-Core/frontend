@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 
-import { useMeQuery } from '@/hooks';
+import { useCartQuery, useMeQuery } from '@/hooks';
 
 export default async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const queryClient = new QueryClient();
@@ -24,6 +24,8 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
 
     return redirect('/setup');
   }
+
+  if (!!me) await Promise.all([queryClient.prefetchQuery(useCartQuery)]);
 
   return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
 }

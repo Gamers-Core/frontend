@@ -1,4 +1,4 @@
-import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
+import { QueryFunctionContext, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { BackendError, gamersCore, Product } from '@/api';
 
@@ -15,6 +15,12 @@ export const useProductQuery = (id: number) =>
     queryFn,
     staleTime: 1000 * 60 * 5, // 5 minutes,
   });
+
+export const useSetProductData = () => {
+  const queryClient = useQueryClient();
+
+  return (id: number, data: Product) => queryClient.setQueryData(queryKey(id), data);
+};
 
 useProductQuery.queryKey = queryKey;
 useProductQuery.queryFn = queryFn;
