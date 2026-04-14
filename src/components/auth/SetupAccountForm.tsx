@@ -40,8 +40,17 @@ export const SetupAccountForm = ({ from }: SetupAccountFormProps) => {
         toast.success(t('profile_update_success'));
         setUser(user);
 
-        if (from) router.push(decodeURIComponent(from));
-        else router.push('/');
+        let fromPath = '/';
+
+        if (from) {
+          try {
+            fromPath = decodeURIComponent(from ?? '/');
+          } catch {
+            fromPath = '/';
+          }
+        }
+
+        router.push(fromPath, { locale: user.locale });
 
         form.reset();
       },

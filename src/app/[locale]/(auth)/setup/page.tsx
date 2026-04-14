@@ -25,12 +25,20 @@ export default async function Page(props: PagePropsWithSearchParams<{ from: stri
       .catch(() => null),
   ]);
 
-  const from = searchParams.from || '/';
+  const from = searchParams?.from;
+  let fromPath = '/';
+  if (from) {
+    try {
+      fromPath = decodeURIComponent(from ?? '/');
+    } catch {
+      fromPath = '/';
+    }
+  }
 
   if (me?.name) {
     if (!from) redirect('/');
 
-    return redirect(decodeURIComponent(from));
+    return redirect(fromPath);
   }
 
   return (

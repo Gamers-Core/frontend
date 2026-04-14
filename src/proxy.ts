@@ -26,7 +26,7 @@ const proxy = async (req: NextRequest) => {
   if (isGuestAccessingProtectedRoute) {
     const newURL = new URL('/signin', req.url);
 
-    newURL.searchParams.set('from', encodeURIComponent(pathname + req.nextUrl.search));
+    newURL.searchParams.set('from', pathname + req.nextUrl.search);
 
     return NextResponse.redirect(newURL);
   }
