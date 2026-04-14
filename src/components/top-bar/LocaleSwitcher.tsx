@@ -37,7 +37,7 @@ export const LocaleSwitcher = ({ isFull = false, className }: NavButtonProps) =>
     const search = searchParams.toString();
     const url = `${pathname}${search ? `?${search}` : ''}`;
 
-    if (isLoggedIn) await localeMutation.mutateAsync(newLocale);
+    if (isLoggedIn) await localeMutation.mutateAsync(newLocale).catch(console.warn);
 
     router.push(url, { locale: newLocale });
   };
