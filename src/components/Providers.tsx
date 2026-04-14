@@ -7,7 +7,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { useState } from 'react';
 
 import { Locale } from '@/i18n';
-import { useAuthSync, useCartSync } from '@/hooks';
+import { useAuthSync, useCartProducts, useCartSync } from '@/hooks';
 
 import { SidebarProvider, TooltipProvider, Toaster } from './ui';
 import { CartDrawer } from './cart';
@@ -45,6 +45,7 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
 
 const CartProvider = () => {
   useCartSync();
+  useCartProducts();
 
   return <CartDrawer />;
 };
