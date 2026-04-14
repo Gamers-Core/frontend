@@ -10,6 +10,7 @@ interface AuthStoreState {
 interface AuthStoreActions {
   setIsLoggedIn: (value: boolean) => void;
   setUser: (user: BasicUser | null) => void;
+  clearAuth: () => void;
 }
 
 type AuthStore = AuthStoreState & AuthStoreActions;
@@ -22,6 +23,6 @@ const defaultState: AuthStoreState = {
 export const useAuthStore = create<AuthStore>((set) => ({
   ...defaultState,
   setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
-  setUser: (user) => set({ user }),
+  setUser: (user) => set({ user, isLoggedIn: !!user }),
   clearAuth: () => set(defaultState),
 }));
