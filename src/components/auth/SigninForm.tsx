@@ -67,7 +67,7 @@ export const SigninForm = ({ from }: SigninFormProps) => {
               type="email"
               autoComplete="email"
               placeholder="you@example.com"
-              dir="left"
+              dir="ltr"
               className="w-full min-h-10 p-2 px-3 text-sm/relaxed md:text-base/relaxed text-left"
               {...field}
             />
