@@ -118,3 +118,37 @@ export type AuthPurpose = (typeof authPurposes)[number];
 export type VerifyOTPResponse = {
   [P in AuthPurpose]: { purpose: P } & OtpVerifyResultMap[P];
 };
+
+export interface CreateItem {
+  externalId: string;
+  quantity: number;
+}
+
+export interface CartItem {
+  id: number;
+  variant: {
+    name: string;
+    externalId: string;
+    imageURL: string;
+    product: {
+      id: number;
+      name: string;
+      title: string;
+      brand: Brand;
+      category: Category;
+    };
+    stock: number;
+    price: number;
+    compareAt: number | null;
+  };
+  quantity: number;
+  total: number;
+}
+
+export interface Cart {
+  id: number;
+  items: CartItem[];
+  count: number;
+  compareAt: number | null;
+  total: number;
+}
