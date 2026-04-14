@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Link as NextLink } from '@/i18n';
 
+import { Link as NextLink } from '@/i18n';
 import { getSearchParams } from '@/helpers';
 import { cn } from '@/lib/utils';
 
@@ -8,7 +8,7 @@ import { Button } from './Button';
 
 type NextLinkProps = ComponentProps<typeof NextLink>;
 
-interface LinkProps extends NextLinkProps {
+export interface LinkProps extends NextLinkProps {
   keepSearchParams?: boolean;
   isDisabled?: boolean;
 }

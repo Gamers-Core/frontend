@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { isClient } from '@/helpers';
+import { CartItem as BackendCartItem } from '@/api';
 
 export interface CartItem {
   externalId: string;
@@ -39,25 +40,6 @@ const defaultState: CartStoreState = {
   total: 0,
 };
 
-const withDerived = (items: CartItem[]) => {
-  let count = 0;
-  let total = 0;
-  let compareAtTotal = 0;
-
-  items.forEach((item) => {
-    count += item.quantity;
-    total += item.price * item.quantity;
-    compareAtTotal += (item.compareAt ?? 0) * item.quantity;
-  });
-
-  return {
-    items,
-    count,
-    total,
-    compareAtTotal,
-  };
-};
-
 export const useCartStore = create<CartStore>()(
   persist(
     (set) => ({
@@ -88,7 +70,6 @@ export const useCartStore = create<CartStore>()(
     {
       name: 'cart',
       storage: isClient() ? createJSONStorage(() => localStorage) : undefined,
-      partialize: ({ items }) => ({ items }),
       onRehydrateStorage: () => (state) => {
         if (!state) return;
 
@@ -97,3 +78,29 @@ export const useCartStore = create<CartStore>()(
     },
   ),
 );
+
+const withDerived = (items: CartItem[]) => {
+  let count = 0;
+  let total = 0;
+  let compareAtTotal = 0;
+
+  items.forEach((item) => {
+    count += item.quantity;
+    total += item.price * item.quantity;
+    compareAtTotal += (item.compareAt ?? 0) * item.quantity;
+  });
+
+  return {
+    items,
+    count,
+    total,
+    compareAtTotal,
+  };
+};
+
+export const mapBackendCartItemToCartItem = ({ variant: { product, ...v }, quantity }: BackendCartItem): CartItem => ({
+  ...v,
+  quantity,
+  productId: product.id,
+  productName: product.name,
+});

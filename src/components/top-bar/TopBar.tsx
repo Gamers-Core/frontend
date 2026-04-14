@@ -21,9 +21,9 @@ interface TopBarProps {
 }
 
 export const TopBar = ({ isHome = false }: TopBarProps) => {
-  const { isScrolled } = useScroll();
-
   const locale = useLocale();
+
+  const { isScrolled } = useScroll();
 
   return (
     <div
@@ -62,8 +62,8 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
             'text-gray-900 dark:text-white': isScrolled || !isHome,
           })}
         >
-          <NavButton isScrolled={isScrolled} icon={Search} />
-          <NavButton isScrolled={isScrolled} icon={User} className="hidden md:block" />
+          <NavButton href="/search" isDisabled isScrolled={isScrolled} icon={Search} />
+          <NavButton href="/profile" isScrolled={isScrolled} icon={User} className="hidden md:block" />
           <CartButton iconOnly className={buttonClassName(isScrolled)} />
           <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
           <LocaleSwitcher className={cn(buttonClassName(isScrolled), 'hidden md:block')} />

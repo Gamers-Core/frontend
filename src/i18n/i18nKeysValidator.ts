@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import en from '../../messages/en.json';
-import ar from '../../messages/ar.json';
+import { ArKeys, EnKeys } from './types';
 
-type TranslateEn = keyof typeof en;
-type TranslateAr = keyof typeof ar;
-
-type EnDiff = Exclude<TranslateEn, TranslateAr>;
-type ArDiff = Exclude<TranslateAr, TranslateEn>;
+type EnDiff = Exclude<EnKeys, ArKeys>;
+type ArDiff = Exclude<ArKeys, EnKeys>;
 
 type AssertNever<T extends never> = T;
 

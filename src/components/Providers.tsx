@@ -7,18 +7,19 @@ import { NextIntlClientProvider } from 'next-intl';
 import { useState } from 'react';
 
 import { Locale } from '@/i18n';
-import { useCartSync } from '@/hooks';
+import { useAuthSync, useCartProducts, useCartSync } from '@/hooks';
 
-import { SidebarProvider, TooltipProvider } from './ui';
+import { SidebarProvider, TooltipProvider, Toaster } from './ui';
 import { CartDrawer } from './cart';
 
 interface ProvidersProps {
   children: React.ReactNode;
   locale: Locale;
   messages: Record<string, unknown>;
+  isLoggedIn?: boolean;
 }
 
-export const Providers = ({ children, locale, messages }: ProvidersProps) => {
+export const Providers = ({ children, locale, messages, isLoggedIn = false }: ProvidersProps) => {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
@@ -27,9 +28,12 @@ export const Providers = ({ children, locale, messages }: ProvidersProps) => {
         <QueryClientProvider client={queryClient}>
           <SidebarProvider className="flex flex-col items-center">
             <TooltipProvider>
+              <AuthProvider isLoggedIn={isLoggedIn} />
               <CartProvider />
 
               {children}
+
+              <Toaster duration={5000} richColors dir={locale === 'ar' ? 'rtl' : 'ltr'} position="top-center" />
             </TooltipProvider>
           </SidebarProvider>
           <ReactQueryDevtools initialIsOpen={false} />
@@ -41,6 +45,17 @@ export const Providers = ({ children, locale, messages }: ProvidersProps) => {
 
 const CartProvider = () => {
   useCartSync();
+  useCartProducts();
 
   return <CartDrawer />;
+};
+
+interface AuthProviderProps {
+  isLoggedIn: boolean;
+}
+
+const AuthProvider = ({ isLoggedIn }: AuthProviderProps) => {
+  useAuthSync(isLoggedIn);
+
+  return null;
 };

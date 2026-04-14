@@ -4,10 +4,12 @@ import HolyLoader from 'holy-loader';
 import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { getMessages } from 'next-intl/server';
+import { headers } from 'next/headers';
 
 import { routing } from '@/i18n';
 import { Providers } from '@/components';
 import { cn } from '@/lib/utils';
+import { isLoggedInHeaderKey } from '@/proxy/const';
 
 import './globals.css';
 
@@ -36,18 +38,22 @@ const RootLayout = async ({ children, params }: Readonly<RootLayoutProps>) => {
   if (!hasLocale(routing.locales, locale)) notFound();
 
   const messages = await getMessages();
+  const headersList = await headers();
+  const isLoggedIn = headersList.get(isLoggedInHeaderKey) === 'true';
+
+  const dir = isArabic ? 'rtl' : 'ltr';
 
   return (
     <html
       lang={locale}
-      dir={isArabic ? 'rtl' : 'ltr'}
+      dir={dir}
       className={cn('h-full', 'antialiased', cairo.variable, oxanium.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-svh flex flex-col justify-center transition-colors duration-300">
-        <HolyLoader color="oklch(0.424 0.199 265.638)" />
+      <body suppressHydrationWarning className="min-h-svh flex flex-col justify-center transition-colors duration-300">
+        <HolyLoader speed={500} showSpinner dir={dir} color="oklch(0.424 0.199 265.638)" />
 
-        <Providers locale={locale} messages={messages}>
+        <Providers locale={locale} messages={messages} isLoggedIn={isLoggedIn}>
           {children}
         </Providers>
       </body>
