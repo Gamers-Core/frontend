@@ -23,6 +23,7 @@ export const useCartSync = () => {
   const statusRef = useRef<SyncStatus>('idle');
   const syncLockRef = useRef(false);
   const lastSyncedSignatureRef = useRef<string | null>(null);
+  const skipNextSyncRef = useRef(false);
 
   const payload = useMemo<CreateItem[]>(() => toCreateItems(items), [items]);
 
@@ -76,13 +77,17 @@ export const useCartSync = () => {
     const backendItems = cartQuery.data.items.map(mapBackendCartItemToCartItem);
     const backendSignature = buildSignatureFromItems(backendItems);
 
+    const shouldSyncLocalToBackend =
+      justLoggedIn && payload.length > 0 && backendItems.length === 0 && payloadSignature !== backendSignature;
+
     statusRef.current = 'ready';
 
-    if (justLoggedIn && payload.length > 0 && payloadSignature !== backendSignature) {
+    if (shouldSyncLocalToBackend) {
       syncPayload(payload, payloadSignature);
       return;
     }
 
+    skipNextSyncRef.current = true;
     setItems(backendItems);
 
     lastSyncedSignatureRef.current = backendSignature;
@@ -99,6 +104,11 @@ export const useCartSync = () => {
   ]);
 
   useEffect(() => {
+    if (skipNextSyncRef.current) {
+      skipNextSyncRef.current = false;
+      return;
+    }
+
     if (!isLoggedIn || statusRef.current !== 'ready') return;
     if (syncLockRef.current || cartSyncMutation.isPending) return;
     if (lastSyncedSignatureRef.current === payloadSignature) return;
