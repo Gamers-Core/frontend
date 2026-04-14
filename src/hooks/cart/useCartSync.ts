@@ -61,6 +61,7 @@ export const useCartSync = () => {
       statusRef.current = 'idle';
       syncLockRef.current = false;
       lastSyncedSignatureRef.current = null;
+      skipNextSyncRef.current = false;
       return;
     }
 
@@ -77,8 +78,7 @@ export const useCartSync = () => {
     const backendItems = cartQuery.data.items.map(mapBackendCartItemToCartItem);
     const backendSignature = buildSignatureFromItems(backendItems);
 
-    const shouldSyncLocalToBackend =
-      justLoggedIn && payload.length > 0 && backendItems.length === 0 && payloadSignature !== backendSignature;
+    const shouldSyncLocalToBackend = justLoggedIn && payload.length > 0 && payloadSignature !== backendSignature;
 
     statusRef.current = 'ready';
 
