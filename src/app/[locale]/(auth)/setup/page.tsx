@@ -26,26 +26,18 @@ export default async function Page(props: PagePropsWithSearchParams<{ from: stri
   ]);
 
   const from = searchParams?.from;
-  let fromPath = '/';
-  if (from) {
-    try {
-      fromPath = decodeURIComponent(from ?? '/');
-    } catch {
-      fromPath = '/';
-    }
-  }
 
   if (me?.name) {
     if (!from) redirect('/');
 
-    return redirect(fromPath);
+    return redirect(from);
   }
 
   return (
     <>
       <AuthHeader title="setup_account_title" subtitle="setup_account_subtitle" />
 
-      <SetupAccountForm from={fromPath} />
+      <SetupAccountForm from={from} />
     </>
   );
 }

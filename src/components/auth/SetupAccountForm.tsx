@@ -37,7 +37,7 @@ export const SetupAccountForm = ({ from = '/' }: SetupAccountFormProps) => {
 
     updateMeMutation.mutate(data, {
       onSuccess: (user) => {
-        toast.success(t('profile_update_success'));
+        toast.success(t('profile_update_success_welcome', { name: user.name }));
         setUser(user);
 
         router.push(from, { locale: user.locale });

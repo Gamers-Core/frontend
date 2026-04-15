@@ -14,8 +14,12 @@ export const getCookiesLocale = async () => {
 };
 
 export const setCookiesLocale = (locale: string) => {
+  setCookie('x-locale', locale);
+  setCookie('NEXT_LOCALE', locale);
+};
+
+export const setCookie = (name: string, value: string, options?: Cookies.CookieAttributes) => {
   if (!isClient()) return;
 
-  cookies.set('x-locale', locale);
-  cookies.set('NEXT_LOCALE', locale);
+  cookies.set(name, value, options);
 };

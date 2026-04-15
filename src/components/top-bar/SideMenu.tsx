@@ -1,5 +1,8 @@
 import { Locale } from 'next-intl';
 import { Cancel, User } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+
+import { useAuthStore } from '@/stores';
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, useSidebar } from '../ui';
 import { ModeToggle } from './ModeToggle';
@@ -7,7 +10,6 @@ import { LocaleSwitcher } from './LocaleSwitcher';
 import { NavButton } from './NavButton';
 import { NavItems } from './NavItems';
 import { Button } from '../Button';
-import { HugeiconsIcon } from '@hugeicons/react';
 
 interface SideMenuProps {
   locale: Locale;
@@ -15,6 +17,8 @@ interface SideMenuProps {
 
 export const SideMenu = ({ locale }: SideMenuProps) => {
   const { toggleSidebar } = useSidebar();
+
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   return (
     <Sidebar
@@ -45,7 +49,7 @@ export const SideMenu = ({ locale }: SideMenuProps) => {
         <div className="flex items-center gap-1.5">
           <ModeToggle className="size-8" />
 
-          <NavButton href="/profile" icon={User} />
+          <NavButton href={isLoggedIn ? '/profile' : '/signin'} icon={User} />
         </div>
       </SidebarFooter>
     </Sidebar>
