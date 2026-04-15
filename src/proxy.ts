@@ -11,12 +11,13 @@ const intlMiddleware = createMiddleware(routing);
 
 const proxy = async (req: NextRequest) => {
   const session = req.cookies.get('session')?.value;
+  const sessionSig = req.cookies.get('session.sig')?.value;
+  const isLoggedIn = req.cookies.get('x-is-logged-in')?.value === 'true' || (session && sessionSig);
 
   const { pathname: rawPathname } = req.nextUrl;
   const localePattern = new RegExp(`^/(${routing.locales.join('|')})`);
   const pathname = rawPathname.replace(localePattern, '') || '/';
 
-  const isLoggedIn = !!session;
   const isGuestOnlyPath = getIsAllowedPath(pathname, guestOnlyRoutes);
   const isPublicPath = getIsAllowedPath(pathname, publicRoutes);
 
