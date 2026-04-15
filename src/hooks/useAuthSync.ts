@@ -6,16 +6,11 @@ import { useAuthStore } from '@/stores';
 
 import { useMeQuery } from './users';
 
-export const useAuthSync = (isLoggedIn: boolean) => {
-  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+export const useAuthSync = () => {
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const setUser = useAuthStore((state) => state.setUser);
 
   const meQuery = useMeQuery(false, isLoggedIn);
-
-  useEffect(() => {
-    setIsLoggedIn(isLoggedIn);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
 
   useEffect(() => {
     if (!meQuery.isSuccess) return setUser(null);
