@@ -75,6 +75,8 @@ export const VerifyOTPForm = ({ sessionId, from }: VerifyOTPFormProps) => {
 
               setCookiesLocale(res.user.locale);
 
+              if (!res.isNewUser) toast.success(t('welcome_back', { name: res.user.name }));
+
               router.push(from ?? '/', { locale: res.user.locale });
 
               break;

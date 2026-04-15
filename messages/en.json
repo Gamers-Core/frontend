@@ -54,7 +54,8 @@
   "name_placeholder": "Your name",
   "name_must_be_at_least_2_characters": "Name must be at least 2 characters",
   "name_required": "Name is required",
-  "profile_update_success": "Profile updated successfully",
+  "profile_update_success_welcome": "Welcome to GamersCore, {name}! Your profile has been updated successfully.",
   "name": "Name",
-  "save_changes": "Save Changes"
+  "save_changes": "Save Changes",
+  "welcome_back": "Welcome back, {name}!"
 }
