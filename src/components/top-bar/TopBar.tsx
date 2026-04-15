@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl';
 
 import { useScroll } from '@/hooks';
 import { cn } from '@/lib/utils';
+import { useAuthStore } from '@/stores';
 
 import { Logo } from '../Logo';
 import { NavItems } from './NavItems';
@@ -24,6 +25,8 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
   const locale = useLocale();
 
   const { isScrolled } = useScroll();
+
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   return (
     <div
@@ -63,7 +66,12 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
           })}
         >
           <NavButton href="/search" isDisabled isScrolled={isScrolled} icon={Search} />
-          <NavButton href="/profile" isScrolled={isScrolled} icon={User} className="hidden md:block" />
+          <NavButton
+            href={isLoggedIn ? '/profile' : '/signin'}
+            isScrolled={isScrolled}
+            icon={User}
+            className="hidden md:block"
+          />
           <CartButton iconOnly className={buttonClassName(isScrolled)} />
           <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
           <LocaleSwitcher className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
