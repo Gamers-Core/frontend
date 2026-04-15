@@ -60,17 +60,7 @@ export const VerifyOTPForm = ({ sessionId, from }: VerifyOTPFormProps) => {
 
               setCookiesLocale(res.user.locale);
 
-              let fromPath = '/';
-
-              if (from) {
-                try {
-                  fromPath = decodeURIComponent(from ?? '/');
-                } catch {
-                  fromPath = '/';
-                }
-              }
-
-              router.push(fromPath, { locale: res.user.locale });
+              router.push(from ?? '/', { locale: res.user.locale });
 
               break;
           }
