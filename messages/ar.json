@@ -57,5 +57,7 @@
   "name": "الاسم",
   "name_placeholder": "اسمك",
   "save_changes": "حفظ التغييرات",
-  "welcome_back": "مرحبًا بعودتك، {name}!"
+  "welcome_back": "مرحبًا بعودتك، {name}!",
+  "profile_title": "ملفي الشخصي",
+  "profile_description": "راجع وحدث معلومات حسابك"
 }
