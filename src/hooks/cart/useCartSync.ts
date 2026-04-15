@@ -78,30 +78,13 @@ export const useCartSync = () => {
     const backendItems = cartQuery.data.items.map(mapBackendCartItemToCartItem);
     const backendSignature = buildSignatureFromItems(backendItems);
 
-    const shouldSyncLocalToBackend = justLoggedIn && payload.length > 0 && payloadSignature !== backendSignature;
-
     statusRef.current = 'ready';
-
-    if (shouldSyncLocalToBackend) {
-      syncPayload(payload, payloadSignature);
-      return;
-    }
 
     skipNextSyncRef.current = true;
     setItems(backendItems);
 
     lastSyncedSignatureRef.current = backendSignature;
-  }, [
-    cartQuery.data,
-    cartQuery.isSuccess,
-    cartSyncMutation.isPending,
-    isLoggedIn,
-    payload,
-    payload.length,
-    payloadSignature,
-    setItems,
-    syncPayload,
-  ]);
+  }, [cartQuery.data, cartQuery.isSuccess, cartSyncMutation.isPending, isLoggedIn, setItems]);
 
   useEffect(() => {
     if (skipNextSyncRef.current) {

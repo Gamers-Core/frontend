@@ -6,7 +6,15 @@ import { useTranslations } from 'next-intl';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { toast } from 'sonner';
 
-import { useVerifyOTPMutation, useCounter, useResendOTPMutation, useFormatNumber, useSetCartData } from '@/hooks';
+import {
+  useVerifyOTPMutation,
+  useCounter,
+  useResendOTPMutation,
+  useFormatNumber,
+  useSetCartData,
+  useCartSyncMutation,
+  toCreateItems,
+} from '@/hooks';
 import { setCookiesLocale, verifyOTPSchema, VerifyOTPSchema } from '@/api';
 import { Button, Field, FieldError, InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components';
 import { useRouter } from '@/i18n';
@@ -30,10 +38,12 @@ export const VerifyOTPForm = ({ sessionId, from }: VerifyOTPFormProps) => {
   });
 
   const setUser = useAuthStore((state) => state.setUser);
-  const cartItemsCount = useCartStore((state) => state.items.length);
+  const cartItemsCount = useCartStore((state) => state.count);
+  const cartItems = useCartStore((state) => state.items);
   const setCartItems = useCartStore((state) => state.setItems);
 
   const verifyOTPMutation = useVerifyOTPMutation();
+  const cartSyncMutation = useCartSyncMutation();
   const resendOTPMutation = useResendOTPMutation();
   const setCartData = useSetCartData();
 
@@ -50,11 +60,16 @@ export const VerifyOTPForm = ({ sessionId, from }: VerifyOTPFormProps) => {
     verifyOTPMutation.mutate(
       { ...data, sessionId },
       {
-        onSuccess: (res) => {
+        onSuccess: async (res) => {
           switch (res.purpose) {
             case 'signin':
-              setCartData(res.cart);
-              if (cartItemsCount === 0) setCartItems(res.cart.items.map(mapBackendCartItemToCartItem));
+              let cart = res.cart;
+
+              if (cartItemsCount > 0)
+                cart = await cartSyncMutation.mutateAsync(toCreateItems(cartItems)).catch(() => cart);
+
+              setCartData(cart);
+              setCartItems(cart.items.map(mapBackendCartItemToCartItem));
 
               setUser(res.user);
 
@@ -140,7 +155,7 @@ export const VerifyOTPForm = ({ sessionId, from }: VerifyOTPFormProps) => {
         variant="default"
         className="w-full h-auto py-2 text-lg"
         isDisabled={!form.formState.isValid || verifyOTPMutation.isSuccess}
-        isLoading={verifyOTPMutation.isPending}
+        isLoading={verifyOTPMutation.isPending || cartSyncMutation.isPending}
       >
         {t('verify_otp_title')}
       </Button>
