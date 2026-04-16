@@ -2,8 +2,7 @@ import axios, { AxiosHeaders } from 'axios';
 
 import { isClient } from '@/helpers';
 
-import { getCookiesLocale, setCookie, setCookiesLocale } from './helpers';
-import { isLoggedInHeaderKey } from '@/proxy/const';
+import { getCookiesLocale, setCookiesLocale } from './helpers';
 
 export const gamersCore = axios.create({ baseURL: process.env.NEXT_PUBLIC_BACKEND_URL, withCredentials: true });
 
@@ -29,10 +28,8 @@ gamersCore.interceptors.request.use(async (config) => {
 
 gamersCore.interceptors.response.use((res) => {
   const newLocale = res.headers['x-locale'];
-  const isLoggedIn = res.headers['x-is-logged-in'];
 
   if (newLocale) setCookiesLocale(newLocale);
-  if (isLoggedIn !== undefined) setCookie(isLoggedInHeaderKey, String(isLoggedIn));
 
   return res;
 });
