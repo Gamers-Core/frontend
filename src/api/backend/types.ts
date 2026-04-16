@@ -153,3 +153,16 @@ export interface Cart {
   compareAt: number | null;
   total: number;
 }
+
+export interface City {
+  _id: string;
+  name: string;
+  nameAr: string;
+  code: string;
+}
+
+export interface District {
+  districtId: string;
+  districtName: string;
+  districtOtherName: string;
+}

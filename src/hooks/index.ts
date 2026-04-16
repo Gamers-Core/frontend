@@ -14,3 +14,4 @@ export * from './useErrorHandler';
 export * from './useCounter';
 export * from './users';
 export * from './cart';
+export * from './addresses';
