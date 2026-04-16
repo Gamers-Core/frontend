@@ -59,5 +59,10 @@
   "save_changes": "حفظ التغييرات",
   "welcome_back": "مرحبًا بعودتك، {name}!",
   "profile_title": "ملفي الشخصي",
-  "profile_description": "راجع وحدث معلومات حسابك"
+  "profile_description": "راجع وحدث معلومات حسابك",
+  "profile_info_title": "معلومات الحساب",
+  "profile_info_edit": "تعديل الملف الشخصي",
+  "profile_info_description": "قم بإجراء تغييرات على ملفك الشخصي هنا. انقر فوق حفظ عند الانتهاء.",
+  "profile_update_success": "تم تحديث الملف الشخصي بنجاح",
+  "cancel": "إلغاء"
 }

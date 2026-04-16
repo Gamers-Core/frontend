@@ -14,6 +14,7 @@ export const useDisclosure = ({ defaultIsOpen = false }: DisclosureOptions = {})
     onOpen: useCallback(() => setOpen(true), []),
     onClose: useCallback(() => setOpen(false), []),
     onToggle: useCallback(() => setOpen((prev) => !prev), []),
+    onOpenChange: useCallback((isOpen: boolean) => setOpen(isOpen), []),
   };
 };
 

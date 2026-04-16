@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { ProfileAddresses, ProfileHeader, ProfileInfo } from '@/components';
-import { useAddressesQuery, useMeQuery } from '@/hooks';
+import { ProfileHeader, ProfileInfo } from '@/components';
+import { useMeQuery } from '@/hooks';
 
 export const metadata: Metadata = {
   title: 'Gamers Core | Profile',
@@ -12,9 +12,21 @@ export const metadata: Metadata = {
 export default async function Page() {
   const queryClient = new QueryClient();
 
+  await Promise.all([
+    queryClient.prefetchQuery({
+      ...useMeQuery,
+      queryKey: useMeQuery.queryKey(false),
+      queryFn: useMeQuery.queryFn<false>,
+    }),
+  ]);
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ProfileHeader />
+
+      <div className="flex flex-col flex-1 gap-8">
+        <ProfileInfo />
+      </div>
     </HydrationBoundary>
   );
 }

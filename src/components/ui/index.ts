@@ -12,3 +12,6 @@ export * from './field';
 export * from './label';
 export * from './sonner';
 export * from './input-otp';
+export * from './dialog';
+export * from './select';
+export * from './textarea';

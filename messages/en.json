@@ -59,5 +59,10 @@
   "save_changes": "Save Changes",
   "welcome_back": "Welcome back, {name}!",
   "profile_title": "My Profile",
-  "profile_description": "Review and update your account information"
+  "profile_description": "Review and update your account information",
+  "profile_info_title": "Account Information",
+  "profile_info_edit": "Edit Profile",
+  "profile_info_description": "Make changes to your profile here. Click save when you're done.",
+  "profile_update_success": "Profile updated successfully",
+  "cancel": "Cancel"
 }
