@@ -90,5 +90,7 @@
   "address_detailed_placeholder": "أدخل عنوانك التفصيلي",
   "delete": "حذف",
   "address_delete_title": "حذف العنوان",
-  "address_delete_description": "هل أنت متأكد أنك تريد حذف هذا العنوان؟"
+  "address_delete_description": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
+  "logout": "تسجيل الخروج",
+  "logout_success": "تم تسجيل الخروج بنجاح"
 }

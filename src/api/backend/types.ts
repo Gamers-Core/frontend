@@ -147,7 +147,6 @@ export interface CartItem {
 }
 
 export interface Cart {
-  id: number;
   items: CartItem[];
   count: number;
   compareAt: number | null;

@@ -90,5 +90,7 @@
   "address_detailed_placeholder": "Enter your detailed address",
   "delete": "Delete",
   "address_delete_title": "Delete Address",
-  "address_delete_description": "Are you sure you want to delete this address?"
+  "address_delete_description": "Are you sure you want to delete this address?",
+  "logout": "Logout",
+  "logout_success": "Logged out successfully"
 }
