@@ -24,7 +24,7 @@ export const ProfileOrders = () => {
 
       <div className="flex flex-col md:flex-row gap-4 md:overflow-x-auto overflow-y-auto flex-1">
         {orderQuery.data.length ? (
-          orderQuery.data.map((order, index) => <OrderItem key={index} {...order} />)
+          orderQuery.data.map((order) => <OrderItem key={order.orderNumber} {...order} />)
         ) : (
           <p className="text-muted-foreground m-auto">{t('orders_empty')}</p>
         )}
@@ -73,8 +73,8 @@ const OrderItem = (order: Order) => {
 
       <div className="w-full h-80">
         <Image
-          src={order.items[0].imageURL ?? '/assets/placeholder.svg'}
-          alt={order.items[0].variantName}
+          src={order.items?.[0]?.imageURL ?? '/assets/placeholder.svg'}
+          alt={order.items?.[0]?.variantName ?? ''}
           width={200}
           height={400}
           className="size-full object-contain rounded"
