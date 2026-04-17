@@ -92,5 +92,22 @@
   "address_delete_title": "Delete Address",
   "address_delete_description": "Are you sure you want to delete this address?",
   "logout": "Logout",
-  "logout_success": "Logged out successfully"
+  "logout_success": "Logged out successfully",
+  "status_pending": "Pending",
+  "status_confirmed": "Confirmed",
+  "status_on-hold": "On Hold",
+  "status_on-progress": "On Progress",
+  "status_shipped": "Shipped",
+  "status_delivered": "Delivered",
+  "status_completed": "Completed",
+  "status_returned": "Returned",
+  "status_cancelled": "Cancelled",
+  "status_unpaid": "Unpaid",
+  "status_paid": "Paid",
+  "status_refunded": "Refunded",
+  "orders_title": "My Orders",
+  "orders_empty": "You have no orders yet. Start shopping to see your orders here.",
+  "orders_items": "Items: ",
+  "orders_total": "Total: ",
+  "view_details": "View Details"
 }

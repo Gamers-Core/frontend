@@ -92,5 +92,22 @@
   "address_delete_title": "حذف العنوان",
   "address_delete_description": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
   "logout": "تسجيل الخروج",
-  "logout_success": "تم تسجيل الخروج بنجاح"
+  "logout_success": "تم تسجيل الخروج بنجاح",
+  "status_pending": "قيد الانتظار",
+  "status_confirmed": "مؤكد",
+  "status_on-hold": "قيد الانتظار",
+  "status_on-progress": "قيد التقدم",
+  "status_shipped": "تم الشحن",
+  "status_delivered": "تم التسليم",
+  "status_completed": "مكتمل",
+  "status_returned": "مرتجع",
+  "status_cancelled": "ملغى",
+  "status_unpaid": "غير مدفوع",
+  "status_paid": "مدفوع",
+  "status_refunded": "تم الاسترداد",
+  "orders_title": "طلباتي",
+  "orders_empty": "ليس لديك أي طلبات بعد. ابدأ التسوق لرؤية طلباتك هنا.",
+  "orders_items": "العناصر: ",
+  "orders_total": "المجموع: ",
+  "view_details": "عرض التفاصيل"
 }

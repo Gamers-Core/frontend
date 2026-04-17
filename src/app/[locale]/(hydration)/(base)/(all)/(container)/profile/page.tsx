@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { ProfileAddresses, ProfileHeader, ProfileInfo } from '@/components';
-import { useAddressCitiesQuery, useAddressesQuery, useMeQuery } from '@/hooks';
+import { ProfileAddresses, ProfileHeader, ProfileInfo, ProfileOrders } from '@/components';
+import { useAddressCitiesQuery, useAddressesQuery, useMeQuery, useOrdersQuery } from '@/hooks';
 
 export const metadata: Metadata = {
   title: 'Gamers Core | Profile',
@@ -20,6 +20,7 @@ export default async function Page() {
     }),
     queryClient.prefetchQuery(useAddressesQuery),
     queryClient.prefetchQuery(useAddressCitiesQuery),
+    queryClient.prefetchQuery(useOrdersQuery),
   ]);
 
   return (
@@ -30,6 +31,8 @@ export default async function Page() {
         <ProfileInfo />
 
         <ProfileAddresses />
+
+        <ProfileOrders />
       </div>
     </HydrationBoundary>
   );

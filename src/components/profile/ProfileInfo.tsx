@@ -36,7 +36,7 @@ export const ProfileInfo = () => {
   if (!meQuery.data) return null;
 
   return (
-    <div className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
+    <section className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
       <div className="flex gap-4">
         <h3 className="text-xl">{t('profile_info_title')}</h3>
 
@@ -63,7 +63,7 @@ export const ProfileInfo = () => {
           <span>{meQuery.data.email}</span>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

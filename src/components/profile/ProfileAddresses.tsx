@@ -37,7 +37,7 @@ export const ProfileAddresses = () => {
   if (!addressQuery.data) return null;
 
   return (
-    <div className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg max-h-192">
+    <section className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg max-h-192">
       <AddressDialog {...addressDialogModeParams} {...addressDialogDisclosure} />
 
       <div className="flex gap-4">
@@ -57,7 +57,7 @@ export const ProfileAddresses = () => {
           <p className="text-muted-foreground m-auto">{t('address_empty')}</p>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

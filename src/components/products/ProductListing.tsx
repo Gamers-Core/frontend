@@ -36,7 +36,6 @@ export const ProductListing = ({ id }: ProductListingProps) => {
   const variantExternalId = searchParams.get('variant');
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAmount(1);
   }, [variantExternalId]);
 
