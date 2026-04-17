@@ -172,7 +172,7 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                       setCityId(value);
                     }}
                     dir={locale === 'ar' ? 'rtl' : 'ltr'}
-                    defaultValue={addressCitiesQuery.data?.find((city) => city._id === field.value)?.nameAr}
+                    defaultValue={addressCitiesQuery.data?.find((city) => city._id === field.value)?._id}
                   >
                     <SelectTrigger className="font-cairo ltr:text-right">
                       <SelectValue placeholder={t('address_city_placeholder')} />
@@ -207,8 +207,7 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                     onValueChange={field.onChange}
                     dir={locale === 'ar' ? 'rtl' : 'ltr'}
                     defaultValue={
-                      addressDistrictsQuery.data?.find((district) => district.districtId === field.value)
-                        ?.districtOtherName
+                      addressDistrictsQuery.data?.find((district) => district.districtId === field.value)?.districtId
                     }
                     disabled={!cityId || addressDistrictsQuery.isPending || !addressDistrictsQuery.data?.length}
                   >
