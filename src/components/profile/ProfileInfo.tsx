@@ -106,7 +106,7 @@ const UpdateProfileInfoDialog = ({ name, ...disclosure }: UpdateProfileInfoDialo
   const onOpenChange = (isOpen: boolean) => {
     if (!isOpen) form.reset({ name });
 
-    disclosure.onClose();
+    disclosure.onOpenChange(isOpen);
   };
 
   return (
