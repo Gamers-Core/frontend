@@ -35,6 +35,6 @@ export const useFormatDate = () => {
   return (date: Date | number | string, formatStr: string, options?: FormatDateOptions) => {
     const formattedDate = format(date, formatStr, { locale, ...options });
 
-    return locale.code === 'ar-SA' ? formatArabicDigits(formattedDate) : formattedDate;
+    return locale.code === 'ar-EG' ? formatArabicDigits(formattedDate) : formattedDate;
   };
 };
