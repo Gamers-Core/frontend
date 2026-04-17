@@ -4,13 +4,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { NextIntlClientProvider } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Locale } from '@/i18n';
-import { useAuthSync, useCartProducts, useCartSync } from '@/hooks';
+import { useAuthStore } from '@/stores';
 
 import { SidebarProvider, TooltipProvider, Toaster } from './ui';
-import { CartDrawer } from './cart';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -21,6 +20,12 @@ interface ProvidersProps {
 
 export const Providers = ({ children, locale, messages, isLoggedIn = false }: ProvidersProps) => {
   const [queryClient] = useState(() => new QueryClient());
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+
+  useEffect(() => {
+    setIsLoggedIn(isLoggedIn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
 
   return (
     <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
@@ -28,9 +33,6 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
         <QueryClientProvider client={queryClient}>
           <SidebarProvider className="flex flex-col items-center">
             <TooltipProvider>
-              <AuthProvider isLoggedIn={isLoggedIn} />
-              <CartProvider />
-
               {children}
 
               <Toaster duration={5000} richColors dir={locale === 'ar' ? 'rtl' : 'ltr'} position="top-center" />
@@ -41,21 +43,4 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
       </NextIntlClientProvider>
     </NextThemesProvider>
   );
-};
-
-const CartProvider = () => {
-  useCartSync();
-  useCartProducts();
-
-  return <CartDrawer />;
-};
-
-interface AuthProviderProps {
-  isLoggedIn: boolean;
-}
-
-const AuthProvider = ({ isLoggedIn }: AuthProviderProps) => {
-  useAuthSync(isLoggedIn);
-
-  return null;
 };

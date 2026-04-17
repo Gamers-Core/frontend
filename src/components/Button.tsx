@@ -9,11 +9,21 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   isDisabled?: boolean;
   icon?: React.ReactNode;
+  loadingIconClassName?: string;
   variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
   size?: 'default' | 'xs' | 'sm' | 'lg' | 'icon' | 'icon-xs' | 'icon-sm' | 'icon-lg';
 }
 
-export const Button = ({ children, isLoading, isDisabled, className, icon, size, ...props }: ButtonProps) => {
+export const Button = ({
+  children,
+  isLoading,
+  isDisabled,
+  className,
+  icon,
+  loadingIconClassName,
+  size,
+  ...props
+}: ButtonProps) => {
   if (isLoading)
     return (
       <ShadCNButton
@@ -21,7 +31,7 @@ export const Button = ({ children, isLoading, isDisabled, className, icon, size,
         disabled
         {...props}
       >
-        <Spinner className="size-7.5" />
+        <Spinner className={cn('size-7.5', loadingIconClassName)} />
       </ShadCNButton>
     );
 

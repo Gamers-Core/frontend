@@ -27,7 +27,7 @@ export const CartButton = ({ iconOnly = false, className, ...props }: CartButton
           <HugeiconsIcon icon={ShoppingBag} className="rtl:rotate-y-180 size-full transition-colors duration-300" />
 
           {itemsCount > 0 && (
-            <p className="absolute -top-2 -inset-e-2 bg-primary text-popover-foreground text-[0.6125rem] rounded-full h-4 min-w-4 px-1.5 flex items-center justify-center">
+            <p className="absolute -top-2 -inset-e-2 bg-primary text-primary-foreground text-[0.6125rem] rounded-full h-4 min-w-4 px-1.5 flex items-center justify-center">
               {formatNumber(itemsCount)}
             </p>
           )}

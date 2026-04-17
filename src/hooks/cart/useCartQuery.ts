@@ -3,6 +3,13 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 import { BackendError, Cart, gamersCore } from '@/api';
 
+export const defaultCart: Cart = {
+  items: [],
+  count: 0,
+  compareAt: null,
+  total: 0,
+};
+
 const queryKey = ['cart'] as const;
 
 const queryFn = async () => gamersCore.get<Cart, AxiosResponse<Cart>, void>('/cart').then((res) => res.data);
@@ -19,6 +26,12 @@ export const useSetCartData = () => {
   const queryClient = useQueryClient();
 
   return (cart: Cart) => queryClient.setQueryData(queryKey, cart);
+};
+
+export const useClearCartData = () => {
+  const queryClient = useQueryClient();
+
+  return () => queryClient.setQueryData(queryKey, defaultCart);
 };
 
 useCartQuery.queryKey = queryKey;

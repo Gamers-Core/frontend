@@ -1,6 +1,6 @@
 import { Locale } from '@/i18n';
 
-import { authPurposes, mediaTypes } from './const';
+import { authPurposes, mediaTypes, orderStatuses, paymentMethods, paymentStatuses } from './const';
 
 interface ValidationError<P extends string = string> {
   property: P;
@@ -147,9 +147,69 @@ export interface CartItem {
 }
 
 export interface Cart {
-  id: number;
   items: CartItem[];
   count: number;
   compareAt: number | null;
   total: number;
+}
+
+export interface City {
+  _id: string;
+  name: string;
+  nameAr: string;
+  code: string;
+}
+
+export interface District {
+  districtId: string;
+  districtName: string;
+  districtOtherName: string;
+}
+
+export type OrderStatus = (typeof orderStatuses)[number];
+export type PaymentStatus = (typeof paymentStatuses)[number];
+export type PaymentMethod = (typeof paymentMethods)[number];
+
+export interface OrderItem {
+  productId: number;
+  productTitle: string;
+  variantExternalId: string;
+  variantName: string;
+  imageURL: string | null;
+  quantity: number;
+  unitPrice: number;
+  lineTotal: number;
+}
+
+export interface OrderStatusTimestamps {
+  createdAt: Date;
+  confirmedAt: Date | null;
+  shippedAt: Date | null;
+  deliveredAt: Date | null;
+  completedAt: Date | null;
+  returnedAt: Date | null;
+  canceledAt: Date | null;
+  paidAt: Date | null;
+  refundedAt: Date | null;
+}
+
+export interface Order extends OrderStatusTimestamps {
+  orderNumber: string;
+  status: OrderStatus;
+  paymentMethod: PaymentMethod;
+  items: OrderItem[];
+  shippingAddress: {
+    id: number;
+    nameAr: string;
+    phoneNumber: string;
+    detailedAddress: string;
+    districtName: string;
+    cityName: string;
+  };
+  note: string | null;
+  trackingNumber: string | null;
+  subtotal: number;
+  shippingFee: number;
+  total: number;
+  currency: string;
 }

@@ -9,7 +9,10 @@ interface LogoProps {
 }
 
 export const Logo = ({ isCompact = false, className }: LogoProps) => (
-  <Link href="/" className={cn('flex items-center gap-2 w-fit p-1.5 text-inherit', className)}>
+  <Link
+    href="/"
+    className={cn('relative flex items-center gap-2 w-fit text-inherit before:absolute before:-inset-1.5', className)}
+  >
     {/* TODO: Add logo image when available */}
 
     <LogoIcon className="text-inherit" isCompact={isCompact} />

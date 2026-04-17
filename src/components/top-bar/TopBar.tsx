@@ -66,12 +66,7 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
           })}
         >
           <NavButton href="/search" isDisabled isScrolled={isScrolled} icon={Search} />
-          <NavButton
-            href={isLoggedIn ? '/profile' : '/signin'}
-            isScrolled={isScrolled}
-            icon={User}
-            className="hidden md:block"
-          />
+          <NavButton href={isLoggedIn ? '/profile' : '/signin'} isScrolled={isScrolled} icon={User} />
           <CartButton iconOnly className={buttonClassName(isScrolled)} />
           <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
           <LocaleSwitcher className={cn(buttonClassName(isScrolled), 'hidden md:block')} />

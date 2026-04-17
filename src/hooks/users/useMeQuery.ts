@@ -33,5 +33,21 @@ export const useInvalidateMeQuery = () => {
   return (isFull: boolean = false) => queryClient.invalidateQueries({ queryKey: queryKey(isFull) });
 };
 
+export const useSetMeQueryData = () => {
+  const queryClient = useQueryClient();
+
+  return <T extends boolean = false>(data: MeQueryResult<T> | null, isFull: boolean = false) =>
+    queryClient.setQueryData(queryKey(isFull), data);
+};
+
+export const useClearMeQueryData = () => {
+  const setMeQueryData = useSetMeQueryData();
+
+  return () => {
+    setMeQueryData(null);
+    setMeQueryData(null, true);
+  };
+};
+
 useMeQuery.queryKey = queryKey;
 useMeQuery.queryFn = queryFn;
