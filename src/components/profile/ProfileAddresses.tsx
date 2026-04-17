@@ -23,7 +23,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 
 export const ProfileAddresses = () => {
   const t = useTranslations();
-  const [addressDialogModeParams, setAddressDialogModeParams] = useState<AddressDialogModeParams | object>(() => {});
+  const [addressDialogModeParams, setAddressDialogModeParams] = useState<AddressDialogModeParams | object>(() => ({}));
   const addressDialogDisclosure = useDisclosure();
 
   const onOpen = (params?: AddressDialogModeParams) => {
