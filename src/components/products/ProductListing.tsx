@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 
 import { useCartSyncMutation, useFormatCurrency, useProductQuery, useSearchParams } from '@/hooks';
 import { formatMedia } from '@/helpers';
-import { mapBackendCartItemToCartItem, useCartDrawerStore, useCartStore } from '@/stores';
+import { useCartDrawerStore, useCartStore } from '@/stores';
 
 import { MediaCarousel } from './MediaCarousel';
 import { VariantSwitcher } from './VariantSwitcher';
@@ -121,8 +121,20 @@ export const ProductListing = ({ id }: ProductListingProps) => {
             className="flex-1 h-auto rounded-lg text-base min-h-12"
             onClick={() => {
               cartSyncMutation.mutate([{ externalId: activeVariant.externalId, quantity: amount }], {
-                onSuccess: (res) => {
-                  setItems([mapBackendCartItemToCartItem(res.items[0])]);
+                onSettled: () => {
+                  setItems([
+                    {
+                      externalId: activeVariant.externalId,
+                      productId: productQuery.data.id,
+                      productName: productQuery.data.name,
+                      name: activeVariant.name,
+                      stock: activeVariant.stock,
+                      price: activeVariant.price,
+                      compareAt: activeVariant.compareAt,
+                      imageURL: formatMedia(activeVariant.media[0] ?? productQuery.data.media[0]).src,
+                      quantity: amount,
+                    },
+                  ]);
 
                   router.push('/checkout');
                 },
