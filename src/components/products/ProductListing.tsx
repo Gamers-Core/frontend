@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 
 import { useCartSyncMutation, useFormatCurrency, useProductQuery, useSearchParams } from '@/hooks';
 import { formatMedia } from '@/helpers';
-import { useCartDrawerStore, useCartStore } from '@/stores';
+import { mapBackendCartItemToCartItem, useCartDrawerStore, useCartStore } from '@/stores';
 
 import { MediaCarousel } from './MediaCarousel';
 import { VariantSwitcher } from './VariantSwitcher';
@@ -32,6 +32,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
   const cartSyncMutation = useCartSyncMutation();
 
   const setItem = useCartStore((state) => state.setItem);
+  const setItems = useCartStore((state) => state.setItems);
   const openCartDrawer = useCartDrawerStore((state) => state.onOpen);
 
   const variantExternalId = searchParams.get('variant');
@@ -120,7 +121,9 @@ export const ProductListing = ({ id }: ProductListingProps) => {
             className="flex-1 h-auto rounded-lg text-base min-h-12"
             onClick={() => {
               cartSyncMutation.mutate([{ externalId: activeVariant.externalId, quantity: amount }], {
-                onSuccess: () => {
+                onSuccess: (res) => {
+                  setItems([mapBackendCartItemToCartItem(res.items[0])]);
+
                   router.push('/checkout');
                 },
               });
