@@ -43,7 +43,7 @@ export const ShippingFees = () => {
 
       <div className="flex flex-col gap-2">
         <Item title="subtotal" value={cartTotal} />
-        {defaultAddress && (
+        {addressesQuery.data?.length && (
           <>
             <Item title="shipping_fees" value={shippingFeesQuery.data?.shippingFee} />
             {canOpenPackage && <Item title="open_package_fee" value={shippingFeesQuery.data?.openingFee} />}

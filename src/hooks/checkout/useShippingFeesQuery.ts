@@ -18,7 +18,7 @@ export const useShippingFeesQuery = (options: ShippingFeesOptions) =>
   useQuery<ShippingFees, BackendError, ShippingFees, QueryKey>({
     queryKey: queryKey(options),
     queryFn,
-    enabled: !!options.cod !== undefined && !!options.dropOffCity,
+    enabled: options.cod !== undefined && !!options.dropOffCity,
     staleTime: 1000 * 60, // 1 minute,
   });
 

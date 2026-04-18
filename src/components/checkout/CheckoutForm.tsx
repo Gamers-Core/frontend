@@ -4,9 +4,10 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
+import { useEffect } from 'react';
 
 import { checkoutSchema, CheckoutSchema } from '@/api';
-import { useCheckoutMutation } from '@/hooks';
+import { useCartQuery, useCheckoutMutation } from '@/hooks';
 import { useRouter } from '@/i18n';
 
 const defaultValues: CheckoutSchema = {
@@ -37,6 +38,11 @@ export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) 
   const router = useRouter();
 
   const checkoutMutation = useCheckoutMutation();
+  const cartQuery = useCartQuery();
+
+  useEffect(() => {
+    if (cartQuery.data?.items.length === 0) router.replace('/');
+  }, [cartQuery.data, router]);
 
   const onSubmit: SubmitHandler<CheckoutSchema> = async (data) => {
     if (!form.formState.isValid || checkoutMutation.isPending) return;
