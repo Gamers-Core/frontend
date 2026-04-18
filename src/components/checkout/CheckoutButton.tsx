@@ -33,7 +33,7 @@ export const CheckoutButton = () => {
         form.formState.isSubmitting ||
         cartQuery.isPending ||
         addressesQuery.isPending ||
-        (shippingFeesQuery.isPending && !!addressId)
+        (!!addressId && !!cartQuery.data?.total && shippingFeesQuery.isPending)
       }
       className="w-full h-12 text-base"
     >
