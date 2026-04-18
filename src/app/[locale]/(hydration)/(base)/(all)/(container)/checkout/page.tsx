@@ -13,7 +13,7 @@ import {
   ShippingNote,
   ShippingOptions,
 } from '@/components';
-import { useAddressesQuery, useCartQuery, useShippingFeesQuery } from '@/hooks';
+import { useAddressesQuery, useCartQuery } from '@/hooks';
 import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
@@ -33,17 +33,6 @@ export default async function Checkout() {
   if (cart.items.length === 0) return redirect('/');
 
   const defaultAddress = addresses.find((address) => address.isDefault);
-
-  if (defaultAddress)
-    await Promise.all([
-      queryClient.prefetchQuery({
-        ...useShippingFeesQuery,
-        queryKey: useShippingFeesQuery.queryKey({
-          cod: cart.total,
-          dropOffCity: defaultAddress.cityDropOff,
-        }),
-      }),
-    ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
