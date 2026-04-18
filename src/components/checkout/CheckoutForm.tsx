@@ -41,8 +41,12 @@ export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) 
   const cartQuery = useCartQuery();
 
   useEffect(() => {
-    if (cartQuery.data?.items.length === 0) router.replace('/');
-  }, [cartQuery.data, router]);
+    if (!cartQuery.data) return;
+
+    if (cartQuery.data.count === 0) router.replace('/');
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartQuery.data?.count, router]);
 
   const onSubmit: SubmitHandler<CheckoutSchema> = async (data) => {
     if (!form.formState.isValid || checkoutMutation.isPending) return;
