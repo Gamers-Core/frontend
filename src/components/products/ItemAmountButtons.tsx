@@ -38,7 +38,11 @@ export const ItemAmountButtons = ({ variant, amount, setAmount }: ItemAmountButt
         onClick={onDecrease}
       />
 
-      <p className="text-lg font-normal select-none flex items-center justify-center w-5">
+      <p
+        className={cn('text-lg font-normal select-none flex items-center justify-center w-5', {
+          'text-muted-foreground': variant.stock === 0,
+        })}
+      >
         {formatNumber(Math.min(amount, variant.stock))}
       </p>
 

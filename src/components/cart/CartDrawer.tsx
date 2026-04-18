@@ -109,7 +109,7 @@ const CartItemCard = (props: CartItem) => {
   const updateItem = useCartStore((state) => state.updateItem);
   const removeItem = useCartStore((state) => state.removeItem);
 
-  const debouncedAmount = useDebounce(amount, 1000);
+  const debouncedAmount = useDebounce(amount, 500);
 
   useEffect(() => {
     if (debouncedAmount === props.quantity) return;
