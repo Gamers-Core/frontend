@@ -58,7 +58,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
         className="h-max md:px-4 md:min-w-md lg:min-w-lg xl:min-w-2xl 2xl:min-w-3xl lg:sticky lg:top-14"
       />
 
-      <div className="flex flex-col gap-4 min-w-0 px-4 lg:px-0">
+      <div className="flex flex-col gap-4 min-w-0 px-4 lg:px-0 flex-1">
         <div className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
           <div className="flex flex-col gap-2">
             <div>
