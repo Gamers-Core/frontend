@@ -42,6 +42,7 @@
   "signin_subtitle": "Enter your email to sign in or create an account",
   "signin_send_success": "Sign in otp sent to your email",
   "error_generic": "An error occurred. Please try again.",
+  "error_unauthorized": "Your session has expired. Please sign in again.",
   "otp_must_be_6_digits": "OTP must be 6 digits",
   "otp_must_contain_only_digits": "OTP must contain only digits",
   "verify_otp_title": "Verify OTP",
