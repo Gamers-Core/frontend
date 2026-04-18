@@ -39,7 +39,6 @@ export const Button = ({
     <ShadCNButton
       size={size}
       disabled={isDisabled}
-      type="button"
       className={cn('cursor-pointer', { 'cursor-not-allowed': isDisabled }, className)}
       {...props}
     >

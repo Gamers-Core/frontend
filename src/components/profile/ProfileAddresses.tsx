@@ -37,7 +37,7 @@ export const ProfileAddresses = () => {
   if (!addressQuery.data) return null;
 
   return (
-    <section className="p-4 flex flex-col gap-4 flex-1 bg-sidebar-border rounded-lg max-h-192">
+    <section className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg max-h-192">
       <AddressDialog {...addressDialogModeParams} {...addressDialogDisclosure} />
 
       <div className="flex gap-4">
@@ -54,7 +54,7 @@ export const ProfileAddresses = () => {
         {addressQuery.data.length ? (
           addressQuery.data.map((address) => <AddressItem key={address.id} {...address} openDialog={onOpen} />)
         ) : (
-          <p className="text-muted-foreground m-auto text-center">{t('address_empty')}</p>
+          <p className="text-muted-foreground m-auto">{t('address_empty')}</p>
         )}
       </div>
     </section>

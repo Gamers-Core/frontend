@@ -26,7 +26,7 @@ export const ProfileOrders = () => {
         {orderQuery.data.length ? (
           orderQuery.data.map((order) => <OrderItem key={order.orderNumber} {...order} />)
         ) : (
-          <p className="text-muted-foreground m-auto text-center">{t('orders_empty')}</p>
+          <p className="text-muted-foreground m-auto">{t('orders_empty')}</p>
         )}
       </div>
     </section>

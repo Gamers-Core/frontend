@@ -6,7 +6,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { ShoppingBagAddIcon } from '@hugeicons/core-free-icons';
 import { useTranslations } from 'next-intl';
 
-import { useCartSyncMutation, useFormatCurrency, useProductQuery, useSearchParams } from '@/hooks';
+import { useFormatCurrency, useProductQuery, useSearchParams } from '@/hooks';
 import { formatMedia } from '@/helpers';
 import { useCartDrawerStore, useCartStore } from '@/stores';
 
@@ -29,9 +29,8 @@ export const ProductListing = ({ id }: ProductListingProps) => {
   const productQuery = useProductQuery(id);
   const formatCurrency = useFormatCurrency();
 
-  const cartSyncMutation = useCartSyncMutation();
-
   const setItem = useCartStore((state) => state.setItem);
+  const setItems = useCartStore((state) => state.setItems);
   const openCartDrawer = useCartDrawerStore((state) => state.onOpen);
 
   const variantExternalId = searchParams.get('variant');
@@ -59,7 +58,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
         className="h-max md:px-4 md:min-w-md lg:min-w-lg xl:min-w-2xl 2xl:min-w-3xl lg:sticky lg:top-14"
       />
 
-      <div className="flex flex-col gap-4 min-w-0 px-4 lg:px-0 flex-1">
+      <div className="flex flex-col gap-4 min-w-0 px-4 lg:px-0">
         <div className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
           <div className="flex flex-col gap-2">
             <div>
@@ -116,14 +115,23 @@ export const ProductListing = ({ id }: ProductListingProps) => {
           <Button
             variant="default"
             isDisabled={!hasStock}
-            isLoading={cartSyncMutation.isPending}
             className="flex-1 h-auto rounded-lg text-base min-h-12"
             onClick={() => {
-              cartSyncMutation.mutate([{ externalId: activeVariant.externalId, quantity: amount }], {
-                onSuccess: () => {
-                  router.push('/checkout');
+              setItems([
+                {
+                  externalId: activeVariant.externalId,
+                  productId: productQuery.data.id,
+                  productName: productQuery.data.name,
+                  name: activeVariant.name,
+                  stock: activeVariant.stock,
+                  price: activeVariant.price,
+                  compareAt: activeVariant.compareAt,
+                  imageURL: (activeVariant.media[0] ?? productQuery.data.media[0]).url,
+                  quantity: amount,
                 },
-              });
+              ]);
+
+              router.push('/checkout');
             }}
           >
             {t(hasStock ? 'buy_now' : 'out_of_stock')}

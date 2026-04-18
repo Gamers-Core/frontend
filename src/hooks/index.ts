@@ -16,4 +16,3 @@ export * from './users';
 export * from './cart';
 export * from './addresses';
 export * from './orders';
-export * from './checkout';
