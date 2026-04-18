@@ -20,7 +20,7 @@ interface CheckoutFormProps {
   children: React.ReactNode;
   className?: string;
 
-  defaultAddressId: string;
+  defaultAddressId?: string;
 }
 
 export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) => {
@@ -29,7 +29,7 @@ export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) 
   const form = useForm<CheckoutSchema>({
     defaultValues: {
       ...defaultValues,
-      addressId: defaultAddressId,
+      addressId: defaultAddressId || defaultValues.addressId,
     },
     mode: 'onChange',
     resolver: zodResolver(checkoutSchema(t)),
