@@ -47,7 +47,7 @@ export const ShippingAddress = () => {
   const defaultAddress = addressesQuery.data.find((address) => address.isDefault);
 
   return (
-    <AccordionItem defaultChecked asChild value="shipping_addresses">
+    <AccordionItem asChild value="shipping_addresses">
       <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border h-max">
         <AccordionTrigger className="flex gap-4">
           <h3 className="text-lg">{t('shipping_address')}</h3>
