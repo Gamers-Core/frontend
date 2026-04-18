@@ -84,6 +84,7 @@ export interface Address {
   districtName: string;
   cityId: string;
   cityName: string;
+  cityDropOff: string;
   nameAr: string;
   isDefault: boolean;
   createdAt: Date;
@@ -212,4 +213,10 @@ export interface Order extends OrderStatusTimestamps {
   shippingFee: number;
   total: number;
   currency: string;
+}
+
+export interface ShippingFees {
+  openingFee: number;
+  codFee: number;
+  shippingFee: number;
 }

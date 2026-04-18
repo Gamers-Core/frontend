@@ -6,9 +6,12 @@ import { useMutation } from '@tanstack/react-query';
 import { BackendError, gamersCore, Cart, CreateItem, ValidationErrors } from '@/api';
 
 import { useErrorHandler } from '../useErrorHandler';
+import { useSetCartData } from './useCartQuery';
 
 export const useCartSyncMutation = () => {
   const errorHandler = useErrorHandler();
+
+  const setCartData = useSetCartData();
 
   return useMutation<Cart, BackendError<ValidationErrors> | null, CreateItem[]>({
     mutationFn: (data) =>
@@ -18,5 +21,8 @@ export const useCartSyncMutation = () => {
         .catch((err: AxiosError<BackendError>) => {
           throw errorHandler(err);
         }),
+    onSuccess: (cart) => {
+      setCartData(cart);
+    },
   });
 };
