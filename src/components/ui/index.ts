@@ -15,3 +15,7 @@ export * from './input-otp';
 export * from './dialog';
 export * from './select';
 export * from './textarea';
+export * from './accordion';
+export * from './radio-group';
+export * from './switch';
+export * from './skeleton';
