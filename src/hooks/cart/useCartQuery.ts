@@ -22,6 +22,12 @@ export const useCartQuery = (enabled: boolean = true) =>
     enabled,
   });
 
+export const useInvalidateCartQuery = () => {
+  const queryClient = useQueryClient();
+
+  return () => queryClient.invalidateQueries({ queryKey });
+};
+
 export const useSetCartData = () => {
   const queryClient = useQueryClient();
 

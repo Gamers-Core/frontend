@@ -41,7 +41,7 @@ export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) 
   const cartQuery = useCartQuery();
 
   useEffect(() => {
-    if (!cartQuery.data) return;
+    if (!cartQuery.data || checkoutMutation.isSuccess) return;
 
     if (cartQuery.data.count === 0) router.replace('/');
 

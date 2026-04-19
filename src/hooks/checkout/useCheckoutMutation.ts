@@ -5,10 +5,9 @@ import { useMutation } from '@tanstack/react-query';
 
 import { BackendError, CheckoutSchema, gamersCore, Order, ValidationErrors } from '@/api';
 
-import { useCartStore } from '@/stores';
-
 import { useErrorHandler } from '../useErrorHandler';
-import { useInvalidateOrdersQuery } from '../orders';
+import { useInvalidateOrdersQuery, useSetOrderQueryData } from '../orders';
+import { useInvalidateCartQuery } from '../cart';
 
 interface CheckoutMutationData extends Omit<CheckoutSchema, 'addressId'> {
   addressId: number;
@@ -18,7 +17,8 @@ export const useCheckoutMutation = () => {
   const errorHandler = useErrorHandler();
 
   const invalidateOrdersQuery = useInvalidateOrdersQuery();
-  const clearCart = useCartStore((state) => state.clearCart);
+  const invalidateCartQuery = useInvalidateCartQuery();
+  const setOrderQueryData = useSetOrderQueryData();
 
   return useMutation<Order, BackendError<ValidationErrors<keyof CheckoutSchema>> | null, CheckoutSchema>({
     mutationFn: (data) =>
@@ -31,9 +31,10 @@ export const useCheckoutMutation = () => {
         .catch((err: AxiosError<BackendError>) => {
           throw errorHandler(err);
         }),
-    onSuccess: () => {
-      invalidateOrdersQuery();
-      clearCart();
+    onSuccess: async (res) => {
+      await invalidateOrdersQuery();
+      await invalidateCartQuery();
+      setOrderQueryData(res.orderNumber, res);
     },
   });
 };
