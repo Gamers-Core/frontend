@@ -136,5 +136,11 @@
   "shipping_fees": "رسوم الشحن",
   "open_package_fee": "فتح الطرد",
   "cod_fee": "الدفع عند الاستلام",
-  "total": "المجموع الكلي"
+  "total": "المجموع الكلي",
+  "order_OrderNumber_title": "طلب: ",
+  "placed_on": "تم الطلب في: ",
+  "order_track_package_title": "تتبع الطرد: ",
+  "order_contact_info_title": "معلومات التواصل",
+  "yes": "نعم",
+  "no": "لا"
 }
