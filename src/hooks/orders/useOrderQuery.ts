@@ -16,6 +16,7 @@ export const useOrderQuery = (orderNumber: string) =>
     queryFn,
     staleTime: 1000 * 60 * 5, // 5 minutes
     enabled: !!orderNumber,
+    retry: false,
   });
 
 export const useSetOrderQueryData = () => {
