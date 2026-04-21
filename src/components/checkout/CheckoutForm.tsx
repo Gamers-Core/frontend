@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { checkoutSchema, CheckoutSchema } from '@/api';
 import { useCartQuery, useCheckoutMutation } from '@/hooks';
 import { useRouter } from '@/i18n';
+import { useCartStore } from '@/stores';
 
 const defaultValues: CheckoutSchema = {
   addressId: '',
@@ -40,8 +41,10 @@ export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) 
   const checkoutMutation = useCheckoutMutation();
   const cartQuery = useCartQuery();
 
+  const clearCart = useCartStore((state) => state.clearCart);
+
   useEffect(() => {
-    if (!cartQuery.data) return;
+    if (!cartQuery.data || checkoutMutation.isSuccess) return;
 
     if (cartQuery.data.count === 0) router.replace('/');
 
@@ -55,6 +58,7 @@ export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) 
       onSuccess: (res) => {
         toast.success(t('checkout_success'));
 
+        clearCart();
         router.push(`/orders/${res.orderNumber}`);
       },
       onError: (validationErrors) => {

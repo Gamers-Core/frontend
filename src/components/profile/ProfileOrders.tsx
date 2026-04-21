@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Image from 'next/image';
 
-import { Order, getOrderStatus } from '@/api';
+import { Order, getOrderStatuses, statusesStyleMap } from '@/api';
 import { useFormatCurrency, useFormatDate, useFormatNumber, useOrdersQuery } from '@/hooks';
 import { cn } from '@/lib/utils';
 
@@ -40,7 +40,7 @@ const OrderItem = (order: Order) => {
   const formatNumber = useFormatNumber();
   const formatCurrency = useFormatCurrency();
 
-  const status = getOrderStatus(order.status, order);
+  const status = getOrderStatuses(order).slice(-1)[0];
   const totalItems = order.items.reduce((total, item) => total + item.quantity, 0);
 
   return (
@@ -53,15 +53,7 @@ const OrderItem = (order: Order) => {
         <Separator />
 
         <div>
-          <div
-            className={cn('flex gap-2', {
-              'text-muted-foreground': status.style === 'default',
-              'text-green-500': status.style === 'success',
-              'text-red-500': status.style === 'error',
-              'text-yellow-500': status.style === 'warning',
-              'text-blue-500': status.style === 'info',
-            })}
-          >
+          <div className={cn('flex gap-2', statusesStyleMap[status.style])}>
             <HugeiconsIcon icon={status.icon} />
 
             <p className="text-lg font-semibold">{t(status.label)}</p>

@@ -11,3 +11,4 @@ export * from './auth';
 export * from './profile';
 export * from './QueryProviders';
 export * from './checkout';
+export * from './order';
