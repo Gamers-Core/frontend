@@ -176,28 +176,22 @@ export interface OrderItem {
   productTitle: string;
   variantExternalId: string;
   variantName: string;
-  imageURL: string | null;
+  imageURL: string;
   quantity: number;
   unitPrice: number;
   lineTotal: number;
 }
 
-export interface OrderStatusTimestamps {
-  createdAt: Date;
-  confirmedAt: Date | null;
-  shippedAt: Date | null;
-  deliveredAt: Date | null;
-  completedAt: Date | null;
-  returnedAt: Date | null;
-  canceledAt: Date | null;
-  paidAt: Date | null;
-  refundedAt: Date | null;
+export interface OrderStatusHistory {
+  status: OrderStatus;
+  createdAt: string;
 }
 
-export interface Order extends OrderStatusTimestamps {
+export interface Order {
   orderNumber: string;
   status: OrderStatus;
   paymentMethod: PaymentMethod;
+  canOpenPackage: boolean;
   items: OrderItem[];
   shippingAddress: {
     id: number;
@@ -207,6 +201,9 @@ export interface Order extends OrderStatusTimestamps {
     districtName: string;
     cityName: string;
   };
+  history: OrderStatusHistory[];
+  createdAt: string;
+  updatedAt: string | null;
   note: string | null;
   trackingNumber: string | null;
   subtotal: number;

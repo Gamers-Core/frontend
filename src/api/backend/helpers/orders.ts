@@ -9,92 +9,47 @@ import {
   ProgressIcon,
   ShippingTruck01Icon,
 } from '@hugeicons/core-free-icons';
+import { Order, OrderStatus } from '../types';
 
-import { Order, OrderStatus, OrderStatusTimestamps, PaymentStatus } from '../types';
-
-export type Status = OrderStatus | PaymentStatus;
-
-export interface OrderStatusItem<S extends Status = Status> {
-  status: S;
-  date: Date | null;
-  label: `status_${S}`;
+export interface OrderStatusItem {
+  status: OrderStatus;
+  date: Date;
+  label: `status_${OrderStatus}`;
   style: 'default' | 'success' | 'error' | 'warning' | 'info';
   icon: IconSvgElement;
 }
-
-export const getOrderStatus = <S extends Status>(status: S, order: Order): OrderStatusItem<S> =>
-  ({
-    status,
-    label: `status_${status}` as const,
-    ...statusMap[status],
-    date: statusMap[status].dateKey ? order[statusMap[status].dateKey] : null,
-  }) as const;
 
 interface StatusMapItem {
-  dateKey: keyof OrderStatusTimestamps | null;
-  style: 'default' | 'success' | 'error' | 'warning' | 'info';
+  style: OrderStatusItem['style'];
   icon: IconSvgElement;
 }
 
-const statusMap: Record<Status, StatusMapItem> = {
-  pending: {
-    dateKey: 'createdAt',
-    style: 'default',
-    icon: ClockIcon,
-  },
-  confirmed: {
-    dateKey: 'confirmedAt',
-    style: 'success',
-    icon: CheckmarkCircleIcon,
-  },
-  'on-hold': {
-    dateKey: 'confirmedAt',
-    style: 'warning',
-    icon: ExclamationMarkBigIcon,
-  },
-  'on-progress': {
-    dateKey: 'confirmedAt',
-    style: 'info',
-    icon: ProgressIcon,
-  },
-  shipped: {
-    dateKey: 'shippedAt',
-    style: 'info',
-    icon: ShippingTruck01Icon,
-  },
-  delivered: {
-    dateKey: 'deliveredAt',
-    style: 'info',
-    icon: DeliveryView01Icon,
-  },
-  completed: {
-    dateKey: 'completedAt',
-    style: 'success',
-    icon: CheckmarkCircleIcon,
-  },
-  returned: {
-    dateKey: 'returnedAt',
-    style: 'warning',
-    icon: Alert02Icon,
-  },
-  cancelled: {
-    dateKey: 'canceledAt',
-    style: 'error',
-    icon: MultiplicationSignCircleIcon,
-  },
-  unpaid: {
-    dateKey: null,
-    style: 'warning',
-    icon: ExclamationMarkBigIcon,
-  },
-  paid: {
-    dateKey: 'paidAt',
-    style: 'success',
-    icon: CheckmarkCircleIcon,
-  },
-  refunded: {
-    dateKey: 'refundedAt',
-    style: 'warning',
-    icon: Alert02Icon,
-  },
+const statusMap: Record<OrderStatus, StatusMapItem> = {
+  pending: { style: 'default', icon: ClockIcon },
+  confirmed: { style: 'success', icon: CheckmarkCircleIcon },
+  'on-hold': { style: 'warning', icon: ExclamationMarkBigIcon },
+  'on-progress': { style: 'info', icon: ProgressIcon },
+  shipped: { style: 'info', icon: ShippingTruck01Icon },
+  delivered: { style: 'info', icon: DeliveryView01Icon },
+  completed: { style: 'success', icon: CheckmarkCircleIcon },
+  returned: { style: 'warning', icon: Alert02Icon },
+  cancelled: { style: 'error', icon: MultiplicationSignCircleIcon },
 };
+
+export const statusesStyleMap = {
+  default: 'text-muted-foreground',
+  success: 'text-green-500',
+  error: 'text-red-500',
+  warning: 'text-yellow-500',
+  info: 'text-blue-500',
+} as const;
+
+export const getOrderStatuses = (order: Order): OrderStatusItem[] =>
+  order.history
+    .map(({ status, createdAt }) => ({
+      status,
+      date: new Date(createdAt),
+      label: `status_${status}` as const,
+      ...statusMap[status],
+    }))
+    .sort((a, b) => a.date.getTime() - b.date.getTime());

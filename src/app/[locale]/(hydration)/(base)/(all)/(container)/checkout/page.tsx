@@ -40,11 +40,7 @@ export default async function Checkout() {
         className="flex-1 w-full flex flex-col md:flex-row gap-4"
         defaultAddressId={defaultAddress?.id.toString()}
       >
-        <Accordion
-          type="single"
-          defaultValue="shipping_addresses"
-          className="flex flex-col gap-4 md:flex-1 xl:flex-1 border-0"
-        >
+        <Accordion type="single" defaultValue="shipping_addresses" className="flex flex-col gap-4 flex-1 border-0">
           <ShippingAddress />
 
           <PaymentMethod />
