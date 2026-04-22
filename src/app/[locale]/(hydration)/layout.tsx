@@ -12,11 +12,11 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
   const headersList = await headers();
   const isLoggedIn = headersList.get(isLoggedInHeaderKey) === 'true';
 
-  let quiresArray = [queryClient.prefetchQuery(usePoliciesQuery)];
+  let queryPromises = [queryClient.prefetchQuery(usePoliciesQuery)];
 
   if (isLoggedIn)
-    quiresArray = [
-      ...quiresArray,
+    queryPromises = [
+      ...queryPromises,
       queryClient.prefetchQuery({
         ...useMeQuery,
         queryKey: useMeQuery.queryKey(false),
@@ -25,7 +25,7 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
       queryClient.prefetchQuery(useCartQuery),
     ];
 
-  await Promise.all(quiresArray).catch(() => {});
+  await Promise.allSettled(queryPromises);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
