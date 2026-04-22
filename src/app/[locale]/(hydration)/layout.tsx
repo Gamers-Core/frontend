@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 
 import { headers } from 'next/headers';
 
-import { QueryProviders } from '@/components';
+import { Footer, QueryProviders } from '@/components';
 import { useCartQuery, useMeQuery, usePoliciesQuery } from '@/hooks';
 import { isLoggedInHeaderKey } from '@/proxy/const';
 
@@ -32,6 +32,8 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
       <QueryProviders />
 
       {children}
+
+      <Footer />
     </HydrationBoundary>
   );
 }
