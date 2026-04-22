@@ -29,6 +29,8 @@ interface PolicyModalProps {
 }
 
 export const PolicyModal = ({ policyType }: PolicyModalProps) => {
+  const t = useTranslations();
+
   const { isMobile } = useBreakpoint();
 
   const policiesQuery = usePoliciesQuery();
@@ -42,7 +44,12 @@ export const PolicyModal = ({ policyType }: PolicyModalProps) => {
 
   return (
     <>
-      <Button variant="outline" icon={<HugeiconsIcon icon={HelpCircleFreeIcons} />} onClick={policyDisclosure.onOpen} />
+      <Button
+        variant="outline"
+        icon={<HugeiconsIcon icon={HelpCircleFreeIcons} />}
+        onClick={policyDisclosure.onOpen}
+        aria-label={t(`policy_${policyType}`)}
+      />
 
       <Component policyType={policyType} policy={policy} {...policyDisclosure} />
     </>
