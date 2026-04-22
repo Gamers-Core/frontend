@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 
 import { Link as NextLink } from '@/i18n';
-import { getSearchParams } from '@/helpers';
+import { getSearchParams, isClient } from '@/helpers';
 import { cn } from '@/lib/utils';
 
 import { Button } from './Button';
@@ -17,6 +17,7 @@ export const Link = ({ keepSearchParams, isDisabled, className, children, ...pro
   const searchParams = getSearchParams();
 
   const href = keepSearchParams ? `${props.href}?${searchParams}` : props.href;
+  const isCurrent = isClient() && props.href === window.location.pathname;
 
   if (isDisabled)
     return (
@@ -30,7 +31,12 @@ export const Link = ({ keepSearchParams, isDisabled, className, children, ...pro
     );
 
   return (
-    <NextLink className={cn(className)} {...props} href={href}>
+    <NextLink
+      onClick={() => isCurrent && document.querySelector('html')?.scrollTo({ top: 0, behavior: 'smooth' })}
+      className={cn(className)}
+      {...props}
+      href={href}
+    >
       {children}
     </NextLink>
   );
