@@ -1,6 +1,6 @@
 import { Locale } from '@/i18n';
 
-import { authPurposes, mediaTypes, orderStatuses, paymentMethods, paymentStatuses } from './const';
+import { authPurposes, mediaTypes, orderStatuses, paymentMethods, paymentStatuses, policies } from './const';
 
 interface ValidationError<P extends string = string> {
   property: P;
@@ -217,3 +217,12 @@ export interface ShippingFees {
   codFee: number;
   shippingFee: number;
 }
+
+export type PolicyType = (typeof policies)[number];
+
+export interface Policy {
+  value: string;
+  updatedAt: string;
+}
+
+export type Policies = Record<PolicyType, Policy>;
