@@ -17,3 +17,5 @@ export const orderStatuses = [
 export const paymentStatuses = ['unpaid', 'paid', 'refunded'] as const;
 
 export const paymentMethods = ['cod', 'instapay', 'valu', 'card'] as const;
+
+export const policies = ['terms-of-service', 'shipping', 'refund', 'privacy'] as const;

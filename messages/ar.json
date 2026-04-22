@@ -142,5 +142,11 @@
   "order_track_package_title": "تتبع الطرد: ",
   "order_contact_info_title": "معلومات التواصل",
   "yes": "نعم",
-  "no": "لا"
+  "no": "لا",
+  "policy_terms-of-service": "شروط الخدمة",
+  "policy_privacy": "سياسة الخصوصية",
+  "policy_refund": "سياسة الاسترداد",
+  "policy_shipping": "سياسة الشحن",
+  "last_updated_at": "آخر تحديث في: ",
+  "close": "إغلاق"
 }

@@ -1,7 +1,7 @@
+import { LogoIcon } from '@/assets';
 import { cn } from '@/lib/utils';
 
 import { Link } from './Link';
-import { LogoIcon } from '@/assets';
 
 interface LogoProps {
   isCompact?: boolean;
@@ -11,10 +11,13 @@ interface LogoProps {
 export const Logo = ({ isCompact = false, className }: LogoProps) => (
   <Link
     href="/"
-    className={cn('relative flex items-center gap-2 w-fit text-inherit before:absolute before:-inset-1.5', className)}
+    className={cn(
+      'relative flex items-center gap-2 w-fit text-black dark:text-white before:absolute before:-inset-1.5',
+      className,
+    )}
   >
     {/* TODO: Add logo image when available */}
 
-    <LogoIcon className="text-inherit" isCompact={isCompact} />
+    <LogoIcon className="text-inherit dark:text-inherit" isCompact={isCompact} />
   </Link>
 );

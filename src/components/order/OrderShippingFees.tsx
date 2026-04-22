@@ -4,6 +4,8 @@ import { useTranslations } from 'next-intl';
 
 import { useFormatCurrency, useOrderQuery } from '@/hooks';
 
+import { PolicyModal } from '../policies';
+
 interface OrderShippingFeesProps {
   orderNumber: string;
 }
@@ -21,7 +23,11 @@ export const OrderShippingFees = ({ orderNumber }: OrderShippingFeesProps) => {
 
   return (
     <section className="flex flex-col gap-4">
-      <h3 className="text-xl font-bold">{t('shipping_fees')}</h3>
+      <div className="flex gap-4">
+        <h3 className="text-xl font-bold">{t('shipping_fees')}</h3>
+
+        <PolicyModal policyType="shipping" />
+      </div>
 
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 items-center">

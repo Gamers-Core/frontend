@@ -12,3 +12,6 @@ export * from './profile';
 export * from './QueryProviders';
 export * from './checkout';
 export * from './order';
+export * from './policies';
+export * from './HTMLRender';
+export * from './Footer';

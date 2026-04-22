@@ -1,7 +1,7 @@
 'use client';
 
 import { SlideImage } from 'yet-another-react-lightbox';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ShoppingBagAddIcon } from '@hugeicons/core-free-icons';
 import { useTranslations } from 'next-intl';
@@ -15,6 +15,7 @@ import { VariantSwitcher } from './VariantSwitcher';
 import { ItemAmountButtons } from './ItemAmountButtons';
 import { Button } from '../Button';
 import { useRouter } from '@/i18n';
+import { HTMLRender } from '../HTMLRender';
 
 export interface ProductListingProps {
   id: number;
@@ -155,12 +156,4 @@ export const ProductListing = ({ id }: ProductListingProps) => {
   );
 };
 
-interface ProductDescriptionProps {
-  html: string;
-}
-
-const ProductDescription = memo(({ html }: ProductDescriptionProps) => (
-  <div dangerouslySetInnerHTML={{ __html: html }} />
-));
-
-ProductDescription.displayName = 'ProductDescription';
+const ProductDescription = HTMLRender('ProductDescription');
