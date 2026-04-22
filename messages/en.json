@@ -142,5 +142,10 @@
   "order_track_package_title": "Track Package: ",
   "order_contact_info_title": "Contact Information",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "policy_terms-of-service": "Terms of Service",
+  "policy_privacy": "Privacy Policy",
+  "policy_refund": "Refund Policy",
+  "policy_shipping": "Shipping Policy",
+  "last_updated_at": "Last Updated at: "
 }
