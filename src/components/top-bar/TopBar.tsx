@@ -24,7 +24,7 @@ interface TopBarProps {
 export const TopBar = ({ isHome = false }: TopBarProps) => {
   const locale = useLocale();
 
-  const { isScrolled } = useScroll();
+  const { isScrolled } = useScroll({ threshold: isHome ? 50 : 20 });
 
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
@@ -32,7 +32,7 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
     <div
       className={cn(
         'fixed top-0 inset-x-0 right-(--removed-body-scroll-bar-size,0) z-50 transition-colors duration-300',
-        { 'bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-2xl': isScrolled || !isHome },
+        { 'bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-2xl': isScrolled },
       )}
     >
       <SideMenu locale={locale} />
