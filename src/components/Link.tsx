@@ -32,9 +32,13 @@ export const Link = ({ keepSearchParams, isDisabled, className, children, ...pro
 
   return (
     <NextLink
-      onClick={() => isCurrent && document.querySelector('html')?.scrollTo({ top: 0, behavior: 'smooth' })}
       className={cn(className)}
       {...props}
+      onClick={(e) => {
+        if (isCurrent) document.querySelector('html')?.scrollTo({ top: 0, behavior: 'smooth' });
+
+        props.onClick?.(e);
+      }}
       href={href}
     >
       {children}
