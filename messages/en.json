@@ -147,5 +147,6 @@
   "policy_privacy": "Privacy Policy",
   "policy_refund": "Refund Policy",
   "policy_shipping": "Shipping Policy",
-  "last_updated_at": "Last Updated at: "
+  "last_updated_at": "Last Updated at: ",
+  "close": "Close"
 }
