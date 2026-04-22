@@ -12,15 +12,15 @@ export const Footer = () => {
 
   return (
     <footer className="flex items-center min-h-20 border-t-2 border-sidebar-border w-full">
-      <div className="flex-1 flex items-center justify-between gap-10 md:container flex-wrap px-4 py-8">
+      <div className="flex-1 flex flex-col md:flex-row items-center justify-between gap-10 md:container flex-wrap px-4 py-8">
         <Logo className="flex-1" />
 
-        <div className="flex-1 md:flex-0 flex flex-col md:flex-row gap-4 min-w-fit">
+        <div className="flex-1 grid grid-cols-2 md:flex-0 md:flex gap-4 min-w-fit">
           {policies.map((policy) => (
             <Link
               key={policy}
               href={`/policies/${policy}`}
-              className="transition-colors duration-300 hover:text-primary hover:underline text-lg md:text-base"
+              className="block min-w-max transition-colors duration-300 hover:text-primary hover:underline text-lg md:text-base text-center md:text-start"
             >
               {t(`policy_${policy}`)}
             </Link>
