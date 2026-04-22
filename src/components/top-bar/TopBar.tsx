@@ -32,16 +32,12 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
     <div
       className={cn(
         'fixed top-0 inset-x-0 right-(--removed-body-scroll-bar-size,0) z-50 transition-colors duration-300',
-        { 'bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-2xl': isScrolled },
+        { 'bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-2xl': isScrolled || !isHome },
       )}
     >
       <SideMenu locale={locale} />
 
-      <header
-        className={cn(
-          'md:container flex items-center justify-between px-4 py-3 bg-transparent transition-colors duration-300 text-sm font-medium text-muted-foreground',
-        )}
-      >
+      <header className="md:container flex items-center justify-between px-4 py-3 bg-transparent transition-colors duration-300 text-sm font-medium text-muted-foreground">
         <div className="flex items-center gap-4">
           <SidebarTrigger
             className={cn('p-0 size-6 block md:hidden hover:bg-transparent! hover:text-muted-foreground', {
