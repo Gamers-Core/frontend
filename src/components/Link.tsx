@@ -1,7 +1,9 @@
+'use client';
+
 import type { ComponentProps } from 'react';
 
-import { Link as NextLink } from '@/i18n';
-import { getSearchParams, isClient } from '@/helpers';
+import { Link as NextLink, usePathname } from '@/i18n';
+import { getSearchParams } from '@/helpers';
 import { cn } from '@/lib/utils';
 
 import { Button } from './Button';
@@ -15,9 +17,10 @@ export interface LinkProps extends NextLinkProps {
 
 export const Link = ({ keepSearchParams, isDisabled, className, children, ...props }: LinkProps) => {
   const searchParams = getSearchParams();
+  const pathname = usePathname();
 
   const href = keepSearchParams ? `${props.href}?${searchParams}` : props.href;
-  const isCurrent = isClient() && props.href === window.location.pathname;
+  const isCurrent = props.href === pathname;
 
   if (isDisabled)
     return (
