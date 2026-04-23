@@ -226,3 +226,8 @@ export interface Policy {
 }
 
 export type Policies = Record<PolicyType, Policy>;
+
+export interface FAQ {
+  question: string;
+  answer: string;
+}

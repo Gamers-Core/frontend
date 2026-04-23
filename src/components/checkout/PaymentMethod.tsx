@@ -26,7 +26,7 @@ export const PaymentMethod = () => {
 
   return (
     <AccordionItem asChild value="payment_methods">
-      <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border h-max">
+      <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border transition-colors duration-300">
         <AccordionTrigger>
           <h3 className="text-lg">{t('payment_method')}</h3>
         </AccordionTrigger>

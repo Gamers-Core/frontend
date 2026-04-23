@@ -148,5 +148,8 @@
   "policy_refund": "Refund Policy",
   "policy_shipping": "Shipping Policy",
   "last_updated_at": "Last Updated at: ",
-  "close": "Close"
+  "close": "Close",
+  "faqs_title": "Frequently Asked Questions",
+  "faqs_description": "Find answers to common questions about our products, orders, and policies.",
+  "faqs_empty": "No FAQs available at the moment. Please check back later."
 }

@@ -25,7 +25,7 @@ export const ShippingOptions = () => {
 
   return (
     <AccordionItem asChild value="shipping_options">
-      <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border h-max">
+      <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border transition-colors duration-300">
         <AccordionTrigger>
           <h3 className="text-lg">{t('shipping_options')}</h3>
         </AccordionTrigger>

@@ -15,3 +15,4 @@ export * from './order';
 export * from './policies';
 export * from './HTMLRender';
 export * from './Footer';
+export * from './faqs';

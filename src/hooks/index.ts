@@ -18,3 +18,4 @@ export * from './addresses';
 export * from './orders';
 export * from './checkout';
 export * from './usePoliciesQuery';
+export * from './useFAQsQuery';
