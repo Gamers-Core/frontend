@@ -48,7 +48,7 @@ export const ShippingAddress = () => {
 
   return (
     <AccordionItem asChild value="shipping_addresses">
-      <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border h-max">
+      <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border transition-colors duration-300">
         <AccordionTrigger className="flex gap-4">
           <h3 className="text-lg">{t('shipping_address')}</h3>
 

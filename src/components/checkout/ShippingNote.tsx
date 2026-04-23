@@ -24,7 +24,7 @@ export const ShippingNote = () => {
 
   return (
     <AccordionItem asChild value="shipping_note">
-      <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border h-max">
+      <section className="flex flex-col gap-4 p-2 md:p-4 rounded-lg bg-sidebar-border transition-colors duration-300">
         <AccordionTrigger>
           <h3 className="text-lg">
             {t('shipping_note')} <span className="text-sidebar-primary/70">({t('optional')})</span>
