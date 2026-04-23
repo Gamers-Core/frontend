@@ -16,7 +16,7 @@ export const FAQsBody = () => {
     return <p className="m-auto text-center text-muted-foreground text-lg md:text-xl lg:text-2xl">{t('faqs_empty')}</p>;
 
   return (
-    <Accordion type="single" collapsible defaultValue="item-1" className="border-0 gap-4 flex-1">
+    <Accordion type="single" collapsible className="border-0 gap-4 flex-1">
       {faqsQuery.data.map((faq, index) => (
         <AccordionItem
           key={index}
