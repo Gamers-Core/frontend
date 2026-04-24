@@ -3,10 +3,10 @@
 import type { ComponentProps } from 'react';
 
 import { Link as NextLink, usePathname } from '@/i18n';
-import { getSearchParams } from '@/helpers';
 import { cn } from '@/lib/utils';
 
 import { Button } from './Button';
+import { useSearchParams } from '@/hooks';
 
 type NextLinkProps = ComponentProps<typeof NextLink>;
 
@@ -16,10 +16,10 @@ export interface LinkProps extends NextLinkProps {
 }
 
 export const Link = ({ keepSearchParams, isDisabled, className, children, ...props }: LinkProps) => {
-  const searchParams = getSearchParams();
+  const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const href = keepSearchParams ? `${props.href}?${searchParams}` : props.href;
+  const href = keepSearchParams ? `${props.href}?${searchParams.toString()}` : props.href;
   const isCurrent = props.href === pathname;
 
   if (isDisabled)

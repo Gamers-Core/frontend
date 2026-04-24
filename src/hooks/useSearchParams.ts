@@ -1,18 +1,19 @@
 'use client';
-
 import { useSearchParams as useSearchParamsNext } from 'next/navigation';
-
 import { usePathname, useRouter } from '@/i18n';
-
 import { useCallback } from 'react';
 
 type ParamValue = string | number | boolean | null | undefined;
 type ParamUpdates = Record<string, ParamValue>;
 type NavigationMethod = 'replace' | 'push';
 
+type GetOverload = {
+  (): Record<string, string>;
+  (key: string): string | null;
+};
+
 const applyParam = (params: URLSearchParams, key: string, value: ParamValue) => {
   if (value === undefined || value === null || value === '') return params.delete(key);
-
   params.set(key, String(value));
 };
 
@@ -21,10 +22,21 @@ export const useSearchParams = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const get = useCallback((key: string) => searchParams.get(key), [searchParams]);
+  const get = useCallback(
+    // eslint-disable-next-line react-hooks/use-memo
+    ((key?: string) => {
+      if (key === undefined) return Object.fromEntries(searchParams.entries());
+      return searchParams.get(key);
+    }) as GetOverload,
+    [searchParams],
+  );
 
   const set = useCallback(
-    (updates: ParamUpdates | string, value?: ParamValue, method: NavigationMethod = 'replace') => {
+    <T extends object = ParamUpdates>(
+      updates: T | string,
+      value?: ParamValue,
+      method: NavigationMethod = 'replace',
+    ) => {
       const params = new URLSearchParams(searchParams.toString());
 
       if (typeof updates === 'string') applyParam(params, updates, value);
@@ -35,11 +47,12 @@ export const useSearchParams = () => {
       const currentUrl = searchParams.toString() ? `${pathname}?${searchParams.toString()}` : pathname;
 
       if (nextUrl === currentUrl) return;
-
       router[method](nextUrl, { scroll: false });
     },
     [pathname, router, searchParams],
   );
 
-  return { get, set };
+  const toString = useCallback(() => searchParams.toString(), [searchParams]);
+
+  return { get, set, toString };
 };
