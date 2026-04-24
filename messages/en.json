@@ -151,5 +151,9 @@
   "close": "Close",
   "faqs_title": "Frequently Asked Questions",
   "faqs_description": "Find answers to common questions about our products, orders, and policies.",
-  "faqs_empty": "No FAQs available at the moment. Please check back later."
+  "faqs_empty": "No FAQs available at the moment. Please check back later.",
+  "search_placeholder": "Search for products",
+  "search_results_empty": "No results found for your search. Please try again with different keywords.",
+  "sold_out": "Sold Out",
+  "filters": "Filters"
 }

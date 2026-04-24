@@ -28,7 +28,7 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
   }, [isLoggedIn]);
 
   return (
-    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
+    <NextThemesProvider enableColorScheme attribute="class" defaultTheme="system" enableSystem>
       <NextIntlClientProvider messages={messages} locale={locale} timeZone="UTC">
         <QueryClientProvider client={queryClient}>
           <SidebarProvider className="flex flex-col items-center">
