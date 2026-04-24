@@ -16,3 +16,5 @@ export * from './policies';
 export * from './HTMLRender';
 export * from './Footer';
 export * from './faqs';
+export * from './search';
+export * from './ProductCard';

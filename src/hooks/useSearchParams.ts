@@ -8,7 +8,7 @@ type ParamUpdates = Record<string, ParamValue>;
 type NavigationMethod = 'replace' | 'push';
 
 type GetOverload = {
-  (): Record<string, string>;
+  <T = Record<string, string>>(): Partial<T>;
   (key: string): string | null;
 };
 

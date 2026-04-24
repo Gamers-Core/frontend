@@ -61,7 +61,7 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
             'text-gray-900 dark:text-white': isScrolled || !isHome,
           })}
         >
-          <NavButton href="/search" isDisabled isScrolled={isScrolled} icon={Search} />
+          <NavButton href="/search" isScrolled={isScrolled} icon={Search} />
           <NavButton href={isLoggedIn ? '/profile' : '/signin'} isScrolled={isScrolled} icon={User} />
           <CartButton iconOnly className={buttonClassName(isScrolled)} />
           <ModeToggle className={cn(buttonClassName(isScrolled), 'hidden md:block')} />
