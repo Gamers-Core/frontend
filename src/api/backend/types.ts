@@ -7,7 +7,7 @@ import {
   paymentMethods,
   paymentStatuses,
   policies,
-  sortOption,
+  sortOptions,
   stockFilters,
 } from './const';
 
@@ -243,17 +243,7 @@ export interface FAQ {
 
 export type StockFilter = (typeof stockFilters)[number];
 
-export type SortOption = (typeof sortOption)[number];
-
-export interface SearchProductOptions {
-  q?: string;
-  brandId?: number;
-  categoryId?: number;
-  minPrice?: number;
-  maxPrice?: number;
-  stock?: StockFilter;
-  sort?: SortOption;
-}
+export type SortOption = (typeof sortOptions)[number];
 
 export interface SearchResponse extends Omit<Product, 'variants' | 'description' | 'media'> {
   imageURL: string;

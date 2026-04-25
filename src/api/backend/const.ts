@@ -22,12 +22,12 @@ export const policies = ['terms-of-service', 'shipping', 'refund', 'privacy'] as
 
 export const stockFilters = ['all', 'in-stock', 'out-of-stock'] as const;
 
-export const sortOption = [
+export const sortOptions = [
   'most-relevant',
+  'created-descending',
+  'created-ascending',
   'title-ascending',
   'title-descending',
   'price-ascending',
   'price-descending',
-  'created-ascending',
-  'created-descending',
 ] as const;
