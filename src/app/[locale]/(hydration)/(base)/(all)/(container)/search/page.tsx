@@ -3,10 +3,10 @@ import { Metadata } from 'next';
 
 import { useBrandsQuery, useCategoriesQuery, useProductsQuery } from '@/hooks';
 import { PagePropsWithSearchParams } from '@/app/types';
-import { SearchProductOptions } from '@/api';
 import { SearchOptions, SearchResults } from '@/components';
+import { SearchSchema } from '@/api';
 
-type PageParams = PagePropsWithSearchParams<SearchProductOptions>;
+type PageParams = PagePropsWithSearchParams<SearchSchema>;
 
 export async function generateMetadata({ searchParams }: PageParams): Promise<Metadata> {
   const query = (await searchParams).q;
@@ -30,6 +30,8 @@ export default async function ProductPage({ searchParams }: PageParams) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
+      <SearchOptions searchParams={params} />
+
       <SearchResults searchParams={params} />
     </HydrationBoundary>
   );
