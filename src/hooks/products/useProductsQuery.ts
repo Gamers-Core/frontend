@@ -1,18 +1,19 @@
 import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
 
-import { BackendError, gamersCore, SearchProductOptions, SearchResponse } from '@/api';
+import { BackendError, gamersCore, SearchSchema, SearchResponse } from '@/api';
 import { AxiosResponse } from 'axios';
 
-const queryKey = (searchOptions: SearchProductOptions = {}) => ['products', searchOptions] as const;
+const queryKey = (searchOptions: SearchSchema = {}) =>
+  ['products', ...Object.entries(searchOptions).sort(([a], [b]) => a.localeCompare(b))] as const;
 
 type QueryKey = ReturnType<typeof queryKey>;
 
-const queryFn = ({ queryKey: [, params] }: QueryFunctionContext<QueryKey>) =>
+const queryFn = ({ queryKey: [, ...paramsArr] }: QueryFunctionContext<QueryKey>) =>
   gamersCore
-    .get<SearchResponse[], AxiosResponse<SearchResponse[], SearchProductOptions>>('/products', { params })
+    .get<SearchResponse[], AxiosResponse<SearchResponse[]>>('/products', { params: Object.fromEntries(paramsArr) })
     .then((res) => res.data);
 
-export const useProductsQuery = (searchOptions: SearchProductOptions = {}) =>
+export const useProductsQuery = (searchOptions: SearchSchema = {}) =>
   useQuery<SearchResponse[], BackendError, SearchResponse[], QueryKey>({
     queryKey: queryKey(searchOptions),
     queryFn,
