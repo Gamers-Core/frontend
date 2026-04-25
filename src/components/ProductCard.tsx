@@ -75,7 +75,7 @@ export const ProductCard = ({
             {price.min !== price.max && (
               <>
                 <span className="text-foreground">-</span>
-                <p className="text-sm lg:text-base xl:text-lg">{formatCurrency(price.max)}</p>
+                <p className="text-md font-semibold">{formatCurrency(price.max)}</p>
               </>
             )}
           </div>

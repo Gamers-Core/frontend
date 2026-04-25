@@ -2,13 +2,13 @@
 
 import { useTranslations } from 'next-intl';
 
-import { SearchProductOptions } from '@/api';
+import { SearchSchema } from '@/api';
 import { useProductsQuery, useSearchParams } from '@/hooks';
 
 import { ProductCard } from '../ProductCard';
 
 interface SearchResultsProps {
-  searchParams?: SearchProductOptions;
+  searchParams?: SearchSchema;
 }
 
 export const SearchResults = ({ searchParams }: SearchResultsProps) => {
@@ -16,7 +16,7 @@ export const SearchResults = ({ searchParams }: SearchResultsProps) => {
 
   const { get } = useSearchParams();
 
-  const options = get<SearchProductOptions>() || searchParams;
+  const options = get<SearchSchema>() || searchParams;
   const productsQuery = useProductsQuery(options);
 
   if (!productsQuery.data || !productsQuery.data.length)
@@ -29,9 +29,9 @@ export const SearchResults = ({ searchParams }: SearchResultsProps) => {
     );
 
   return (
-    <section className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] bg-sidebar-border p-4 gap-6 rounded-lg">
+    <section className="flex-1 grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] bg-sidebar-border p-4 gap-6 rounded-lg">
       {productsQuery.data.map((product) => (
-        <ProductCard key={product.id} {...product} className="min-w-full w-full md:w-full" />
+        <ProductCard key={product.id} {...product} className="min-w-full w-full md:w-full md:min-w-70" />
       ))}
     </section>
   );
