@@ -70,6 +70,8 @@
   "address_name_ar": "الاسم (عربي)",
   "address_zone": "المنطقة",
   "address_city": "المدينة",
+  "address_city_empty": "لم يتم العثور على مدن.",
+  "address_zone_empty": "لم يتم العثور على مناطق.",
   "address_detailed": "العنوان التفصيلي",
   "address_phone": "رقم الهاتف",
   "address_set_default_success": "تم تعيين العنوان الافتراضي بنجاح",

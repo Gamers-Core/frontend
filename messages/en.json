@@ -70,6 +70,8 @@
   "address_name_ar": "Name (Arabic)",
   "address_zone": "Zone",
   "address_city": "City",
+  "address_city_empty": "No cities found.",
+  "address_zone_empty": "No zones found.",
   "address_detailed": "Detailed Address",
   "address_phone": "Phone Number",
   "address_set_default_success": "Default address set successfully",
