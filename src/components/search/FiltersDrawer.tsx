@@ -78,9 +78,11 @@ export const FiltersDrawer = ({ options, setOptions }: FiltersDrawerProps) => {
     onSubmit(form.getValues());
   };
 
-  const filtersCount = Object.values(options).filter(
-    (value) => value === 'created-descending' || (value !== '' && typeof value !== 'undefined'),
-  ).length;
+  const filtersCount = Object.keys(defaultSearchValues).filter((key) => {
+    const filterKey = key as keyof FiltersSchema;
+
+    return typeof options[filterKey] !== 'undefined' && options[filterKey] !== defaultSearchValues[filterKey];
+  }).length;
 
   const minPrice = form.watch('minPrice') || '0';
 

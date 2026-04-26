@@ -30,7 +30,7 @@ export const RecommendedProducts = ({ id }: RecommendedProductsProps) => {
               <ProductCard
                 key={product.id}
                 {...product}
-                imageURL={activeVariant.media[0]?.url ?? product.media[0]}
+                imageURL={activeVariant.media[0]?.url ?? product.media[0]?.url}
                 price={{ value: activeVariant.price, compareAt: activeVariant.compareAt }}
               />
             );

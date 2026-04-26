@@ -18,7 +18,6 @@ interface SearchOptionsProps {
 
 const defaultOptions: SearchSchema = {
   q: '',
-  sort: 'created-descending',
 };
 
 export const SearchOptions = ({ searchParams }: SearchOptionsProps) => {

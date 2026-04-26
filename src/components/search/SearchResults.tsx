@@ -16,7 +16,8 @@ export const SearchResults = ({ searchParams }: SearchResultsProps) => {
 
   const { get } = useSearchParams();
 
-  const options = get<SearchSchema>() || searchParams;
+  const urlOptions = get<SearchSchema>();
+  const options = Object.keys(urlOptions).length > 0 ? urlOptions : searchParams;
   const productsQuery = useProductsQuery(options);
 
   if (!productsQuery.data || !productsQuery.data.length)

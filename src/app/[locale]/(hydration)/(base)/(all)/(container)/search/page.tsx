@@ -17,7 +17,7 @@ export async function generateMetadata({ searchParams }: PageParams): Promise<Me
   };
 }
 
-export default async function ProductPage({ searchParams }: PageParams) {
+export default async function SearchPage({ searchParams }: PageParams) {
   const params = await searchParams;
 
   const queryClient = new QueryClient();
