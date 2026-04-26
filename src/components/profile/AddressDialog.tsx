@@ -9,6 +9,12 @@ import { toast } from 'sonner';
 import { addressSchema, AddressSchema } from '@/api';
 import { Disclosure, useAddressCitiesQuery, useAddressDistrictsQuery, useAddressMutation } from '@/hooks';
 import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
   Dialog,
   DialogClose,
   DialogContent,
@@ -21,12 +27,7 @@ import {
   FieldGroup,
   Input,
   Label,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Spinner,
   Textarea,
 } from '../ui';
 import { Button } from '../Button';
@@ -84,7 +85,7 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
 
     addressMutation.mutate(data, {
       onSuccess: () => {
-        disclosure.onClose();
+        onClose();
         toast.success(t(isCreateMode ? 'address_create_success' : 'address_update_success'));
         form.reset(defaultAddressValues);
       },
@@ -98,8 +99,20 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
     });
   };
 
+  const onClose = () => {
+    disclosure.onClose();
+    form.reset(defaultAddressValues);
+    setCityId(undefined);
+  };
+
+  const onOpenChange = (open: boolean) => {
+    if (!open) onClose();
+
+    disclosure.onOpenChange(open);
+  };
+
   return (
-    <Dialog {...disclosure}>
+    <Dialog {...disclosure} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md md:max-w-2xl">
         <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit, console.warn)}>
           <DialogHeader>
@@ -165,28 +178,41 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                 <Field>
                   <Label htmlFor="cityId">{t('address_city')}</Label>
 
-                  <Select
-                    {...field}
-                    onValueChange={(value) => {
-                      field.onChange(value);
-                      setCityId(value);
-                    }}
-                    dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                  <Combobox
+                    required
+                    autoHighlight
+                    loopFocus
+                    items={addressCitiesQuery.data?.map(({ _id }) => _id)}
                     defaultValue={addressCitiesQuery.data?.find((city) => city._id === field.value)?._id}
+                    value={field.value}
+                    locale={locale}
+                    onValueChange={(value) => {
+                      field.onChange(value ?? '');
+                      setCityId(value ?? '');
+                    }}
+                    itemToStringLabel={(item) =>
+                      addressCitiesQuery.data?.find((city) => city._id === item)?.nameAr || ''
+                    }
                   >
-                    <SelectTrigger className="font-cairo ltr:text-right">
-                      <SelectValue placeholder={t('address_city_placeholder')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup className="font-cairo ltr:text-right">
-                        {addressCitiesQuery.data?.map((city) => (
-                          <SelectItem key={city._id} value={city._id}>
-                            {city.nameAr}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                    <ComboboxInput
+                      placeholder={t('address_city_placeholder')}
+                      aria-invalid={fieldState.invalid}
+                      className="font-cairo ltr:text-right"
+                      id="cityId"
+                    />
+
+                    <ComboboxContent className="pointer-events-auto">
+                      <ComboboxEmpty>{t('address_city_empty')}</ComboboxEmpty>
+
+                      <ComboboxList>
+                        {(id: string) => (
+                          <ComboboxItem className="font-cairo ltr:text-right" key={id} value={id}>
+                            {addressCitiesQuery.data?.find((city) => city._id === id)?.nameAr || ''}
+                          </ComboboxItem>
+                        )}
+                      </ComboboxList>
+                    </ComboboxContent>
+                  </Combobox>
 
                   {fieldState.invalid && (
                     <FieldError className="text-sm/normal md:text-sm/relaxed" errors={[fieldState.error]} />
@@ -202,7 +228,7 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                 <Field>
                   <Label htmlFor="districtId">{t('address_zone')}</Label>
 
-                  <Select
+                  {/* <Select
                     {...field}
                     onValueChange={field.onChange}
                     dir={locale === 'ar' ? 'rtl' : 'ltr'}
@@ -223,7 +249,53 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                         ))}
                       </SelectGroup>
                     </SelectContent>
-                  </Select>
+                  </Select> */}
+
+                  <Combobox
+                    required
+                    autoHighlight
+                    loopFocus
+                    items={addressDistrictsQuery.data?.map(({ districtId }) => districtId)}
+                    defaultValue={
+                      addressDistrictsQuery.data?.find((district) => district.districtId === field.value)?.districtId
+                    }
+                    value={field.value}
+                    locale={locale}
+                    onValueChange={(value) => field.onChange(value ?? '')}
+                    itemToStringLabel={(item) =>
+                      addressDistrictsQuery.data?.find((district) => district.districtId === item)?.districtOtherName ||
+                      ''
+                    }
+                  >
+                    <div className="relative">
+                      <ComboboxInput
+                        placeholder={t('address_zone_placeholder')}
+                        aria-invalid={fieldState.invalid}
+                        className="font-cairo ltr:text-right"
+                        id="districtId"
+                        disabled={!cityId || addressDistrictsQuery.isPending || !addressDistrictsQuery.data?.length}
+                      />
+
+                      {addressDistrictsQuery.isPending && cityId && (
+                        <div className="absolute inset-y-0 inset-e-2 flex items-center justify-center">
+                          <Spinner />
+                        </div>
+                      )}
+                    </div>
+
+                    <ComboboxContent className="pointer-events-auto">
+                      <ComboboxEmpty>{t('address_zone_empty')}</ComboboxEmpty>
+
+                      <ComboboxList>
+                        {(id: string) => (
+                          <ComboboxItem className="font-cairo ltr:text-right" key={id} value={id}>
+                            {addressDistrictsQuery.data?.find((district) => district.districtId === id)
+                              ?.districtOtherName || ''}
+                          </ComboboxItem>
+                        )}
+                      </ComboboxList>
+                    </ComboboxContent>
+                  </Combobox>
 
                   {fieldState.invalid && (
                     <FieldError className="text-sm/normal md:text-sm/relaxed" errors={[fieldState.error]} />

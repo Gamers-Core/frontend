@@ -1,4 +1,4 @@
-import { Building06FreeIcons, ChatQuestion01FreeIcons, Shop } from '@hugeicons/core-free-icons';
+import { Building06FreeIcons, ChatQuestion01FreeIcons } from '@hugeicons/core-free-icons';
 import { IconSvgElement } from '@hugeicons/react';
 import { Messages } from 'next-intl';
 
@@ -9,11 +9,6 @@ interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  {
-    name: 'nav_shop',
-    href: '/shop',
-    icon: Shop,
-  },
   {
     name: 'nav_brands',
     href: '/brands',

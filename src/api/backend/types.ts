@@ -1,6 +1,15 @@
 import { Locale } from '@/i18n';
 
-import { authPurposes, mediaTypes, orderStatuses, paymentMethods, paymentStatuses, policies } from './const';
+import {
+  authPurposes,
+  mediaTypes,
+  orderStatuses,
+  paymentMethods,
+  paymentStatuses,
+  policies,
+  sortOptions,
+  stockFilters,
+} from './const';
 
 interface ValidationError<P extends string = string> {
   property: P;
@@ -230,4 +239,14 @@ export type Policies = Record<PolicyType, Policy>;
 export interface FAQ {
   question: string;
   answer: string;
+}
+
+export type StockFilter = (typeof stockFilters)[number];
+
+export type SortOption = (typeof sortOptions)[number];
+
+export interface SearchResponse extends Omit<Product, 'variants' | 'description' | 'media'> {
+  imageURL: string;
+  hasStock: boolean;
+  price: { min: number; max: number; sale: boolean };
 }

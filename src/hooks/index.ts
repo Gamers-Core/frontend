@@ -19,3 +19,5 @@ export * from './orders';
 export * from './checkout';
 export * from './usePoliciesQuery';
 export * from './useFAQsQuery';
+export * from './useBrandsQuery';
+export * from './useCategoriesQuery';

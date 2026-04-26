@@ -21,7 +21,6 @@ const defaultValues: CheckoutSchema = {
 interface CheckoutFormProps {
   children: React.ReactNode;
   className?: string;
-
   defaultAddressId?: string;
 }
 

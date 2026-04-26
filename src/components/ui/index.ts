@@ -19,3 +19,5 @@ export * from './accordion';
 export * from './radio-group';
 export * from './switch';
 export * from './skeleton';
+export * from './input-group';
+export * from './combobox';
