@@ -184,5 +184,8 @@
   "sort_price-ascending": "Price (Low to High)",
   "sort_price-descending": "Price (High to Low)",
   "sort_created-ascending": "Oldest",
-  "sort_created-descending": "Newest"
+  "sort_created-descending": "Newest",
+  "brands_title": "Our Brands",
+  "brands_description": "We partner with the best gaming brands to bring you top-quality products.",
+  "brands_empty": "No brands available at the moment. Please check back later."
 }

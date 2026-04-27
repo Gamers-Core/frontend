@@ -53,6 +53,7 @@ export interface Variant {
 export interface Brand {
   id: number;
   name: string;
+  image: MediaAttachment<'image'>;
 }
 
 export interface Category {
