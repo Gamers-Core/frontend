@@ -1,3 +1,5 @@
+'use client';
+
 import { Hamburger, X } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { useTranslations } from 'next-intl';
@@ -39,6 +41,7 @@ export const SideMenuDrawer = ({ triggerClassName }: SideMenuDrawerProps) => {
             'active:bg-transparent aria-expanded:bg-transparent aria-expanded:text-inherit',
             triggerClassName,
           )}
+          aria-label={t('open_side_menu')}
         />
       </DrawerTrigger>
 
@@ -51,7 +54,12 @@ export const SideMenuDrawer = ({ triggerClassName }: SideMenuDrawerProps) => {
           </div>
 
           <DrawerClose asChild>
-            <Button icon={<HugeiconsIcon icon={X} />} variant="outline" className="w-fit ms-auto" />
+            <Button
+              icon={<HugeiconsIcon icon={X} />}
+              variant="outline"
+              className="w-fit ms-auto"
+              aria-label={t('close')}
+            />
           </DrawerClose>
         </DrawerHeader>
 
@@ -70,34 +78,5 @@ export const SideMenuDrawer = ({ triggerClassName }: SideMenuDrawerProps) => {
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
-
-    // <Sidebar
-    //   variant="sidebar"
-    //   side={locale === 'ar' ? 'right' : 'left'}
-    //   className="bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.2)]  backdrop-blur-2xl border-none!"
-    // >
-    //   <SidebarHeader className="p-4 pt-2">
-    //     <Button
-    //       variant="ghost"
-    //       className="w-fit p-0.5 h-auto"
-    //       onClick={toggleSidebar}
-    //       icon={<HugeiconsIcon icon={Cancel} className="size-8" />}
-    //     />
-    //   </SidebarHeader>
-
-    //   <SidebarContent className="px-4">
-    //     <SidebarGroup>
-    //       <NavItems
-    //         extended
-    //         className="flex flex-col justify-start items-start text-3xl rtl:text-2xl gap-6 text-black dark:text-gray-400"
-    //       />
-    //     </SidebarGroup>
-    //   </SidebarContent>
-    //   <SidebarFooter className="flex flex-row gap-4 justify-between items-center p-4">
-    //     <LocaleSwitcher isFull className="size-auto text-xl" />
-
-    //     <ModeToggle className="size-8" />
-    //   </SidebarFooter>
-    // </Sidebar>
   );
 };

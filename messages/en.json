@@ -189,5 +189,6 @@
   "brands_description": "We partner with the best gaming brands to bring you top-quality products.",
   "brands_empty": "No brands available at the moment. Please check back later.",
   "side_menu_title": "Side Menu",
-  "side_menu_description": "Navigate through different sections of the site using the side menu."
+  "side_menu_description": "Navigate through different sections of the site using the side menu.",
+  "open_side_menu": "Open Side Menu"
 }
