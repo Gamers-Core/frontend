@@ -30,10 +30,12 @@ export const SearchResults = ({ searchParams }: SearchResultsProps) => {
     );
 
   return (
-    <section className="flex-1 grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] bg-sidebar-border p-4 gap-6 rounded-lg">
-      {productsQuery.data.map((product) => (
-        <ProductCard key={product.id} {...product} className="min-w-full w-full md:w-full md:min-w-70" />
-      ))}
+    <section className="flex-1 bg-sidebar-border p-4 rounded-lg">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
+        {productsQuery.data.map((product) => (
+          <ProductCard key={product.id} {...product} className="min-w-full w-full md:w-full md:min-w-70" />
+        ))}
+      </div>
     </section>
   );
 };
