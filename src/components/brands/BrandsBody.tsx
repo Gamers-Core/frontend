@@ -28,9 +28,10 @@ export const BrandsBody = () => {
           >
             <div className="w-full h-full flex flex-col justify-center items-center bg-white dark:bg-border rounded-lg p-2 aspect-video">
               <Image
-                {...image}
                 src={image.url}
                 alt={name}
+                width={image.width}
+                height={image.height}
                 className="h-full w-full object-contain rounded-lg overflow-hidden"
               />
             </div>
