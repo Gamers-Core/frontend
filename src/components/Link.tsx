@@ -38,7 +38,7 @@ export const Link = ({ keepSearchParams, isDisabled, className, children, ...pro
       className={cn(className)}
       {...props}
       onClick={(e) => {
-        if (isCurrent) document.querySelector('html')?.scrollTo({ top: 0, behavior: 'smooth' });
+        if (isCurrent) window.scrollTo({ top: 0, behavior: 'smooth' });
 
         props.onClick?.(e);
       }}
