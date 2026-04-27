@@ -18,3 +18,4 @@ export * from './Footer';
 export * from './faqs';
 export * from './search';
 export * from './ProductCard';
+export * from './brands';
