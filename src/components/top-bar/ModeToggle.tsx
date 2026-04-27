@@ -10,9 +10,10 @@ import { cn } from '@/lib/utils';
 
 interface NavButtonProps {
   className?: string;
+  align?: 'start' | 'center' | 'end';
 }
 
-export function ModeToggle({ className }: NavButtonProps) {
+export function ModeToggle({ className, align = 'center' }: NavButtonProps) {
   const t = useTranslations();
   const { setTheme, theme: currentTheme, themes } = useTheme();
   const locale = useLocale();
@@ -28,7 +29,7 @@ export function ModeToggle({ className }: NavButtonProps) {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="center" className="min-w-24">
+      <DropdownMenuContent align={align} className="min-w-24">
         {themes.map((theme) => (
           <DropdownMenuItem
             key={theme}

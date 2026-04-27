@@ -6,18 +6,16 @@ import { cn } from '@/lib/utils';
 
 import { navItems } from './const';
 import { Link } from '../Link';
-import { useSidebar } from '../ui';
 
 interface NavItemsProps {
   className?: string;
   extended?: boolean;
+  onClick?: () => void;
 }
 
-export const NavItems = ({ className, extended = false }: NavItemsProps) => {
+export const NavItems = ({ className, extended = false, onClick }: NavItemsProps) => {
   const t = useTranslations();
   const pathname = usePathname();
-
-  const { setOpenMobile } = useSidebar();
 
   return (
     <ul className={cn('flex items-center gap-4 text-sm text-muted-foreground', className)}>
@@ -31,7 +29,7 @@ export const NavItems = ({ className, extended = false }: NavItemsProps) => {
                 'text-foreground': pathname.startsWith(href),
               },
             )}
-            onClick={() => setOpenMobile(false)}
+            onClick={onClick}
           >
             {extended && icon && (
               <HugeiconsIcon icon={icon} strokeWidth={2} className="size-6 inline-block rtl:rotate-y-180" />
