@@ -2,7 +2,7 @@
 
 import { Hamburger, X } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { useDisclosure } from '@/hooks';
 import { cn } from '@/lib/utils';
@@ -28,11 +28,12 @@ interface SideMenuDrawerProps {
 
 export const SideMenuDrawer = ({ triggerClassName }: SideMenuDrawerProps) => {
   const t = useTranslations();
+  const locale = useLocale();
 
   const disclosure = useDisclosure();
 
   return (
-    <Drawer {...disclosure}>
+    <Drawer direction={locale === 'ar' ? 'right' : 'left'} {...disclosure}>
       <DrawerTrigger asChild>
         <Button
           icon={<HugeiconsIcon icon={Hamburger} strokeWidth={2} className="rtl:rotate-180  size-full" />}
@@ -54,12 +55,7 @@ export const SideMenuDrawer = ({ triggerClassName }: SideMenuDrawerProps) => {
           </div>
 
           <DrawerClose asChild>
-            <Button
-              icon={<HugeiconsIcon icon={X} />}
-              variant="outline"
-              className="w-fit ms-auto"
-              aria-label={t('close')}
-            />
+            <Button icon={<HugeiconsIcon icon={X} />} variant="outline" className="w-fit" aria-label={t('close')} />
           </DrawerClose>
         </DrawerHeader>
 
