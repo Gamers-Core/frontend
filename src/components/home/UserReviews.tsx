@@ -25,7 +25,7 @@ export const UserReviews = () => {
       </div>
 
       <div className="flex flex-col items-center gap-8">
-        <div className="flex flex-col md:flex-row md:flex-wrap justify-center gap-5">
+        <div className="flex-1 flex flex-col md:flex-row md:flex-wrap justify-center gap-5">
           {userReviewsQuery.data.map((review, index) => (
             <UserReviewCard key={index} {...review} />
           ))}
@@ -55,7 +55,7 @@ const UserReviewCard = ({ facebookURL, image }: UserReview) => {
       className="block p-2 flex-1 md:min-w-110 md:max-w-160 bg-border rounded-lg"
     >
       <div className="rounded-lg overflow-hidden">
-        <Image {...formatMedia(image)} alt="user Review" loading="lazy" fetchPriority="auto" className="w-full" />
+        <Image {...formatMedia(image)} alt="user Review" loading="eager" fetchPriority="high" className="w-full" />
       </div>
     </Link>
   );
