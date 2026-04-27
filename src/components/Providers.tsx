@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { Locale } from '@/i18n';
 import { useAuthStore } from '@/stores';
 
-import { SidebarProvider, TooltipProvider, Toaster } from './ui';
+import { Toaster } from './ui';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -31,13 +31,9 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
     <NextThemesProvider enableColorScheme attribute="class" defaultTheme="system" enableSystem>
       <NextIntlClientProvider messages={messages} locale={locale} timeZone="UTC">
         <QueryClientProvider client={queryClient}>
-          <SidebarProvider className="flex flex-col items-center">
-            <TooltipProvider>
-              {children}
+          {children}
 
-              <Toaster duration={5000} richColors dir={locale === 'ar' ? 'rtl' : 'ltr'} position="top-center" />
-            </TooltipProvider>
-          </SidebarProvider>
+          <Toaster duration={5000} richColors dir={locale === 'ar' ? 'rtl' : 'ltr'} position="top-center" />
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </NextIntlClientProvider>
