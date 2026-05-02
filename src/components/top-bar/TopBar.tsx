@@ -1,7 +1,6 @@
 'use client';
 
 import { Search, User } from '@hugeicons/core-free-icons';
-import { useLocale } from 'next-intl';
 
 import { useScroll } from '@/hooks';
 import { cn } from '@/lib/utils';
@@ -9,8 +8,7 @@ import { useAuthStore } from '@/stores';
 
 import { Logo } from '../Logo';
 import { NavItems } from './NavItems';
-import { SidebarTrigger } from '../ui';
-import { SideMenu } from './SideMenu';
+import { SideMenuDrawer } from './SideMenuDrawer';
 import { ModeToggle } from './ModeToggle';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { NavButton } from './NavButton';
@@ -22,8 +20,6 @@ interface TopBarProps {
 }
 
 export const TopBar = ({ isHome = false }: TopBarProps) => {
-  const locale = useLocale();
-
   const { isScrolled } = useScroll({ threshold: isHome ? 50 : 20 });
 
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -35,12 +31,10 @@ export const TopBar = ({ isHome = false }: TopBarProps) => {
         { 'bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-2xl': isScrolled },
       )}
     >
-      <SideMenu locale={locale} />
-
       <header className="md:container flex items-center justify-between px-4 py-3 bg-transparent transition-colors duration-300 text-sm font-medium text-muted-foreground">
         <div className="flex items-center gap-4">
-          <SidebarTrigger
-            className={cn('p-0 size-6 block md:hidden hover:bg-transparent! hover:text-muted-foreground', {
+          <SideMenuDrawer
+            triggerClassName={cn('p-0 size-6 block md:hidden hover:bg-transparent! hover:text-muted-foreground', {
               'text-black dark:text-white': isScrolled || !isHome,
             })}
           />
