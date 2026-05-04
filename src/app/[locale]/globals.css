@@ -150,6 +150,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  body.yarl__no_scroll {
+    height: auto !important;
+  }
   html[dir='ltr'] {
     @apply font-oxanium;
   }
