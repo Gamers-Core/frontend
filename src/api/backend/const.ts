@@ -1,4 +1,4 @@
-export const mediaTypes = ['auto', 'image', 'video', 'raw'] as const;
+export const mediaTypes = ['image', 'video', 'audio', 'raw'] as const;
 
 export const authPurposes = ['signin'] as const;
 
