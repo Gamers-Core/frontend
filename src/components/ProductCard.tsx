@@ -61,7 +61,7 @@ export const ProductCard = ({
           <span className="text-xs text-muted-foreground/50 capitalize">{category.name}</span>
         </div>
 
-        <h4 className="text-lg">{name}</h4>
+        <h4 className="text-lg capitalize">{name}</h4>
 
         {'value' in price ? (
           <div className="flex gap-2 items-center">

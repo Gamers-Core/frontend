@@ -23,8 +23,8 @@ export const UserReviews = () => {
         <p className="text-center text-xl md:text-2xl xl:text-3xl text-gray-500">{t('home_reviews_subtitle')}</p>
       </div>
 
-      <div className="flex flex-col items-center gap-8">
-        <div className="flex-1 flex flex-col md:flex-row md:flex-wrap justify-center gap-5">
+      <div className="flex flex-col items-center gap-8 w-full">
+        <div className="flex-1 flex flex-col md:flex-row md:flex-wrap justify-center gap-5 w-full">
           {userReviewsQuery.data.map((review, index) => (
             <UserReviewCard key={index} {...review} />
           ))}
@@ -51,7 +51,7 @@ const UserReviewCard = ({ facebookURL, image }: UserReview) => {
       href={facebookURL}
       title={t('title_click_to_view')}
       target="_blank"
-      className="block p-2 flex-1 md:min-w-110 md:max-w-160 bg-border rounded-lg"
+      className="flex items-center justify-center p-2 flex-1 md:min-w-110 md:max-w-160 bg-border rounded-lg"
     >
       <div className="rounded-lg overflow-hidden">
         <Image image={image} alt="user Review" loading="eager" fetchPriority="high" className="w-full" />
