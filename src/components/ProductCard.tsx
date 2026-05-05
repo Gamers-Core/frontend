@@ -42,14 +42,8 @@ export const ProductCard = ({
       href={`/products/${id}`}
       className={cn('flex flex-col relative gap-4 min-w-60 md:min-w-75 w-60 md:w-75', className)}
     >
-      <div className="relative flex flex-col justify-center items-center bg-white dark:bg-border aspect-square rounded-lg p-2">
-        <Image
-          image={image}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="static! h-auto! w-full object-contain rounded-lg overflow-hidden"
-        />
+      <div className="flex flex-col justify-center items-center bg-white dark:bg-border aspect-square rounded-lg p-2">
+        <Image image={image} alt={name} className="static! h-auto! w-full object-contain rounded-lg overflow-hidden" />
       </div>
 
       <div className="flex flex-col">

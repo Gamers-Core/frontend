@@ -34,6 +34,7 @@ export type MediaType = (typeof mediaTypes)[number];
 
 export interface Media<T extends MediaType = MediaType> {
   src: string;
+  blurDataURL: T extends 'image' ? string | null : null;
   type: T;
   width: number;
   height: number;
