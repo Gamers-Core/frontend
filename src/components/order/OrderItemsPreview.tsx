@@ -19,7 +19,11 @@ export const OrderItemsPreview = ({ items }: ItemPreviewProps) => {
 const mapOrderItemToCartItem = (item: OrderItem): VariantPreviewCardProps => ({
   variant: {
     name: item.variantName,
-    imageURL: item.imageURL,
+    image: {
+      src: item.imageURL,
+      width: 284,
+      height: 284,
+    },
     price: item.unitPrice,
     compareAt: null,
     product: { name: item.productTitle },

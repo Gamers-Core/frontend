@@ -20,7 +20,7 @@ export const OrderInfo = ({ orderNumber }: OrderShippingInfoProps) => {
 
   return (
     <section className="flex flex-col lg:flex-row gap-2 md:gap-4 p-4 rounded-lg bg-sidebar-border h-max">
-      <div className="flex-1 flex flex-col gap-4">
+      <div className="flex-1 flex flex-col gap-4 min-w-0">
         <div className="flex flex-col gap-2">
           <h2 className="text-xl font-bold">{t('shipping_address')}</h2>
 

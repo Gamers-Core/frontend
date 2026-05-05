@@ -38,7 +38,7 @@ export default async function Order({ params }: PageParams) {
       <OrderHeader orderNumber={orderNumber} />
 
       <div className="flex-1 w-full flex flex-col md:flex-row gap-4">
-        <div className="flex flex-col gap-4 flex-1 border-0">
+        <div className="flex min-w-0 flex-col gap-4 flex-1 border-0">
           <OrderTracking orderNumber={orderNumber} />
 
           <OrderInfo orderNumber={orderNumber} />

@@ -32,8 +32,9 @@ export type BackendError<E extends ValidationErrors | AppError = ValidationError
 
 export type MediaType = (typeof mediaTypes)[number];
 
-export interface MediaAttachment<T extends MediaType = MediaType> {
-  url: string;
+export interface Media<T extends MediaType = MediaType> {
+  src: string;
+  blurDataURL: T extends 'image' ? string | null : null;
   type: T;
   width: number;
   height: number;
@@ -47,13 +48,13 @@ export interface Variant {
   price: number;
   compareAt: number | null;
   stock: number;
-  media: MediaAttachment[];
+  image: Media<'image'> | null;
 }
 
 export interface Brand {
   id: number;
   name: string;
-  image: MediaAttachment<'image'>;
+  image: Media<'image'> | null;
 }
 
 export interface Category {
@@ -67,7 +68,7 @@ export interface Product {
   title: string;
   description: string;
   variants: Variant[];
-  media: MediaAttachment[];
+  media: Media[];
   brand: Brand;
   category: Category;
 }
@@ -83,7 +84,7 @@ export interface FeaturedVariant {
 
 export interface UserReview {
   facebookURL: string;
-  image: MediaAttachment<'image'>;
+  image: Media<'image'> | null;
 }
 
 export interface Address {
@@ -97,8 +98,6 @@ export interface Address {
   cityDropOff: string;
   nameAr: string;
   isDefault: boolean;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface BasicUser {
@@ -141,7 +140,7 @@ export interface CartItem {
   variant: {
     name: string;
     externalId: string;
-    imageURL: string;
+    image: Media<'image'>;
     product: {
       id: number;
       name: string;
@@ -186,7 +185,7 @@ export interface OrderItem {
   productTitle: string;
   variantExternalId: string;
   variantName: string;
-  imageURL: string;
+  imageURL: string | null;
   quantity: number;
   unitPrice: number;
   lineTotal: number;
@@ -247,7 +246,7 @@ export type StockFilter = (typeof stockFilters)[number];
 export type SortOption = (typeof sortOptions)[number];
 
 export interface SearchResponse extends Omit<Product, 'variants' | 'description' | 'media'> {
-  imageURL: string;
+  image: Media<'image'>;
   hasStock: boolean;
   price: { min: number; max: number; sale: boolean };
 }

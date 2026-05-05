@@ -1,17 +1,17 @@
 'use client';
 
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { useFormatCurrency } from '@/hooks';
-import { Brand, Category } from '@/api';
+import { Brand, Category, Media } from '@/api';
 import { cn } from '@/lib/utils';
 
 import { Link } from './Link';
+import { Image } from './Image';
 
 interface ProductCardProps {
   id: number;
-  imageURL: string;
+  image: Media<'image'> | null;
   name: string;
   price: { min: number; max: number; sale: boolean } | { value: number; compareAt: number | null };
   brand: Brand;
@@ -22,7 +22,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({
   id,
-  imageURL,
+  image,
   name,
   price,
   brand,
@@ -42,14 +42,8 @@ export const ProductCard = ({
       href={`/products/${id}`}
       className={cn('flex flex-col relative gap-4 min-w-60 md:min-w-75 w-60 md:w-75', className)}
     >
-      <div className="relative flex flex-col justify-center items-center bg-white dark:bg-border aspect-square rounded-lg p-2">
-        <Image
-          src={imageURL}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="static! h-auto! w-full object-contain rounded-lg overflow-hidden"
-        />
+      <div className="flex flex-col justify-center items-center bg-white dark:bg-border aspect-square rounded-lg p-2">
+        <Image image={image} alt={name} className="static! h-auto! w-full object-contain rounded-lg overflow-hidden" />
       </div>
 
       <div className="flex flex-col">
@@ -61,7 +55,7 @@ export const ProductCard = ({
           <span className="text-xs text-muted-foreground/50 capitalize">{category.name}</span>
         </div>
 
-        <h4 className="text-lg">{name}</h4>
+        <h4 className="text-lg capitalize">{name}</h4>
 
         {'value' in price ? (
           <div className="flex gap-2 items-center">

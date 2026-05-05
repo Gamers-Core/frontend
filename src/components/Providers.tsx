@@ -10,6 +10,7 @@ import { Locale } from '@/i18n';
 import { useAuthStore } from '@/stores';
 
 import { Toaster } from './ui';
+import { GoToTopButton } from './GoToTopButton';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -32,6 +33,8 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
       <NextIntlClientProvider messages={messages} locale={locale} timeZone="UTC">
         <QueryClientProvider client={queryClient}>
           {children}
+
+          <GoToTopButton />
 
           <Toaster duration={5000} richColors dir={locale === 'ar' ? 'rtl' : 'ltr'} position="top-center" />
           <ReactQueryDevtools initialIsOpen={false} />

@@ -1,15 +1,19 @@
 'use client';
 
-import Image from 'next/image';
-
 import { useFormatCurrency, useFormatNumber } from '@/hooks';
+
+import { Image } from './Image';
 
 export interface VariantPreviewCardProps {
   variant: {
     name: string;
     price: number;
     compareAt: number | null;
-    imageURL: string;
+    image: {
+      src: string | null;
+      width: number;
+      height: number;
+    };
     product: { name: string };
   };
   quantity: number;
@@ -22,13 +26,7 @@ export const VariantPreviewCard = (props: VariantPreviewCardProps) => {
   return (
     <div className="flex gap-4 md:gap-4 p-4">
       <div className="relative">
-        <Image
-          src={props.variant.imageURL}
-          alt={props.variant.product.name}
-          width={120}
-          height={120}
-          className="max-w-20 object-contain"
-        />
+        <Image {...props.variant.image} alt={props.variant.product.name} className="max-w-20 object-contain" />
 
         <span className="absolute -top-2 -inset-e-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
           {formatNumber(props.quantity)}
