@@ -7,8 +7,11 @@ import { useScroll } from '@/hooks';
 import { cn } from '@/lib/utils';
 
 import { Button } from './Button';
+import { useTranslations } from 'next-intl';
 
 export const GoToTopButton = () => {
+  const t = useTranslations();
+
   const { isScrolled } = useScroll({ threshold: 200 });
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -23,6 +26,7 @@ export const GoToTopButton = () => {
       )}
       icon={<HugeiconsIcon icon={ArrowUp02Icon} className="text-foreground" />}
       size="icon-lg"
+      aria-label={t('go_to_top')}
     />
   );
 };
