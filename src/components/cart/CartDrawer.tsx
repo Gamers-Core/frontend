@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Trash2, X } from '@hugeicons/core-free-icons';
-import Image from 'next/image';
 
 import { useBreakpoint, useDebounce, useFormatCurrency, useFormatNumber } from '@/hooks';
 import { CartItem, useCartDrawerStore, useCartStore } from '@/stores';
@@ -14,6 +13,7 @@ import { Button } from '../Button';
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from '../ui';
 import { ItemAmountButtons } from '../products';
 import { Link } from '../Link';
+import { Image } from '../Image';
 
 export const CartDrawer = () => {
   const locale = useLocale();
@@ -125,13 +125,7 @@ const CartItemCard = (props: CartItem) => {
         onClick={closeCartDrawer}
         className="flex gap-4 md:gap-4 p-4"
       >
-        <Image
-          src={props.imageURL}
-          alt={props.productName}
-          width={120}
-          height={120}
-          className="max-w-24 md:max-w-20 object-contain"
-        />
+        <Image image={props.image} alt={props.productName} className="max-w-24 md:max-w-20 object-contain" />
 
         <div>
           <div>

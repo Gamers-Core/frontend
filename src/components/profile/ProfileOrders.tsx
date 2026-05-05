@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { HugeiconsIcon } from '@hugeicons/react';
-import Image from 'next/image';
 
 import { Order, getOrderStatuses, statusesStyleMap } from '@/api';
 import { useFormatCurrency, useFormatDate, useFormatNumber, useOrdersQuery } from '@/hooks';
@@ -10,6 +9,7 @@ import { cn } from '@/lib/utils';
 
 import { Link } from '../Link';
 import { Separator } from '../ui';
+import { Image } from '../Image';
 
 export const ProfileOrders = () => {
   const t = useTranslations();
@@ -65,8 +65,8 @@ const OrderItem = (order: Order) => {
 
       <div className="w-full h-80">
         <Image
-          src={order.items?.[0]?.imageURL ?? '/assets/placeholder.svg'}
-          alt={order.items?.[0]?.variantName ?? ''}
+          src={order.items?.[0].imageURL}
+          alt={order.items[0].variantName}
           width={200}
           height={400}
           className="size-full object-contain rounded"

@@ -3,9 +3,9 @@
 import { HugeiconsIcon } from '@hugeicons/react';
 import { useTranslations } from 'next-intl';
 import { ArrowDown } from '@hugeicons/core-free-icons';
-import Image from 'next/image';
 
 import { Button } from '../Button';
+import { Image } from '../Image';
 
 export const Hero = () => {
   const t = useTranslations();

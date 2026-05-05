@@ -1,13 +1,12 @@
 'use client';
 
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { useSearchParams } from '@/hooks';
 import { Product, Variant } from '@/api';
-import { formatMedia } from '@/helpers';
 
 import { Button } from '../Button';
+import { Image } from '../Image';
 
 interface VariantSwitcherProps {
   activeVariant: Variant;
@@ -45,8 +44,8 @@ export const VariantSwitcher = ({ activeVariant, product }: VariantSwitcherProps
               >
                 <div className="flex items-center justify-center bg-white dark:bg-border p-2 rounded-lg">
                   <Image
-                    {...formatMedia(variant.media[0] ?? product.media[0])}
-                    alt={variant.name ?? ''}
+                    image={variant.image}
+                    alt={variant.name}
                     className="rounded-lg"
                     priority={isFirst}
                     fetchPriority={isFirst ? 'high' : 'auto'}

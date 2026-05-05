@@ -1,17 +1,17 @@
 'use client';
 
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { useFormatCurrency } from '@/hooks';
-import { Brand, Category } from '@/api';
+import { Brand, Category, Media } from '@/api';
 import { cn } from '@/lib/utils';
 
 import { Link } from './Link';
+import { Image } from './Image';
 
 interface ProductCardProps {
   id: number;
-  imageURL: string;
+  image: Media<'image'> | null;
   name: string;
   price: { min: number; max: number; sale: boolean } | { value: number; compareAt: number | null };
   brand: Brand;
@@ -22,7 +22,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({
   id,
-  imageURL,
+  image,
   name,
   price,
   brand,
@@ -44,7 +44,7 @@ export const ProductCard = ({
     >
       <div className="relative flex flex-col justify-center items-center bg-white dark:bg-border aspect-square rounded-lg p-2">
         <Image
-          src={imageURL}
+          image={image}
           alt={name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

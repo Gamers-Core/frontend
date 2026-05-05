@@ -20,3 +20,4 @@ export * from './search';
 export * from './ProductCard';
 export * from './brands';
 export * from './GoToTopButton';
+export * from './Image';

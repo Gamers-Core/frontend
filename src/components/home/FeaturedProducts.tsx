@@ -1,14 +1,13 @@
 'use client';
 
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { FeaturedVariant } from '@/api';
 import { useFeaturedQuery, useFormatCurrency } from '@/hooks';
 import { cn } from '@/lib/utils';
-import { formatMedia } from '@/helpers';
 
 import { Link } from '../Link';
+import { Image } from '../Image';
 
 export const FeaturedProducts = () => {
   const t = useTranslations();
@@ -42,12 +41,10 @@ interface FeaturedProductCardProps extends FeaturedVariant {
   isMain?: boolean;
 }
 
-const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCardProps) => {
+const FeaturedProductCard = ({ isMain = false, variant, ...featured }: FeaturedProductCardProps) => {
   const t = useTranslations();
 
   const formatCurrency = useFormatCurrency();
-
-  const media = featured.variant.media[0] ?? featured.variant.product.media[0];
 
   return (
     <div
@@ -65,7 +62,7 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
         )}
       >
         <div className="relative flex items-center md:max-w-xl flex-1">
-          <Image {...formatMedia(media)} alt={featured.title} loading="eager" fetchPriority="high" priority />
+          <Image image={variant.image} alt={featured.title} loading="eager" fetchPriority="high" priority />
 
           <p
             className={cn(
@@ -85,13 +82,13 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
           <div className="flex flex-col gap-2">
             <div>
               <span className="text-sm md:text-base lg:text-lg text-sidebar-primary uppercase">
-                {featured.variant.product.brand.name}
+                {variant.product.brand.name}
               </span>
 
               <span> {t('slash')} </span>
 
               <span className="text-xs md:text-sm lg:text-base text-muted-foreground/50 capitalize">
-                {featured.variant.product.category.name}
+                {variant.product.category.name}
               </span>
             </div>
             <h3
@@ -99,13 +96,13 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
                 'md:text-2xl lg:text-3xl xl:text-4xl': !isMain,
               })}
             >
-              {featured.variant.product.name}
+              {variant.product.name}
             </h3>
           </div>
 
           {isMain && (
             <p className="md:text-base lg:text-lg xl:text-2xl text-gray-500 line-clamp-4 lg:line-clamp-5 xl:line-clamp-6">
-              {featured.variant.product.description
+              {variant.product.description
                 .replace(/<[^>]*>/g, ' ')
                 .replace(/\s+/g, ' ')
                 .trim()}
@@ -118,16 +115,16 @@ const FeaturedProductCard = ({ isMain = false, ...featured }: FeaturedProductCar
             })}
           >
             <p className="text-3xl md:text-2xl lg:text-2xl xl:text-3xl font-semibold text-sidebar-primary">
-              {formatCurrency(featured.variant.price)}
+              {formatCurrency(variant.price)}
             </p>
 
             <p className="text-xl md:text-base lg:text-lg xl:text-xl line-through text-sidebar-primary/80">
-              {featured.variant.compareAt && formatCurrency(featured.variant.compareAt)}
+              {variant.compareAt && formatCurrency(variant.compareAt)}
             </p>
           </div>
 
           <Link
-            href={`/products/${featured.variant.product.id}?variant=${featured.variant.externalId}`}
+            href={`/products/${variant.product.id}?variant=${variant.externalId}`}
             className="w-fit text-lg md:text-xl lg:text-2xl h-auto px-6 py-4 bg-primary rounded-lg text-primary-foreground font-bold"
           >
             {t('home_featured_button')}

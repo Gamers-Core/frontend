@@ -2,14 +2,14 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { isClient } from '@/helpers';
-import { CartItem as BackendCartItem } from '@/api';
+import { CartItem as BackendCartItem, Media } from '@/api';
 
 export interface CartItem {
   externalId: string;
   productId: number;
   productName: string;
   name: string;
-  imageURL: string;
+  image: Media<'image'> | null;
   stock: number;
   price: number;
   compareAt: number | null;

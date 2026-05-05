@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +12,7 @@ import { Disclosure, useCarousel, useDisclosure, useSearchParams } from '@/hooks
 
 import { Button } from '../Button';
 import { Carousel, CarouselContent, CarouselItem } from '../ui';
+import { Image } from '../Image';
 
 interface MediaCarouselProps {
   media: SlideImage[];
@@ -58,7 +58,9 @@ export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
               >
                 {mediaItem.type === 'image' ? (
                   <Image
-                    {...mediaItem}
+                    src={mediaItem.src}
+                    width={mediaItem.width!}
+                    height={mediaItem.height!}
                     alt={`Media ${index + 1}`}
                     className="w-full select-none"
                     priority={isFirst}
@@ -124,7 +126,9 @@ const LightboxCarousel = ({ media, activeIndex, setActiveIndex, ...disclosure }:
     render={{
       iconZoomIn: () => null,
       iconZoomOut: () => null,
-      slide: ({ slide }) => <Image {...slide} alt={slide.alt ?? ''} loading="lazy" fetchPriority="auto" />,
+      slide: ({ slide: { src, width, height, alt } }) => (
+        <Image src={src} alt={alt} width={width!} height={height!} loading="lazy" fetchPriority="auto" />
+      ),
     }}
   />
 );

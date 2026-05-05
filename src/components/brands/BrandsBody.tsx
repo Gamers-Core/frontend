@@ -1,11 +1,11 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 
 import { useBrandsQuery } from '@/hooks';
 
 import { Link } from '../Link';
+import { Image } from '../Image';
 
 export const BrandsBody = () => {
   const t = useTranslations();
@@ -27,13 +27,7 @@ export const BrandsBody = () => {
             className="flex flex-col items-center gap-4 hover:text-sidebar-primary transition-colors duration-300"
           >
             <div className="w-full h-full flex flex-col justify-center items-center bg-white dark:bg-border rounded-lg p-2 aspect-video">
-              <Image
-                src={image.url}
-                alt={name}
-                width={image.width}
-                height={image.height}
-                className="h-full w-full object-contain rounded-lg overflow-hidden"
-              />
+              <Image image={image} alt={name} className="h-full w-full object-cover rounded-lg overflow-hidden" />
             </div>
 
             <h3 className="text-lg md:text-xl lg:text-2xl font-medium">{name}</h3>

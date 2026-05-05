@@ -7,7 +7,6 @@ import { ShoppingBagAddIcon } from '@hugeicons/core-free-icons';
 import { useTranslations } from 'next-intl';
 
 import { useCartSyncMutation, useFormatCurrency, useProductQuery, useSearchParams } from '@/hooks';
-import { formatMedia } from '@/helpers';
 import { useCartDrawerStore, useCartStore } from '@/stores';
 
 import { MediaCarousel } from './MediaCarousel';
@@ -48,8 +47,8 @@ export const ProductListing = ({ id }: ProductListingProps) => {
 
   const activeVariant = selectedVariant ?? productQuery.data.variants[0];
 
-  const media: SlideImage[] = [...activeVariant.media, ...productQuery.data.media].map((mediaItem) => ({
-    ...formatMedia(mediaItem),
+  const media: SlideImage[] = [activeVariant.image!, ...productQuery.data.media].map((mediaItem) => ({
+    ...mediaItem,
     type: 'image',
   }));
   const hasStock = activeVariant.stock > 0;
@@ -97,14 +96,9 @@ export const ProductListing = ({ id }: ProductListingProps) => {
               className="flex-1 h-auto rounded-lg text-base gap-2 bg-primary/30 hover:bg-primary/50 hover:dark:bg-primary/50"
               onClick={() => {
                 setItem({
-                  externalId: activeVariant.externalId,
+                  ...activeVariant,
                   productId: productQuery.data.id,
                   productName: productQuery.data.name,
-                  name: activeVariant.name,
-                  stock: activeVariant.stock,
-                  price: activeVariant.price,
-                  compareAt: activeVariant.compareAt,
-                  imageURL: formatMedia(activeVariant.media[0] ?? productQuery.data.media[0]).src,
                   quantity: amount,
                 });
 
@@ -125,14 +119,9 @@ export const ProductListing = ({ id }: ProductListingProps) => {
                 onSettled: () => {
                   setItems([
                     {
-                      externalId: activeVariant.externalId,
+                      ...activeVariant,
                       productId: productQuery.data.id,
                       productName: productQuery.data.name,
-                      name: activeVariant.name,
-                      stock: activeVariant.stock,
-                      price: activeVariant.price,
-                      compareAt: activeVariant.compareAt,
-                      imageURL: formatMedia(activeVariant.media[0] ?? productQuery.data.media[0]).src,
                       quantity: amount,
                     },
                   ]);
