@@ -4,6 +4,8 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { useTranslations } from 'next-intl';
 import { ArrowDown } from '@hugeicons/core-free-icons';
 
+import { heroImage } from '@/assets';
+
 import { Button } from '../Button';
 import { Image } from '../Image';
 
@@ -13,10 +15,10 @@ export const Hero = () => {
   return (
     <section className="relative h-svh w-full">
       <Image
-        src="/assets/hero.jpg"
+        {...heroImage}
+        placeholder="blur"
         alt="hero"
         className="size-full object-cover brightness-60 select-none"
-        fill
         priority
         fetchPriority="high"
         loading="eager"
