@@ -54,7 +54,7 @@ export const Image = (props: ImageProps) => {
       height={isFill ? undefined : ((isSrc ? props.height : props.image?.height) ?? 400)}
       className={cn(
         'duration-500 ease-in-out blur-[0px]',
-        { 'scale-101 blur-sm': isImageLoading },
+        { 'blur-sm': isImageLoading },
         {
           [objectContains.join(' ')]: objectContains.length > 0,
         },
