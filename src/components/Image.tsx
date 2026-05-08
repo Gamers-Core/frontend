@@ -1,7 +1,7 @@
 'use client';
 
 import NextImage from 'next/image';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { Media } from '@/api';
 import { cn } from '@/lib/utils';
@@ -30,15 +30,6 @@ export const Image = (props: ImageProps) => {
   const isSrc = 'src' in props;
   const isFill = 'fill' in props && props.fill;
 
-  const objectContains = useMemo(
-    () =>
-      props.className
-        ?.split(' ')
-        .filter((className) => className.includes('object-contain'))
-        .map((obj) => `${obj.replaceAll('object-contain', 'bg-contain')}!`) ?? [],
-    [props.className],
-  );
-
   const src = (isSrc ? props.src : props.image?.src) ?? '/assets/placeholder.svg';
 
   const blurDataURL = !isSrc && props.image?.blurDataURL ? props.image?.blurDataURL : undefined;
@@ -52,11 +43,7 @@ export const Image = (props: ImageProps) => {
       alt={props.alt ?? ''}
       width={isFill ? undefined : ((isSrc ? props.width : props.image?.width) ?? 600)}
       height={isFill ? undefined : ((isSrc ? props.height : props.image?.height) ?? 400)}
-      className={cn(
-        'duration-500 ease-in-out blur-[0px]',
-        { 'blur-sm': isImageLoading, [objectContains.join(' ')]: objectContains.length > 0 },
-        props.className,
-      )}
+      className={cn('duration-500 ease-in-out blur-[0px]', { 'blur-sm': isImageLoading }, props.className)}
       onLoad={() => setIsImageLoading(false)}
     />
   );

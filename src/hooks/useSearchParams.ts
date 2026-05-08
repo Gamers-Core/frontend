@@ -1,7 +1,8 @@
 'use client';
 import { useSearchParams as useSearchParamsNext } from 'next/navigation';
-import { usePathname, useRouter } from '@/i18n';
 import { useCallback } from 'react';
+
+import { usePathname, useRouter } from '@/i18n';
 
 type ParamValue = string | number | boolean | null | undefined;
 type ParamUpdates = Record<string, ParamValue>;
