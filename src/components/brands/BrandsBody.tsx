@@ -27,7 +27,7 @@ export const BrandsBody = () => {
             className="flex flex-col items-center gap-4 hover:text-sidebar-primary transition-colors duration-300"
           >
             <div className="w-full h-full flex flex-col justify-center items-center bg-white dark:bg-border rounded-lg p-2 aspect-video">
-              <Image image={image} alt={name} className="h-full w-fit rounded-lg overflow-hidden" />
+              <Image image={image} alt={name} className="h-full w-fit overflow-hidden object-contain bg-contain!" />
             </div>
 
             <h3 className="text-lg md:text-xl lg:text-2xl font-medium">{name}</h3>
