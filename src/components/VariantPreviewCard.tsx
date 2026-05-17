@@ -6,7 +6,7 @@ import { Image } from './Image';
 
 export interface VariantPreviewCardProps {
   variant: {
-    name: string;
+    name: string | null;
     price: number;
     compareAt: number | null;
     image: {
@@ -37,7 +37,7 @@ export const VariantPreviewCard = (props: VariantPreviewCardProps) => {
         <div>
           <h3 className="text-lg font-bold">{props.variant.product.name}</h3>
 
-          <p className="text-muted-foreground">{props.variant.name}</p>
+          {props.variant.name && <p className="text-muted-foreground">{props.variant.name}</p>}
         </div>
 
         <div className="flex gap-1 items-center">

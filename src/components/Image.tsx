@@ -31,7 +31,6 @@ export const Image = (props: ImageProps) => {
   const isFill = 'fill' in props && props.fill;
 
   const src = (isSrc ? props.src : props.image?.src) ?? '/assets/placeholder.svg';
-
   const blurDataURL = !isSrc && props.image?.blurDataURL ? props.image?.blurDataURL : undefined;
 
   return (

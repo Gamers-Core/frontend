@@ -105,7 +105,7 @@ const PolicyDialog = ({ policyType, policy, ...disclosure }: PolicyProps) => {
           <div className="flex flex-col gap-2">
             <DialogTitle className="text-xl">{t(`policy_${policyType}`)}</DialogTitle>
 
-            <DialogDescription className="text-destructive">
+            <DialogDescription>
               <span className="text-base font-medium text-muted-foreground/60">{t('last_updated_at')}</span>
 
               <span className="text-base font-semibold text-muted-foreground">

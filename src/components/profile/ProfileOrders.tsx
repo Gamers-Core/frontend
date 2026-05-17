@@ -66,7 +66,7 @@ const OrderItem = (order: Order) => {
       <div className="w-full h-80">
         <Image
           src={order.items?.[0].imageURL}
-          alt={order.items[0].variantName}
+          alt={order.items[0].variantName ?? order.items[0].productTitle}
           width={200}
           height={400}
           className="size-full object-contain rounded"

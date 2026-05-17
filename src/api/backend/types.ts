@@ -184,7 +184,7 @@ export interface OrderItem {
   productId: number;
   productTitle: string;
   variantExternalId: string;
-  variantName: string;
+  variantName: string | null;
   imageURL: string | null;
   quantity: number;
   unitPrice: number;
