@@ -1,6 +1,5 @@
 'use client';
 
-import { SlideImage } from 'yet-another-react-lightbox';
 import { useEffect, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ShoppingBagAddIcon } from '@hugeicons/core-free-icons';
@@ -15,6 +14,7 @@ import { ItemAmountButtons } from './ItemAmountButtons';
 import { Button } from '../Button';
 import { useRouter } from '@/i18n';
 import { HTMLRender } from '../HTMLRender';
+import { Media } from '@/api';
 
 export interface ProductListingProps {
   id: number;
@@ -47,10 +47,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
 
   const activeVariant = selectedVariant ?? productQuery.data.variants[0];
 
-  const media: SlideImage[] = [activeVariant.image!, ...productQuery.data.media].map((mediaItem) => ({
-    ...mediaItem,
-    type: 'image',
-  }));
+  const media: Media[] = [activeVariant.image!, ...productQuery.data.media];
   const hasStock = activeVariant.stock > 0;
 
   return (

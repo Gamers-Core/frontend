@@ -1,21 +1,26 @@
 'use client';
 
 import { useLocale } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import Lightbox, { SlideImage } from 'yet-another-react-lightbox';
+import Lightbox, { Slide } from 'yet-another-react-lightbox';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 
 import { cn } from '@/lib/utils';
+import type { Media as MediaType } from '@/api';
 import { Disclosure, useCarousel, useDisclosure, useSearchParams } from '@/hooks';
 
 import { Button } from '../Button';
 import { Carousel, CarouselContent, CarouselItem } from '../ui';
-import { Image } from '../Image';
+import { Media } from '../Media';
+
+type MediaSlide = Slide & {
+  media: MediaType;
+};
 
 interface MediaCarouselProps {
-  media: SlideImage[];
+  media: MediaType[];
   className?: string;
 }
 
@@ -56,18 +61,15 @@ export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
                 }}
                 key={index}
               >
-                {mediaItem.type === 'image' ? (
-                  <Image
-                    src={mediaItem.src}
-                    width={mediaItem.width!}
-                    height={mediaItem.height!}
-                    alt={`Media ${index + 1}`}
-                    className="w-full select-none"
-                    priority={isFirst}
-                    fetchPriority={isFirst ? 'high' : 'auto'}
-                    loading={isFirst ? 'eager' : 'lazy'}
-                  />
-                ) : null}
+                <Media
+                  isPreview
+                  media={mediaItem}
+                  alt={`Media ${index + 1}`}
+                  className="w-full select-none"
+                  priority={isFirst}
+                  fetchPriority={isFirst ? 'high' : 'auto'}
+                  loading={isFirst ? 'eager' : 'lazy'}
+                />
               </CarouselItem>
             );
           })}
@@ -106,29 +108,44 @@ export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
 };
 
 interface LightboxCarouselProps extends Disclosure {
-  media: SlideImage[];
+  media: MediaType[];
   activeIndex: number;
   setActiveIndex: (index: number) => void;
 }
 
-const LightboxCarousel = ({ media, activeIndex, setActiveIndex, ...disclosure }: LightboxCarouselProps) => (
-  <Lightbox
-    {...disclosure}
-    close={disclosure.onClose}
-    index={activeIndex}
-    on={{ view: ({ index }) => setActiveIndex(index) }}
-    controller={{ closeOnBackdropClick: true }}
-    slides={media}
-    plugins={[Zoom]}
-    zoom={{ pinchZoomV4: true, maxZoomPixelRatio: 4 }}
-    styles={{ container: { background: 'transparent' } }}
-    className="backdrop-blur-xl dark:bg-transparent transition-all duration-300"
-    render={{
-      iconZoomIn: () => null,
-      iconZoomOut: () => null,
-      slide: ({ slide: { src, width, height, alt } }) => (
-        <Image src={src} alt={alt} width={width!} height={height!} loading="lazy" fetchPriority="auto" />
-      ),
-    }}
-  />
-);
+const LightboxCarousel = ({ media, activeIndex, setActiveIndex, ...disclosure }: LightboxCarouselProps) => {
+  const slides = useMemo<MediaSlide[]>(
+    () => media.map((mediaItem) => ({ ...mediaItem, type: 'image', media: mediaItem })),
+    [media],
+  );
+
+  return (
+    <Lightbox
+      {...disclosure}
+      close={disclosure.onClose}
+      index={activeIndex}
+      on={{ view: ({ index }) => setActiveIndex(index) }}
+      controller={{ closeOnBackdropClick: true }}
+      slides={slides}
+      plugins={[Zoom]}
+      zoom={{ pinchZoomV4: true, maxZoomPixelRatio: 4 }}
+      styles={{ container: { background: 'transparent' } }}
+      className="backdrop-blur-xl dark:bg-transparent transition-all duration-300"
+      render={{
+        iconZoomIn: () => null,
+        iconZoomOut: () => null,
+        slide: ({ slide }) => (
+          <div className="h-auto md:h-[inherit] flex items-center justify-center min-h-0 select-none">
+            <Media
+              media={(slide as MediaSlide).media}
+              loading="lazy"
+              fetchPriority="auto"
+              className="h-[inherit] w-auto object-contain select-none"
+              draggable={false}
+            />
+          </div>
+        ),
+      }}
+    />
+  );
+};

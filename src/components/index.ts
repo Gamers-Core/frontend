@@ -21,3 +21,4 @@ export * from './ProductCard';
 export * from './brands';
 export * from './GoToTopButton';
 export * from './Image';
+export * from './Media';
