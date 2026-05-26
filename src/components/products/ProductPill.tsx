@@ -23,18 +23,12 @@ export const ProductPill = ({ isInView, item, onAddToCart }: ProductPillProps) =
   const { isScrolled: isAtEnd } = useScroll({ thresholdPercentage: 95 });
 
   return (
-    <div
-      className={cn(
-        'fixed bottom-2.5 inset-s-5 md:bottom-7.5 md:inset-s-10 opacity-0 z-10 pointer-events-none w-[calc(100%-6rem)] md:w-[calc(100%-9rem)] transition-all duration-500',
-        'flex justify-center items-center',
-        { 'opacity-100': !isInView && !isAtEnd },
-      )}
-    >
+    <div className="flex justify-center items-center fixed bottom-2.5 inset-s-5 md:bottom-7.5 md:inset-s-10 z-10 pointer-events-none w-[calc(100%-6rem)] md:w-[calc(100%-9rem)] transition-all duration-500">
       <div
         className={cn(
           'pointer-events-none opacity-0 blur-lg transition-all duration-500',
-          'w-120 lg:w-200 flex flex-col md:flex-row gap-2 items-center justify-between p-4 md:p-2 bg-card/70 backdrop-blur-lg rounded-xl border border-border',
-          { 'blur-none opacity-100 pointer-events-auto': !isInView && !isAtEnd },
+          'w-120 lg:w-200 flex flex-col md:flex-row gap-2 items-center justify-between p-4 md:p-2 bg-card/70 backdrop-blur-[0px] rounded-xl border border-border',
+          { 'blur-none opacity-100 backdrop-blur-lg pointer-events-auto': !isInView && !isAtEnd },
         )}
       >
         <div className="flex items-center gap-2 w-full md:w-fit">
