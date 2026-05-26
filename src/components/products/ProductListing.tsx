@@ -5,16 +5,17 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { ShoppingBagAddIcon } from '@hugeicons/core-free-icons';
 import { useTranslations } from 'next-intl';
 
-import { useCartSyncMutation, useFormatCurrency, useProductQuery, useSearchParams } from '@/hooks';
+import { useCartSyncMutation, useFormatCurrency, useIsInView, useProductQuery, useSearchParams } from '@/hooks';
 import { useCartDrawerStore, useCartStore } from '@/stores';
+import { Media } from '@/api';
+import { useRouter } from '@/i18n';
 
 import { MediaCarousel } from './MediaCarousel';
 import { VariantSwitcher } from './VariantSwitcher';
 import { ItemAmountButtons } from './ItemAmountButtons';
 import { Button } from '../Button';
-import { useRouter } from '@/i18n';
 import { HTMLRender } from '../HTMLRender';
-import { Media } from '@/api';
+import { ProductPill } from './ProductPill';
 
 export interface ProductListingProps {
   id: number;
@@ -26,8 +27,9 @@ export const ProductListing = ({ id }: ProductListingProps) => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const productQuery = useProductQuery(id);
+  const [ref, isInView] = useIsInView({ isInView: true });
   const formatCurrency = useFormatCurrency();
+  const productQuery = useProductQuery(id);
 
   const cartSyncMutation = useCartSyncMutation();
 
@@ -58,86 +60,110 @@ export const ProductListing = ({ id }: ProductListingProps) => {
       />
 
       <div className="flex flex-col gap-4 min-w-0 px-4 lg:px-0 flex-1">
-        <div className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
-          <div className="flex flex-col gap-2">
-            <div>
-              <span className="text-lg text-sidebar-primary uppercase">{productQuery.data.brand.name}</span>
+        <div ref={ref} className="flex flex-col gap-4">
+          <div className="p-4 flex flex-col gap-4 bg-sidebar-border rounded-lg">
+            <div className="flex flex-col gap-2">
+              <div>
+                <span className="text-lg text-sidebar-primary uppercase">{productQuery.data.brand.name}</span>
 
-              <span> {t('slash')} </span>
+                <span> {t('slash')} </span>
 
-              <span className="text-base text-muted-foreground/50 capitalize">{productQuery.data.category.name}</span>
+                <span className="text-base text-muted-foreground/50 capitalize">{productQuery.data.category.name}</span>
+              </div>
+
+              <h1 className="text-2xl">{productQuery.data.title}</h1>
             </div>
 
-            <h1 className="text-2xl">{productQuery.data.title}</h1>
+            <div className="flex gap-2 items-center">
+              <p className="text-xl text-sidebar-primary font-semibold">{formatCurrency(activeVariant.price)}</p>
+
+              <p className="text-base md:text-base lg:text-lg xl:text-xl line-through text-sidebar-primary/70">
+                {activeVariant.compareAt && formatCurrency(activeVariant.compareAt)}
+              </p>
+            </div>
+
+            <VariantSwitcher activeVariant={activeVariant} product={productQuery.data} />
           </div>
 
-          <div className="flex gap-2 items-center">
-            <p className="text-xl text-sidebar-primary font-semibold">{formatCurrency(activeVariant.price)}</p>
+          <div className="p-4 flex flex-col gap-2 bg-sidebar-border rounded-lg">
+            <div className="flex flex-1 gap-2">
+              <ItemAmountButtons variant={activeVariant} amount={amount} setAmount={setAmount} />
 
-            <p className="text-base md:text-base lg:text-lg xl:text-xl line-through text-sidebar-primary/70">
-              {activeVariant.compareAt && formatCurrency(activeVariant.compareAt)}
-            </p>
-          </div>
+              <Button
+                icon={<HugeiconsIcon icon={ShoppingBagAddIcon} className="size-5 rtl:rotate-y-180" />}
+                variant="ghost"
+                isDisabled={!hasStock}
+                className="flex-1 h-auto rounded-lg text-base gap-2 bg-primary/30 hover:bg-primary/50 hover:dark:bg-primary/50"
+                onClick={() => {
+                  setItem({
+                    ...activeVariant,
+                    productId: productQuery.data.id,
+                    productName: productQuery.data.name,
+                    quantity: amount,
+                  });
 
-          <VariantSwitcher activeVariant={activeVariant} product={productQuery.data} />
-        </div>
-
-        <div className="p-4 flex flex-col gap-2 bg-sidebar-border rounded-lg">
-          <div className="flex flex-1 gap-2">
-            <ItemAmountButtons variant={activeVariant} amount={amount} setAmount={setAmount} />
+                  openCartDrawer();
+                }}
+              >
+                {t(hasStock ? 'add_to_cart' : 'out_of_stock')}
+              </Button>
+            </div>
 
             <Button
-              icon={<HugeiconsIcon icon={ShoppingBagAddIcon} className="size-5 rtl:rotate-y-180" />}
-              variant="ghost"
+              variant="default"
               isDisabled={!hasStock}
-              className="flex-1 h-auto rounded-lg text-base gap-2 bg-primary/30 hover:bg-primary/50 hover:dark:bg-primary/50"
+              isLoading={cartSyncMutation.isPending}
+              className="flex-1 h-auto rounded-lg text-base min-h-12"
               onClick={() => {
-                setItem({
-                  ...activeVariant,
-                  productId: productQuery.data.id,
-                  productName: productQuery.data.name,
-                  quantity: amount,
-                });
+                cartSyncMutation.mutate([{ externalId: activeVariant.externalId, quantity: amount }], {
+                  onSettled: () => {
+                    setItems([
+                      {
+                        ...activeVariant,
+                        productId: productQuery.data.id,
+                        productName: productQuery.data.name,
+                        quantity: amount,
+                      },
+                    ]);
 
-                openCartDrawer();
+                    router.push('/checkout');
+                  },
+                });
               }}
             >
-              {t(hasStock ? 'add_to_cart' : 'out_of_stock')}
+              {t(hasStock ? 'buy_now' : 'out_of_stock')}
             </Button>
           </div>
-
-          <Button
-            variant="default"
-            isDisabled={!hasStock}
-            isLoading={cartSyncMutation.isPending}
-            className="flex-1 h-auto rounded-lg text-base min-h-12"
-            onClick={() => {
-              cartSyncMutation.mutate([{ externalId: activeVariant.externalId, quantity: amount }], {
-                onSettled: () => {
-                  setItems([
-                    {
-                      ...activeVariant,
-                      productId: productQuery.data.id,
-                      productName: productQuery.data.name,
-                      quantity: amount,
-                    },
-                  ]);
-
-                  router.push('/checkout');
-                },
-              });
-            }}
-          >
-            {t(hasStock ? 'buy_now' : 'out_of_stock')}
-          </Button>
         </div>
 
-        <div className="p-4 flex flex-col gap-6 bg-sidebar-border rounded-lg">
+        <div className="p-4 flex flex-col gap-6 bg-sidebar-border rounded-lg flex-1">
           <h3 className="text-2xl font-semibold text-sidebar-primary/90">{t('description')}</h3>
 
           <ProductDescription html={productQuery.data.description} />
         </div>
       </div>
+
+      {activeVariant.stock > 0 && (
+        <ProductPill
+          isInView={isInView}
+          item={{
+            ...activeVariant,
+            productId: productQuery.data.id,
+            productName: productQuery.data.name,
+            quantity: amount,
+          }}
+          onAddToCart={() => {
+            setItem({
+              ...activeVariant,
+              productId: productQuery.data.id,
+              productName: productQuery.data.name,
+              quantity: amount,
+            });
+
+            openCartDrawer();
+          }}
+        />
+      )}
     </section>
   );
 };

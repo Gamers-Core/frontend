@@ -21,3 +21,4 @@ export * from './usePoliciesQuery';
 export * from './useFAQsQuery';
 export * from './useBrandsQuery';
 export * from './useCategoriesQuery';
+export * from './useIsInView';
