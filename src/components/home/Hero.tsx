@@ -1,5 +1,3 @@
-'use client';
-
 import { HugeiconsIcon } from '@hugeicons/react';
 import { useTranslations } from 'next-intl';
 import { ArrowDown } from '@hugeicons/core-free-icons';

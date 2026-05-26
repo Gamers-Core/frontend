@@ -1,5 +1,3 @@
-'use client';
-
 import { Messages, useTranslations } from 'next-intl';
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
 
