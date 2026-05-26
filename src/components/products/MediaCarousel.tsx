@@ -50,7 +50,7 @@ export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
       >
         <CarouselContent>
           {media.map((mediaItem, index) => {
-            const isFirst = index === 0;
+            const isSelected = index === selected;
 
             return (
               <CarouselItem
@@ -66,9 +66,10 @@ export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
                   media={mediaItem}
                   alt={`Media ${index + 1}`}
                   className="w-full select-none"
-                  priority={isFirst}
-                  fetchPriority={isFirst ? 'high' : 'auto'}
-                  loading={isFirst ? 'eager' : 'lazy'}
+                  priority={isSelected}
+                  fetchPriority={isSelected ? 'high' : 'auto'}
+                  loading={isSelected ? 'eager' : 'lazy'}
+                  quality={100}
                 />
               </CarouselItem>
             );
@@ -142,6 +143,7 @@ const LightboxCarousel = ({ media, activeIndex, setActiveIndex, ...disclosure }:
               fetchPriority="auto"
               className="h-[inherit] w-auto object-contain select-none"
               draggable={false}
+              quality={100}
             />
           </div>
         ),

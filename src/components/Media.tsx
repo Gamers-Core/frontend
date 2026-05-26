@@ -14,6 +14,7 @@ interface MediaProps<T extends MediaType> {
   priority?: boolean;
   fetchPriority?: 'high' | 'auto';
   loading?: 'eager' | 'lazy';
+  quality?: number;
   draggable?: boolean;
 }
 
@@ -25,6 +26,7 @@ export const Media = <T extends MediaType>({
   priority,
   fetchPriority,
   loading,
+  quality,
   draggable = true,
 }: MediaProps<T>) => {
   if (!media?.type) return <MediaPlaceholder className={className} icon={FileNotFoundIcon} />;
@@ -40,6 +42,7 @@ export const Media = <T extends MediaType>({
           fetchPriority={fetchPriority}
           loading={loading}
           draggable={draggable}
+          quality={quality}
         />
       );
 
