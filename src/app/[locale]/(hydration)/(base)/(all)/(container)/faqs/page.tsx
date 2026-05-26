@@ -1,13 +1,18 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { useFAQsQuery } from '@/hooks';
 import { FAQsBody, FAQsHeader } from '@/components';
 
-export const metadata: Metadata = {
-  title: 'Gamers Core | FAQs',
-  description: 'Find answers to your questions about Gamers Core.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: t('page_faqs_title'),
+    description: t('page_faqs_description'),
+  };
+}
 export default async function FAQs() {
   const queryClient = new QueryClient();
 

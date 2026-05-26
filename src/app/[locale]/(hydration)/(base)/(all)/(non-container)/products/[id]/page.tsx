@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { ProductListing, RecommendedProducts } from '@/components';
 import { useProductQuery, useProductRecommendationsQuery } from '@/hooks';
@@ -11,6 +12,8 @@ type PageParams = PagePropsWithParams<{ id: string }>;
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const id = Number((await params).id);
   if (isNaN(id)) return notFound();
+
+  const t = await getTranslations();
 
   const queryClient = new QueryClient();
 
@@ -26,8 +29,8 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   const productName = product.name.length > 20 ? `${product.name.slice(0, 20)}...` : product.name;
 
   return {
-    title: `Gamers Core | ${productName}`,
-    description: `View details of product ${productName}`,
+    title: t('page_product_title', { product: productName }),
+    description: t('page_product_description', { product: productName }),
   };
 }
 

@@ -1,13 +1,18 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { FeaturedProducts, Hero, TopBar, UserReviews } from '@/components';
 import { useFeaturedQuery, useUserReviewsQuery } from '@/hooks';
 
-export const metadata: Metadata = {
-  title: 'Gamers Core',
-  description: 'Get your gaming Gear at the best price',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: t('page_home_title'),
+    description: t('page_home_description'),
+  };
+}
 
 export default async function Home() {
   const queryClient = new QueryClient();

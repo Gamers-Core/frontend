@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 
 import { PagePropsWithParams } from '@/app/types';
 import { policies, PolicyType } from '@/api';
@@ -11,9 +12,15 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   const policy = (await params).policy;
   if (!policy) return notFound();
 
+  const normalizedPolicy = policy.toLowerCase() as PolicyType;
+  if (!policies.includes(normalizedPolicy)) return notFound();
+
+  const t = await getTranslations();
+  const policyTitle = t(`policy_${normalizedPolicy}`);
+
   return {
-    title: `Gamers Core | ${policy}`,
-    description: `View ${policy} policy of Gamers Core`,
+    title: t('page_policy_title', { policy: policyTitle }),
+    description: t('page_policy_description', { policy: policyTitle }),
   };
 }
 

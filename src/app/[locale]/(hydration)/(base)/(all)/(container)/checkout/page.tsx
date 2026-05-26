@@ -1,5 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import {
   Accordion,
@@ -16,11 +17,14 @@ import {
 import { useAddressesQuery, useCartQuery } from '@/hooks';
 import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Gamers Core | Checkout',
-  description:
-    'Complete your purchase with Gamers Core. Review your order, enter your payment details, and finalize your transaction securely.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: t('page_checkout_title'),
+    description: t('page_checkout_description'),
+  };
+}
 
 export default async function Checkout() {
   const queryClient = new QueryClient();

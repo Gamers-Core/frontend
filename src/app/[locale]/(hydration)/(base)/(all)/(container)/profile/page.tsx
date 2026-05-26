@@ -1,13 +1,18 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { ProfileAddresses, ProfileHeader, ProfileInfo, ProfileOrders } from '@/components';
 import { useAddressCitiesQuery, useAddressesQuery, useMeQuery, useOrdersQuery } from '@/hooks';
 
-export const metadata: Metadata = {
-  title: 'Gamers Core | Profile',
-  description: 'Access and manage your Gamers Core profile, view your order history, and update your account settings.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: t('page_profile_title'),
+    description: t('page_profile_description'),
+  };
+}
 
 export default async function Page() {
   const queryClient = new QueryClient();

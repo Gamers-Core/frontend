@@ -1,5 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { useBrandsQuery, useCategoriesQuery, useProductsQuery } from '@/hooks';
 import { PagePropsWithSearchParams } from '@/app/types';
@@ -10,10 +11,11 @@ type PageParams = PagePropsWithSearchParams<SearchSchema>;
 
 export async function generateMetadata({ searchParams }: PageParams): Promise<Metadata> {
   const query = (await searchParams).q;
+  const t = await getTranslations();
 
   return {
-    title: `Gamers Core | Search${query ? ` |  ${query}` : ''}`,
-    description: query ? `Search results for ${query}` : 'Search for products',
+    title: query ? t('page_search_title_with_query', { query }) : t('page_search_title'),
+    description: query ? t('page_search_description_with_query', { query }) : t('page_search_description'),
   };
 }
 

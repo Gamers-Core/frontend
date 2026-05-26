@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 
 import { useOrderQuery } from '@/hooks';
 import { OrderHeader, OrderInfo, OrderItemsPreview, OrderShippingFees, OrderTracking, Separator } from '@/components';
@@ -12,9 +13,11 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   const orderNumber = (await params).orderNumber;
   if (!orderNumber) return notFound();
 
+  const t = await getTranslations();
+
   return {
-    title: `Gamers Core | ${orderNumber}`,
-    description: `View details of order ${orderNumber}`,
+    title: t('page_order_title', { orderNumber }),
+    description: t('page_order_description', { orderNumber }),
   };
 }
 

@@ -1,16 +1,20 @@
 import { Metadata } from 'next';
 import { QueryClient } from '@tanstack/react-query';
 import { redirect } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 
 import { AuthHeader, SetupAccountForm } from '@/components';
 import { useMeQuery } from '@/hooks';
 import { PagePropsWithSearchParams } from '@/app/types';
 
-export const metadata: Metadata = {
-  title: 'Gamers Core | Setup Your Account',
-  description:
-    'Set up your Gamers Core account by providing your name to access personalized features and exclusive deals.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: t('page_setup_title'),
+    description: t('page_setup_description'),
+  };
+}
 
 export default async function Page(props: PagePropsWithSearchParams<{ from: string }>) {
   const searchParams = await props.searchParams;

@@ -1,13 +1,18 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 
 import { AuthHeader, VerifyOTPForm } from '@/components';
 import { PagePropsWithSearchParams } from '@/app/types';
 
-export const metadata: Metadata = {
-  title: 'Gamers Core | Verify OTP',
-  description: 'Verify your OTP to complete the sign-in process.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+
+  return {
+    title: t('page_verify_otp_title'),
+    description: t('page_verify_otp_description'),
+  };
+}
 
 export default async function Page(props: PagePropsWithSearchParams<{ sessionId: string; from?: string }>) {
   const searchParams = await props.searchParams;
