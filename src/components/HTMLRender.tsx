@@ -11,7 +11,10 @@ export const HTMLRender = (displayName: string) => {
   const Component = memo(({ html, className, ...props }: HTMLRenderProps) => (
     <div
       dangerouslySetInnerHTML={{ __html: html }}
-      className={cn('prose prose-sm md:prose-base dark:prose-invert max-w-none prose-li:leading-normal', className)}
+      className={cn(
+        'prose prose-sm md:prose-base dark:prose-invert max-w-none prose-li:leading-normal prose-p:mt-0 prose-p:mb-0',
+        className,
+      )}
       {...props}
     />
   ));
