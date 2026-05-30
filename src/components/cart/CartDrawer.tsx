@@ -70,9 +70,11 @@ export const CartDrawer = () => {
                 <div className="flex flex-col">
                   <span className="text-lg font-bold">{formatCurrency(total)}</span>
 
-                  <span className="text-base font-semibold line-through text-popover-foreground/50">
-                    {formatCurrency(compareAtTotal)}
-                  </span>
+                  {!!compareAtTotal && (
+                    <span className="text-base font-semibold line-through text-popover-foreground/50">
+                      {formatCurrency(compareAtTotal)}
+                    </span>
+                  )}
                 </div>
               </div>
 
