@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 
-import { useSearchParams } from '@/hooks';
 import { Product, Variant } from '@/api';
 
 import { Button } from '../Button';
@@ -11,12 +10,11 @@ import { Image } from '../Image';
 interface VariantSwitcherProps {
   activeVariant: Variant;
   product: Product;
+  onVariantExternalIdChange?: (externalId: string) => void;
 }
 
-export const VariantSwitcher = ({ activeVariant, product }: VariantSwitcherProps) => {
+export const VariantSwitcher = ({ activeVariant, product, onVariantExternalIdChange }: VariantSwitcherProps) => {
   const t = useTranslations();
-
-  const searchParams = useSearchParams();
 
   if (product.variants.length <= 1) return null;
 
@@ -39,7 +37,7 @@ export const VariantSwitcher = ({ activeVariant, product }: VariantSwitcherProps
               <Button
                 key={variant.externalId}
                 variant={variant.externalId === activeVariant.externalId ? 'default' : 'ghost'}
-                onClick={() => searchParams.set('variant', variant.externalId)}
+                onClick={() => onVariantExternalIdChange?.(variant.externalId)}
                 className="flex-1 h-auto relative flex flex-col min-w-32 max-w-32 p-2 overflow-y-hidden"
               >
                 <div className="flex items-center justify-center bg-white dark:bg-border p-2 rounded-lg">

@@ -24,9 +24,11 @@ export interface ProductListingProps {
 export const ProductListing = ({ id }: ProductListingProps) => {
   const [amount, setAmount] = useState(1);
   const t = useTranslations();
+  const searchParams = useSearchParams();
+
+  const [variantExternalId, setVariantExternalId] = useState<string | null>(searchParams.get('variant'));
 
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [ref, isInView] = useIsInView({ isInView: true });
   const formatCurrency = useFormatCurrency();
   const productQuery = useProductQuery(id);
@@ -37,10 +39,11 @@ export const ProductListing = ({ id }: ProductListingProps) => {
   const setItems = useCartStore((state) => state.setItems);
   const openCartDrawer = useCartDrawerStore((state) => state.onOpen);
 
-  const variantExternalId = searchParams.get('variant');
-
   useEffect(() => {
+    searchParams.set('variant', variantExternalId);
+
     setAmount(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variantExternalId]);
 
   if (!productQuery.data) return <div>Product not found</div>;
@@ -82,7 +85,11 @@ export const ProductListing = ({ id }: ProductListingProps) => {
               </p>
             </div>
 
-            <VariantSwitcher activeVariant={activeVariant} product={productQuery.data} />
+            <VariantSwitcher
+              activeVariant={activeVariant}
+              product={productQuery.data}
+              onVariantExternalIdChange={setVariantExternalId}
+            />
           </div>
 
           <div className="p-4 flex flex-col gap-2 bg-sidebar-border rounded-lg">
