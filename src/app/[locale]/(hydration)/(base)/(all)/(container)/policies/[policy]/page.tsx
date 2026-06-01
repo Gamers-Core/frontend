@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { PagePropsWithParams } from '@/app/types';
 import { policies, PolicyType } from '@/api';
 import { PolicyBody, PolicyHeader } from '@/components';
-import { QueryClient } from '@tanstack/react-query';
 import { usePoliciesQuery } from '@/hooks';
 
 type PageParams = PagePropsWithParams<{ policy: string }>;
@@ -37,10 +37,10 @@ export default async function Policy({ params }: PageParams) {
   if (policiesResult.status === 'rejected' || !policiesResult.value[policy].value) return notFound();
 
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <PolicyHeader policyType={policy} />
 
       <PolicyBody policyType={policy} />
-    </>
+    </HydrationBoundary>
   );
 }
