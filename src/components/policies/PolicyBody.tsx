@@ -16,7 +16,7 @@ export const PolicyBody = ({ policyType }: PolicyBodyProps) => {
 
   const currentPolicyHTML = policiesQuery.data[policyType].value;
 
-  return <PolicyBodyHTML html={currentPolicyHTML} className="flex flex-col bg-sidebar-border p-4 gap-6 rounded-lg" />;
+  return <PolicyBodyHTML html={currentPolicyHTML} className="flex flex-col bg-sidebar-border p-4 rounded-lg" />;
 };
 
 const PolicyBodyHTML = HTMLRender('PolicyBody');

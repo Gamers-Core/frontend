@@ -12,7 +12,7 @@ export const HTMLRender = (displayName: string) => {
     <div
       dangerouslySetInnerHTML={{ __html: html }}
       className={cn(
-        'prose prose-sm md:prose-base dark:prose-invert max-w-none prose-li:leading-normal prose-p:mt-0 prose-p:mb-0',
+        'prose prose-sm md:prose-base dark:prose-invert max-w-none prose-li:leading-normal prose-p:mt-1 prose-p:mb-1 prose-ul:mb-0 prose-ul:mt-0',
         className,
       )}
       {...props}
