@@ -25,7 +25,7 @@ export const FAQsBody = () => {
         >
           <AccordionTrigger className="text-lg">{faq.question}</AccordionTrigger>
 
-          <AccordionContent>
+          <AccordionContent className="pb-0">
             <FAQAnswerHTML html={faq.answer} />
           </AccordionContent>
         </AccordionItem>
