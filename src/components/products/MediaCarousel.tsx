@@ -9,7 +9,7 @@ import 'yet-another-react-lightbox/styles.css';
 
 import { cn } from '@/lib/utils';
 import type { Media as MediaType } from '@/api';
-import { Disclosure, useCarousel, useDisclosure, useSearchParams } from '@/hooks';
+import { Disclosure, useCarousel, useDisclosure } from '@/hooks';
 
 import { Button } from '../Button';
 import { Carousel, CarouselContent, CarouselItem } from '../ui';
@@ -21,14 +21,13 @@ type MediaSlide = Slide & {
 
 interface MediaCarouselProps {
   media: MediaType[];
+  variantExternalId: string | null;
   className?: string;
 }
 
-export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
+export const MediaCarousel = ({ media, variantExternalId, className }: MediaCarouselProps) => {
   const locale = useLocale();
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const variant = useSearchParams().get('variant');
 
   const { selected, scrollTo, setApi } = useCarousel();
   const lightboxDisclosure = useDisclosure();
@@ -36,7 +35,7 @@ export const MediaCarousel = ({ media, className }: MediaCarouselProps) => {
   useEffect(() => {
     scrollTo(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variant]);
+  }, [variantExternalId]);
 
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
 

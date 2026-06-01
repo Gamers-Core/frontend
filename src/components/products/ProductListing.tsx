@@ -59,6 +59,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
     <section className="flex flex-col gap-4 lg:flex-row lg:gap-8 md:container">
       <MediaCarousel
         media={media}
+        variantExternalId={variantExternalId}
         className="h-max md:px-4 md:min-w-md lg:min-w-lg xl:min-w-2xl 2xl:min-w-3xl lg:sticky lg:top-14"
       />
 
