@@ -30,7 +30,7 @@ export const Footer = () => {
   const t = useTranslations();
 
   return (
-    <footer className="flex items-center min-h-20 border-t-2 border-sidebar-border w-full">
+    <footer className="mt-auto flex items-center min-h-20 border-t-2 border-sidebar-border w-full">
       <div className="flex-1 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-4 md:container flex-wrap px-4 py-8">
         <Logo className="flex-1" />
 
