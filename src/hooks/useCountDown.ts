@@ -12,11 +12,7 @@ interface CountdownOptions {
 export const useCountDown = (expiresAt: string, { format = 'HH:mm:ss' }: Partial<CountdownOptions> = {}) => {
   const [expiresAtDate] = useState(() => new Date(expiresAt));
 
-  const [timezoneOffset] = useState(() => new Date(0).getTimezoneOffset() * 60 * 1000);
-
-  const [countdown, setCountdown] = useState(() =>
-    Math.max(+expiresAtDate - +new Date() + timezoneOffset, timezoneOffset),
-  );
+  const [countdown, setCountdown] = useState(() => Math.max(+expiresAtDate - +new Date(), 0));
 
   const formatDate = useFormatDate();
 
@@ -25,9 +21,9 @@ export const useCountDown = (expiresAt: string, { format = 'HH:mm:ss' }: Partial
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown((prev) => {
-        if (prev < timezoneOffset + 1000) {
+        if (prev < 1000) {
           clearInterval(interval);
-          return timezoneOffset;
+          return 0;
         }
 
         return prev - 1000;
@@ -35,7 +31,7 @@ export const useCountDown = (expiresAt: string, { format = 'HH:mm:ss' }: Partial
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timezoneOffset]);
+  }, []);
 
   const totalSeconds = Math.floor(countdown / 1000);
 
