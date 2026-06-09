@@ -250,3 +250,11 @@ export interface SearchResponse extends Omit<Product, 'variants' | 'description'
   hasStock: boolean;
   price: { min: number; max: number; sale: boolean };
 }
+
+export interface AppSettings {
+  maintenanceMode: {
+    enabled: boolean;
+    message: string;
+    countdown: string;
+  };
+}
