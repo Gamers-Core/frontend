@@ -219,5 +219,10 @@
   "page_policy_title": "Gamers Core | {policy}",
   "page_policy_description": "عرض سياسة {policy} في Gamers Core",
   "page_order_title": "Gamers Core | {orderNumber}",
-  "page_order_description": "عرض تفاصيل الطلب {orderNumber}"
+  "page_order_description": "عرض تفاصيل الطلب {orderNumber}",
+  "countdown_day": "{count, plural, =0 {يوم} one {يوم} two {يومان} few {أيام} many {يوماً} other {يوم}}",
+  "countdown_hour": "{count, plural, =0 {ساعة} one {ساعة} two {ساعتان} few {ساعات} many {ساعة} other {ساعة}}",
+  "countdown_minute": "{count, plural, =0 {دقيقة} one {دقيقة} two {دقيقتان} few {دقائق} many {دقيقة} other {دقيقة}}",
+  "countdown_second": "{count, plural, =0 {ثانية} one {ثانية} two {ثانيتان} few {ثوانٍ} many {ثانية} other {ثانية}}",
+  "maintenance_back_in": "سنعود بعد"
 }
