@@ -255,6 +255,6 @@ export interface AppSettings {
   maintenanceMode: {
     enabled: boolean;
     message: string;
-    countdown: string;
+    countdown?: string;
   };
 }
