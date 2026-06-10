@@ -13,7 +13,7 @@ interface SocialLink {
   icon: IconSvgElement;
 }
 
-const socialLinks: SocialLink[] = [
+export const socialLinks: SocialLink[] = [
   {
     title: 'facebook',
     href: 'https://www.facebook.com/people/Best-Controllers-in-Egypt/100092936143868/',

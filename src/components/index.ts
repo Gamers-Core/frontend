@@ -23,3 +23,4 @@ export * from './GoToTopButton';
 export * from './Image';
 export * from './Media';
 export * from './MaintenanceMode';
+export * from './ContactSupportButton';

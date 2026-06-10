@@ -11,6 +11,7 @@ import { useAuthStore } from '@/stores';
 
 import { Toaster } from './ui';
 import { GoToTopButton } from './GoToTopButton';
+import { ContactSupportButton } from './ContactSupportButton';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -35,6 +36,7 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
           {children}
 
           <GoToTopButton />
+          <ContactSupportButton />
 
           <Toaster duration={5000} richColors dir={locale === 'ar' ? 'rtl' : 'ltr'} position="top-center" />
           <ReactQueryDevtools initialIsOpen={false} />
