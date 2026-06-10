@@ -219,5 +219,10 @@
   "page_policy_title": "Gamers Core | {policy}",
   "page_policy_description": "View {policy} policy of Gamers Core",
   "page_order_title": "Gamers Core | {orderNumber}",
-  "page_order_description": "View details of order {orderNumber}"
+  "page_order_description": "View details of order {orderNumber}",
+  "countdown_day": "{count, plural, one {day} other {days}}",
+  "countdown_hour": "{count, plural, one {hour} other {hours}}",
+  "countdown_minute": "{count, plural, one {minute} other {minutes}}",
+  "countdown_second": "{count, plural, one {second} other {seconds}}",
+  "maintenance_back_in": "We'll be back in"
 }
