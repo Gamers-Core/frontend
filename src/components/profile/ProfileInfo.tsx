@@ -47,20 +47,21 @@ export const ProfileInfo = () => {
         />
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col md:flex-row gap-4 min-w-0">
         <div className="flex flex-1 items-center justify-between">
           <UpdateProfileInfoDialog name={meQuery.data.name} {...updateProfileInfoDisclosure} />
 
           <div className="flex flex-col">
             <span className="text-ring">{t('name')}</span>
 
-            <span>{meQuery.data.name}</span>
+            <span className="wrap-break-word">{meQuery.data.name}</span>
           </div>
         </div>
-        <div className="flex flex-col flex-1">
+
+        <div className="flex flex-col flex-1 min-w-0">
           <span className="text-ring">{t('email')}</span>
 
-          <span>{meQuery.data.email}</span>
+          <span className="wrap-break-word">{meQuery.data.email}</span>
         </div>
       </div>
     </section>
