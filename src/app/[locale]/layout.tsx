@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { getMessages } from 'next-intl/server';
 import { headers } from 'next/headers';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { routing } from '@/i18n';
 import { Providers } from '@/components';
@@ -55,6 +56,7 @@ const RootLayout = async ({ children, params }: Readonly<RootLayoutProps>) => {
         <HolyLoader speed={500} showSpinner dir={dir} color="oklch(0.424 0.199 265.638)" />
 
         <Analytics />
+        <SpeedInsights />
 
         <Providers locale={locale} messages={messages} isLoggedIn={isLoggedIn}>
           {children}
