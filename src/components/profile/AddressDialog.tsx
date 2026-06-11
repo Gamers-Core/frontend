@@ -118,7 +118,11 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
           <DialogHeader>
             <DialogTitle>{t(isCreateMode ? 'address_create_title' : 'address_update_title')}</DialogTitle>
 
-            <DialogDescription className="text-destructive">{t('address_description')}</DialogDescription>
+            <DialogDescription>
+              <div className="text-destructive">{t('address_description')}</div>
+
+              <div className="font-semibold">{t('address_explain')}</div>
+            </DialogDescription>
           </DialogHeader>
 
           <FieldGroup className="flex md:flex-row gap-4">

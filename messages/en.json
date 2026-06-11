@@ -83,6 +83,7 @@
   "address_city_required": "City is required",
   "address_name_ar_required": "Name (Arabic) is required",
   "address_description": "Note: phone number must have a whatsapp account and be able to receive messages, and the name must be in arabic.",
+  "address_explain": "Note: All addresses are available. You just need to type your address in the city and zone fields, and the system will find the available options for you.",
   "address_create_success": "Address created successfully",
   "address_update_success": "Address updated successfully",
   "address_delete_success": "Address deleted successfully",
