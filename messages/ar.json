@@ -224,5 +224,6 @@
   "countdown_hour": "{count, plural, =0 {ساعة} one {ساعة} two {ساعتان} few {ساعات} many {ساعة} other {ساعة}}",
   "countdown_minute": "{count, plural, =0 {دقيقة} one {دقيقة} two {دقيقتان} few {دقائق} many {دقيقة} other {دقيقة}}",
   "countdown_second": "{count, plural, =0 {ثانية} one {ثانية} two {ثانيتان} few {ثوانٍ} many {ثانية} other {ثانية}}",
-  "maintenance_back_in": "سنعود بعد"
+  "maintenance_back_in": "سنعود بعد",
+  "contact_us": "اتصل بنا"
 }

@@ -6,6 +6,7 @@ import { policies } from '@/api';
 import { Logo } from './Logo';
 import { Link } from './Link';
 import { Facebook, WhatsappFreeIcons } from '@hugeicons/core-free-icons';
+import { whatsappBusinessNumber } from '@/const';
 
 interface SocialLink {
   title: keyof Messages;
@@ -13,7 +14,7 @@ interface SocialLink {
   icon: IconSvgElement;
 }
 
-export const socialLinks: SocialLink[] = [
+const socialLinks: SocialLink[] = [
   {
     title: 'facebook',
     href: 'https://www.facebook.com/people/Best-Controllers-in-Egypt/100092936143868/',
@@ -21,7 +22,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     title: 'whatsapp',
-    href: 'https://wa.me/+201559241000',
+    href: `https://wa.me/${whatsappBusinessNumber}`,
     icon: WhatsappFreeIcons,
   },
 ];

@@ -219,6 +219,7 @@ export interface Order {
   shippingFee: number;
   total: number;
   currency: string;
+  canReturn: boolean;
 }
 
 export interface ShippingFees {

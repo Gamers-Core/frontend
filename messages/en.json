@@ -224,5 +224,6 @@
   "countdown_hour": "{count, plural, one {hour} other {hours}}",
   "countdown_minute": "{count, plural, one {minute} other {minutes}}",
   "countdown_second": "{count, plural, one {second} other {seconds}}",
-  "maintenance_back_in": "We'll be back in"
+  "maintenance_back_in": "We'll be back in",
+  "contact_us": "Contact Us"
 }
