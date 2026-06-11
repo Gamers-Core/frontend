@@ -232,29 +232,6 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                 <Field>
                   <Label htmlFor="districtId">{t('address_zone')}</Label>
 
-                  {/* <Select
-                    {...field}
-                    onValueChange={field.onChange}
-                    dir={locale === 'ar' ? 'rtl' : 'ltr'}
-                    defaultValue={
-                      addressDistrictsQuery.data?.find((district) => district.districtId === field.value)?.districtId
-                    }
-                    disabled={!cityId || addressDistrictsQuery.isPending || !addressDistrictsQuery.data?.length}
-                  >
-                    <SelectTrigger className="font-cairo ltr:text-right">
-                      <SelectValue placeholder={t('address_zone_placeholder')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup className="font-cairo ltr:text-right">
-                        {addressDistrictsQuery.data?.map((district) => (
-                          <SelectItem key={district.districtId} value={district.districtId}>
-                            {district.districtOtherName}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select> */}
-
                   <Combobox
                     required
                     autoHighlight
