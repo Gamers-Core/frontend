@@ -5,6 +5,7 @@ import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { getMessages } from 'next-intl/server';
 import { headers } from 'next/headers';
+import { Analytics } from '@vercel/analytics/next';
 
 import { routing } from '@/i18n';
 import { Providers } from '@/components';
@@ -52,6 +53,8 @@ const RootLayout = async ({ children, params }: Readonly<RootLayoutProps>) => {
     >
       <body suppressHydrationWarning className="min-h-svh flex flex-col justify-center transition-colors duration-300">
         <HolyLoader speed={500} showSpinner dir={dir} color="oklch(0.424 0.199 265.638)" />
+
+        <Analytics />
 
         <Providers locale={locale} messages={messages} isLoggedIn={isLoggedIn}>
           {children}
