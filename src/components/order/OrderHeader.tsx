@@ -38,7 +38,7 @@ export const OrderHeader = ({ orderNumber }: OrderHeaderProps) => {
         </p>
       </div>
 
-      {!order.canReturn && (
+      {order.canReturn && (
         <div>
           <Link
             href={`https://wa.me/${whatsappBusinessNumber}?text=${encodeURIComponent(requestReturnMessage(order.orderNumber))}`}
