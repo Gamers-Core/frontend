@@ -54,7 +54,6 @@ export const DiscountValidation = ({ onSuccess, onError, onClear }: DiscountVali
     if (!canSubmit) return;
 
     setCode(value);
-    4;
   };
 
   if (discountQuery.isSuccess && !!code && code.length > 0)
