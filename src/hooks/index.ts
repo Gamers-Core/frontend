@@ -25,3 +25,4 @@ export * from './useIsInView';
 export * from './useAppSettingsQuery';
 export * from './useCountDown';
 export * from './useMounted';
+export * from './useDiscountQuery';

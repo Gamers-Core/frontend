@@ -12,6 +12,7 @@ export const checkoutSchema = (t: TranslationFn) =>
       .refine((val) => !isNaN(Number(val)) && Number(val) >= 1, { message: t('checkout_address_required') }),
     note: z.string().optional(),
     canOpenPackage: z.boolean().optional(),
+    discountCode: z.string().optional(),
   });
 
 export type CheckoutSchema = z.infer<ReturnType<typeof checkoutSchema>>;

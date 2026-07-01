@@ -6,3 +6,4 @@ export * from './ShippingNote';
 export * from './ItemsPreview';
 export * from './ShippingFees';
 export * from './CheckoutButton';
+export * from './OrderDiscount';

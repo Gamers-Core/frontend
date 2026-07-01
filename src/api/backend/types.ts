@@ -213,10 +213,15 @@ export interface Order {
   history: OrderStatusHistory[];
   createdAt: string;
   updatedAt: string | null;
+  discountCode: string | null;
+  discountAmount: number | null;
+  isFreeShipping: boolean;
   note: string | null;
   trackingNumber: string | null;
   subtotal: number;
   shippingFee: number;
+  codFee: number | null;
+  openPackageFee: number | null;
   total: number;
   currency: string;
   canReturn: boolean;
@@ -258,4 +263,10 @@ export interface AppSettings {
     message: string;
     countdown?: string;
   };
+}
+
+export interface Discount {
+  code: string | null;
+  discountAmount: number;
+  isFreeShipping: boolean;
 }

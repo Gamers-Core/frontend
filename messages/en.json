@@ -226,5 +226,13 @@
   "countdown_minute": "{count, plural, one {minute} other {minutes}}",
   "countdown_second": "{count, plural, one {second} other {seconds}}",
   "maintenance_back_in": "We'll be back in",
-  "contact_us": "Contact Us"
+  "contact_us": "Contact Us",
+  "validate_discount_variant_external_id_required": "Variant external ID is required",
+  "validate_discount_quantity_required": "Quantity is required",
+  "discount_code_placeholder": "Enter discount code",
+  "apply": "Apply",
+  "discount_applied": "Applied Discount: {code}",
+  "remove": "Remove",
+  "discount": "Discount",
+  "free_shipping": "Free Shipping"
 }
