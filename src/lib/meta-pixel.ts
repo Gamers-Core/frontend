@@ -65,10 +65,14 @@ export const sha256 = async (value: string): Promise<string> => {
     .join('');
 };
 
-export const setUserData = (userData: PixelUserData) => {
+let pixelUserData: PixelUserData = {};
+
+export const updateUserData = (data: PixelUserData) => {
   if (!isClient()) return;
 
-  window.fbq?.('init', META_PIXEL_ID, userData);
+  pixelUserData = { ...pixelUserData, ...data };
+
+  window.fbq?.('init', META_PIXEL_ID, pixelUserData);
 };
 
 const getOptions = (eventId?: string): FbqOptions | undefined => (eventId ? { eventID: eventId } : undefined);

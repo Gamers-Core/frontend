@@ -62,7 +62,7 @@ export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) 
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartQuery.data?.count]);
+  }, [, cartQuery.data?.total, cartQuery.data?.count]);
 
   const onSubmit: SubmitHandler<CheckoutSchema> = async (data) => {
     if (!form.formState.isValid || checkoutMutation.isPending) return;

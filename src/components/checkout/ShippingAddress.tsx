@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 
 import { Address, CheckoutSchema } from '@/api';
 import { useAddressesQuery, useDefaultAddressMutation } from '@/hooks';
-import { setUserData, sha256 } from '@/lib/meta-pixel';
+import { updateUserData, sha256 } from '@/lib/meta-pixel';
 
 import {
   AccordionContent,
@@ -41,7 +41,7 @@ export const ShippingAddress = () => {
       addressesQuery.data?.find(({ id }) => Number(form.watch('addressId')) === id) ?? defaultAddress;
     if (!selectedAddress) return;
 
-    sha256(selectedAddress.phoneNumber.replace(/\D/g, '')).then((ph) => setUserData({ ph }));
+    sha256(selectedAddress.phoneNumber.replace(/\D/g, '')).then((ph) => updateUserData({ ph }));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addressesQuery.data?.find((a) => a.isDefault)?.phoneNumber]);

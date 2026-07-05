@@ -58,7 +58,7 @@ export const ProductListing = ({ id }: ProductListingProps) => {
       value: selectedVariant?.price ?? 0,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [variantExternalId]);
 
   if (!productQuery.data) return <div>Product not found</div>;
 
