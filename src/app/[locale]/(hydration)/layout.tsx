@@ -17,7 +17,6 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
   if (isLoggedIn) {
     prefetchPromises.push(
       queryClient.prefetchQuery({
-        ...useMeQuery,
         queryKey: useMeQuery.queryKey(false),
         queryFn: useMeQuery.queryFn<false>,
       }),

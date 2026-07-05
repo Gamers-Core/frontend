@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 
 import { SearchSchema } from '@/api';
 import { useDebounce, useSearchParams } from '@/hooks';
+import { trackSearch } from '@/lib/meta-pixel';
 
 import { Input } from '../ui';
 import { Button } from '../Button';
@@ -29,6 +30,11 @@ export const SearchOptions = ({ searchParams }: SearchOptionsProps) => {
 
   useEffect(() => {
     set(debouncedOptions, 'replace');
+
+    if (!debouncedOptions.q) return;
+
+    trackSearch({ search: debouncedOptions.q, eventId: crypto.randomUUID() });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedOptions]);
 
