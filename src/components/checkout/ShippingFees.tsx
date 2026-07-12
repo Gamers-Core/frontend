@@ -36,9 +36,19 @@ export const ShippingFees = () => {
   const codFee = isCOD ? shippingFeesQuery.data?.codFee : 0;
   const openPackageFee = canOpenPackage ? shippingFeesQuery.data?.openingFee : 0;
 
-  const subtotal = (cartTotal ?? 0) + (codFee ?? 0) + (openPackageFee ?? 0);
-  const shippingFees = shippingFeesQuery.data?.shippingFee;
-  const total = discountQuery.data?.isFreeShipping ? subtotal : subtotal + (shippingFees ?? 0);
+  const subtotal =
+    shippingFeesQuery.isSuccess && cartTotal !== undefined
+      ? cartTotal + (codFee ?? 0) + (openPackageFee ?? 0)
+      : undefined;
+
+  const shippingFees = shippingFeesQuery.isSuccess ? shippingFeesQuery.data.shippingFee : undefined;
+
+  const discountAmount = discountQuery.data?.isFreeShipping ? 0 : (discountQuery.data?.discountAmount ?? 0);
+
+  const total =
+    subtotal !== undefined
+      ? (discountQuery.data?.isFreeShipping ? subtotal : subtotal + (shippingFees ?? 0)) - discountAmount
+      : undefined;
 
   return (
     <section className="flex flex-col gap-4">
@@ -69,12 +79,7 @@ export const ShippingFees = () => {
               <Item title="discount" value={-1 * discountQuery.data.discountAmount} />
             )}
 
-            <Item
-              title="total"
-              value={
-                (total ?? 0) - (discountQuery.isSuccess && !!discountQuery.data ? discountQuery.data.discountAmount : 0)
-              }
-            />
+            <Item title="total" value={total} />
           </>
         )}
       </div>

@@ -30,25 +30,18 @@ export const DiscountValidation = ({ onSuccess, onError, onClear }: DiscountVali
     if (discountQuery.status === 'success') {
       onSuccess?.(discountQuery.data);
 
-      setCode(value);
-      setError(null);
+      return;
     }
 
     if (discountQuery.status === 'error') {
       onError?.(discountQuery.error);
-
-      setCode('');
       setError(discountQuery.error);
+      setCode(undefined);
+
+      return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [discountQuery.status, code]);
-
-  useEffect(() => {
-    if (!code) return;
-
-    discountQuery.refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code]);
 
   const apply = () => {
     if (!canSubmit) return;
@@ -88,7 +81,7 @@ export const DiscountValidation = ({ onSuccess, onError, onClear }: DiscountVali
           placeholder={t('discount_code_placeholder')}
           value={value}
           onChange={(e) => {
-            setCode('');
+            setCode(undefined);
             setError(null);
             setValue(e.target.value.trim().toUpperCase());
           }}

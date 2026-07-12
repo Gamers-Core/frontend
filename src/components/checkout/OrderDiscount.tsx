@@ -18,12 +18,13 @@ export const OrderDiscount = () => {
       onSuccess={(discount) => {
         if (!discount || !discount.code) return;
 
-        form.setValue('discountCode', discount.code);
+        form.setValue('discountCode', discount.code, { shouldDirty: true });
 
         toast.success(t('discount_applied', { code: discount.code }));
       }}
-      onClear={() => form.setValue('discountCode', undefined)}
-      onError={() => form.setValue('discountCode', undefined)}
+      onClear={() => {
+        form.setValue('discountCode', undefined);
+      }}
     />
   );
 };
