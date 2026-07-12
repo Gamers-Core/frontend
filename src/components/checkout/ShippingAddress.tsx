@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useLocale, useTranslations } from 'next-intl';
 import { Checkmark, PencilEdit02Icon } from '@hugeicons/core-free-icons';
@@ -8,6 +9,7 @@ import { toast } from 'sonner';
 
 import { Address, CheckoutSchema } from '@/api';
 import { useAddressesQuery, useDefaultAddressMutation } from '@/hooks';
+import { updateUserData, sha256 } from '@/lib/meta-pixel';
 
 import {
   AccordionContent,
@@ -32,6 +34,17 @@ export const ShippingAddress = () => {
 
   const addressesQuery = useAddressesQuery();
   const defaultAddressMutation = useDefaultAddressMutation();
+
+  useEffect(() => {
+    const defaultAddress = addressesQuery.data?.find((address) => address.isDefault);
+    const selectedAddress =
+      addressesQuery.data?.find(({ id }) => Number(form.watch('addressId')) === id) ?? defaultAddress;
+    if (!selectedAddress) return;
+
+    sha256(selectedAddress.phoneNumber.replace(/\D/g, '')).then((ph) => updateUserData({ ph }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addressesQuery.data?.find((a) => a.isDefault)?.phoneNumber]);
 
   if (!addressesQuery.data) return null;
 

@@ -10,6 +10,7 @@ import { checkoutSchema, CheckoutSchema } from '@/api';
 import { useCartQuery, useCheckoutMutation } from '@/hooks';
 import { useRouter } from '@/i18n';
 import { useCartStore } from '@/stores';
+import { trackInitiateCheckout } from '@/lib/meta-pixel';
 
 const defaultValues: CheckoutSchema = {
   addressId: '',
@@ -49,6 +50,19 @@ export const CheckoutForm = ({ defaultAddressId, ...props }: CheckoutFormProps) 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartQuery.data?.count, router]);
+
+  useEffect(() => {
+    if (!cartQuery.data) return;
+
+    trackInitiateCheckout({
+      contentIds: cartQuery.data.items.map((item) => String(item.variant.product.id)),
+      value: cartQuery.data.total,
+      numItems: cartQuery.data.count,
+      eventId: crypto.randomUUID(),
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [, cartQuery.data?.total, cartQuery.data?.count]);
 
   const onSubmit: SubmitHandler<CheckoutSchema> = async (data) => {
     if (!form.formState.isValid || checkoutMutation.isPending) return;

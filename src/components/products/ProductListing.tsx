@@ -9,6 +9,7 @@ import { useCartSyncMutation, useFormatCurrency, useIsInView, useProductQuery, u
 import { useCartDrawerStore, useCartStore } from '@/stores';
 import { Media } from '@/api';
 import { useRouter } from '@/i18n';
+import { trackAddToCart, trackViewContent } from '@/lib/meta-pixel';
 
 import { MediaCarousel } from './MediaCarousel';
 import { VariantSwitcher } from './VariantSwitcher';
@@ -43,6 +44,19 @@ export const ProductListing = ({ id }: ProductListingProps) => {
     searchParams.set('variant', variantExternalId);
 
     setAmount(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [variantExternalId]);
+
+  useEffect(() => {
+    if (!productQuery.data) return;
+
+    const selectedVariant = productQuery.data.variants.find((variant) => variant.externalId === variantExternalId);
+
+    trackViewContent({
+      contentId: String(id),
+      name: `${productQuery.data.name} ${selectedVariant?.name}`,
+      value: selectedVariant?.price ?? 0,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variantExternalId]);
 
@@ -110,6 +124,12 @@ export const ProductListing = ({ id }: ProductListingProps) => {
                     quantity: amount,
                   });
 
+                  trackAddToCart({
+                    contentId: String(id),
+                    value: activeVariant.price,
+                    eventId: crypto.randomUUID(),
+                  });
+
                   openCartDrawer();
                 }}
               >
@@ -133,6 +153,12 @@ export const ProductListing = ({ id }: ProductListingProps) => {
                         quantity: amount,
                       },
                     ]);
+
+                    trackAddToCart({
+                      contentId: String(id),
+                      value: activeVariant.price,
+                      eventId: crypto.randomUUID(),
+                    });
 
                     router.push('/checkout');
                   },
@@ -166,6 +192,12 @@ export const ProductListing = ({ id }: ProductListingProps) => {
               productId: productQuery.data.id,
               productName: productQuery.data.name,
               quantity: amount,
+            });
+
+            trackAddToCart({
+              contentId: String(id),
+              value: activeVariant.price,
+              eventId: crypto.randomUUID(),
             });
 
             openCartDrawer();
