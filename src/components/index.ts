@@ -24,4 +24,5 @@ export * from './Image';
 export * from './Media';
 export * from './MaintenanceMode';
 export * from './ContactSupportButton';
+export * from './DiscountValidation';
 export * from './PixelPageView';

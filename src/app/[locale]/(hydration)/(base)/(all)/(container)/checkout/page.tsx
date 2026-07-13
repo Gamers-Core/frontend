@@ -7,6 +7,7 @@ import {
   CheckoutButton,
   CheckoutForm,
   ItemsPreview,
+  OrderDiscount,
   PaymentMethod,
   Separator,
   ShippingAddress,
@@ -14,7 +15,7 @@ import {
   ShippingNote,
   ShippingOptions,
 } from '@/components';
-import { useAddressesQuery, useCartQuery } from '@/hooks';
+import { useAddressesQuery, useCartQuery, useDiscountQuery } from '@/hooks';
 import { redirect } from 'next/navigation';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -32,6 +33,7 @@ export default async function Checkout() {
   const [cart, addresses] = await Promise.all([
     queryClient.fetchQuery(useCartQuery),
     queryClient.fetchQuery(useAddressesQuery),
+    queryClient.prefetchQuery({ ...useDiscountQuery, queryKey: useDiscountQuery.queryKey(undefined) }),
   ]);
 
   if (cart.items.length === 0) return redirect('/');
@@ -56,12 +58,16 @@ export default async function Checkout() {
           <CheckoutButton />
         </Accordion>
 
-        <div className="flex-1 flex flex-col bg-sidebar-border p-4 gap-8 rounded-lg h-fit">
-          <ItemsPreview />
+        <div className="flex flex-col gap-4 flex-1">
+          <div className="flex flex-col bg-sidebar-border p-4 gap-8 rounded-lg h-fit">
+            <ItemsPreview />
 
-          <Separator />
+            <Separator />
 
-          <ShippingFees />
+            <ShippingFees />
+          </div>
+
+          <OrderDiscount />
         </div>
       </CheckoutForm>
     </HydrationBoundary>

@@ -55,8 +55,13 @@ export const OrderInfo = ({ orderNumber }: OrderShippingInfoProps) => {
 
           <div>
             <p className="text-base text-muted-foreground">{t(`payment_method_${order.paymentMethod}`)}</p>
+
             <p className="text-base text-muted-foreground">
               {t('can_open_package')}: {order.canOpenPackage ? t('yes') : t('no')}
+            </p>
+
+            <p className="text-base text-muted-foreground">
+              {t('free_shipping')}: {order.isFreeShipping ? t('yes') : t('no')}
             </p>
           </div>
         </div>

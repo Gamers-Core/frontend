@@ -226,5 +226,13 @@
   "countdown_minute": "{count, plural, =0 {دقيقة} one {دقيقة} two {دقيقتان} few {دقائق} many {دقيقة} other {دقيقة}}",
   "countdown_second": "{count, plural, =0 {ثانية} one {ثانية} two {ثانيتان} few {ثوانٍ} many {ثانية} other {ثانية}}",
   "maintenance_back_in": "سنعود بعد",
-  "contact_us": "اتصل بنا"
+  "contact_us": "اتصل بنا",
+  "validate_discount_variant_external_id_required": "معرف المتغير الخارجي مطلوب",
+  "validate_discount_quantity_required": "الكمية مطلوبة",
+  "discount_code_placeholder": "أدخل رمز الخصم",
+  "apply": "تطبيق",
+  "discount_applied": "تم تطبيق الخصم: {code}",
+  "remove": "إزالة",
+  "discount": "الخصم",
+  "free_shipping": "شحن مجاني"
 }

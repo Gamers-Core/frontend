@@ -39,8 +39,32 @@ export const OrderShippingFees = ({ orderNumber }: OrderShippingFeesProps) => {
         <div className="flex gap-2 items-center">
           <p className="font-semibold text-sidebar-primary/70">{t('shipping_fees')}:</p>
 
-          <p>{formatCurrency(order.shippingFee)}</p>
+          <p>{order.isFreeShipping ? t('free_shipping') : formatCurrency(order.shippingFee)}</p>
         </div>
+
+        {!!Number(order.codFee) && (
+          <div className="flex gap-2 items-center">
+            <p className="font-semibold text-sidebar-primary/70">{t('cod_fee')}:</p>
+
+            <p>{formatCurrency(Number(order.codFee))}</p>
+          </div>
+        )}
+
+        {!!Number(order.openPackageFee) && (
+          <div className="flex gap-2 items-center">
+            <p className="font-semibold text-sidebar-primary/70">{t('open_package_fee')}:</p>
+
+            <p>{formatCurrency(Number(order.openPackageFee))}</p>
+          </div>
+        )}
+
+        {!!Number(order.discountAmount) && (
+          <div className="flex gap-2 items-center">
+            <p className="font-semibold text-sidebar-primary/70">{t('discount')}:</p>
+
+            <p>{formatCurrency(-Number(order.discountAmount))}</p>
+          </div>
+        )}
 
         <div className="flex gap-2 items-center">
           <p className="font-semibold text-sidebar-primary/70">{t('total')}:</p>
