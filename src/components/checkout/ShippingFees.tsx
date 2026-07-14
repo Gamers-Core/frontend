@@ -33,22 +33,15 @@ export const ShippingFees = () => {
     dropOffCity: dropOffAddress?.cityDropOff || defaultAddress?.cityDropOff,
   });
 
-  const codFee = isCOD ? shippingFeesQuery.data?.codFee : 0;
-  const openPackageFee = canOpenPackage ? shippingFeesQuery.data?.openingFee : 0;
+  const codFee = isCOD ? (shippingFeesQuery.data?.codFee ?? 0) : 0;
+  const openPackageFee = canOpenPackage ? (shippingFeesQuery.data?.openingFee ?? 0) : 0;
 
-  const subtotal =
-    shippingFeesQuery.isSuccess && cartTotal !== undefined
-      ? cartTotal + (codFee ?? 0) + (openPackageFee ?? 0)
-      : undefined;
-
-  const shippingFees = shippingFeesQuery.isSuccess ? shippingFeesQuery.data.shippingFee : undefined;
-
+  const subtotal = cartTotal! + codFee + openPackageFee;
   const discountAmount = discountQuery.data?.isFreeShipping ? 0 : (discountQuery.data?.discountAmount ?? 0);
 
   const total =
-    subtotal !== undefined
-      ? (discountQuery.data?.isFreeShipping ? subtotal : subtotal + (shippingFees ?? 0)) - discountAmount
-      : undefined;
+    (discountQuery.data?.isFreeShipping ? subtotal : subtotal + (shippingFeesQuery.data?.shippingFee ?? 0)) -
+    discountAmount;
 
   return (
     <section className="flex flex-col gap-4">
@@ -74,14 +67,14 @@ export const ShippingFees = () => {
             {canOpenPackage && <Item title="open_package_fee" value={shippingFeesQuery.data?.openingFee} />}
 
             {isCOD && <Item title="cod_fee" value={shippingFeesQuery.data?.codFee} />}
-
-            {!!discountQuery.data && !discountQuery.data.isFreeShipping && (
-              <Item title="discount" value={-1 * discountQuery.data.discountAmount} />
-            )}
-
-            <Item title="total" value={total} />
           </>
         )}
+
+        {!!discountQuery.data && !discountQuery.data.isFreeShipping && (
+          <Item title="discount" value={-1 * discountQuery.data.discountAmount} />
+        )}
+
+        <Item title="total" value={total} />
       </div>
     </section>
   );
