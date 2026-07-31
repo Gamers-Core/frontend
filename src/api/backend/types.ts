@@ -91,9 +91,7 @@ export interface Address {
   id: number;
   phoneNumber: string;
   detailedAddress: string;
-  districtId: string;
   districtName: string;
-  cityId: string;
   cityName: string;
   cityDropOff: string;
   nameAr: string;
