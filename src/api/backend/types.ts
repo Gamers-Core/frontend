@@ -73,13 +73,22 @@ export interface Product {
   category: Category;
 }
 
-interface VariantWithProduct extends Variant {
-  product: Omit<Product, 'variants'>;
-}
-
 export interface FeaturedVariant {
   title: string;
-  variant: VariantWithProduct;
+  variant: {
+    externalId: string;
+    name: string;
+    price: number;
+    compareAt: number;
+    image: Media<'image'> | null;
+    product: {
+      id: number;
+      name: string;
+      description: string;
+      brand: { id: number; name: string };
+      category: { id: number; name: string };
+    };
+  };
 }
 
 export interface UserReview {
