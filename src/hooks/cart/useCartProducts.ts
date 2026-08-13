@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import { useCartStore } from '@/stores';
 
-import { useManyProductsQuery, useSetProductData } from '../products';
+import { useManyProductsQuery } from '../products';
 import { buildSignature } from './helpers';
 
 export const useCartProducts = () => {
@@ -15,7 +15,6 @@ export const useCartProducts = () => {
   const uniqueProductIds = useMemo(() => [...new Set(items.map(({ productId }) => productId))], [items]);
   const quantitySignature = useMemo(() => buildSignature(items), [items]);
 
-  const setProductData = useSetProductData();
   const productsQuery = useManyProductsQuery(uniqueProductIds);
   const { refetch } = productsQuery;
 
@@ -40,12 +39,6 @@ export const useCartProducts = () => {
       ),
     [productsQuery.data],
   );
-
-  useEffect(() => {
-    if (!productsQuery.isSuccess || productsQuery.isFetching) return;
-
-    for (const product of productsQuery.data) setProductData(product.id, product);
-  }, [productsQuery.data, productsQuery.isFetching, productsQuery.isSuccess, setProductData]);
 
   useEffect(() => {
     if (!productsQuery.isSuccess || productsQuery.isFetching) return;
