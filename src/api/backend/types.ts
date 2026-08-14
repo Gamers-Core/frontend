@@ -57,6 +57,8 @@ export interface Brand {
   image: Media<'image'> | null;
 }
 
+export type SimpleBrand = Pick<Brand, 'id' | 'name'>;
+
 export interface Category {
   id: number;
   name: string;
@@ -73,13 +75,20 @@ export interface Product {
   category: Category;
 }
 
-interface VariantWithProduct extends Variant {
-  product: Omit<Product, 'variants'>;
-}
+export type SimpleProduct = Pick<Product, 'id' | 'name' | 'variants'>;
+
+export type RecommendationVariant = Omit<Variant, 'stock'>;
+
+export type ProductRecommendation = Pick<Product, 'id' | 'name' | 'category'> & {
+  variants: RecommendationVariant[];
+  brand: SimpleBrand;
+};
+
+export type FeaturedProduct = Pick<Product, 'id' | 'name' | 'description' | 'category'> & { brand: SimpleBrand };
 
 export interface FeaturedVariant {
   title: string;
-  variant: VariantWithProduct;
+  variant: Omit<Variant, 'stock'> & { product: FeaturedProduct };
 }
 
 export interface UserReview {
@@ -91,9 +100,7 @@ export interface Address {
   id: number;
   phoneNumber: string;
   detailedAddress: string;
-  districtId: string;
   districtName: string;
-  cityId: string;
   cityName: string;
   cityDropOff: string;
   nameAr: string;

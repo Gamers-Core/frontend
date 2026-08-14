@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { useFormatCurrency } from '@/hooks';
-import { Brand, Category, Media } from '@/api';
+import { Category, Media, SimpleBrand } from '@/api';
 import { cn } from '@/lib/utils';
 
 import { Link } from './Link';
@@ -12,7 +12,7 @@ interface ProductCardProps {
   image: Media<'image'> | null;
   name: string;
   price: { min: number; max: number; sale: boolean } | { value: number; compareAt: number | null };
-  brand: Brand;
+  brand: SimpleBrand;
   category: Category;
   hasStock?: boolean;
   className?: string;

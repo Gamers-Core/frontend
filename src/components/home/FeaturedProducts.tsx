@@ -104,15 +104,6 @@ const FeaturedProductCard = ({ isMain = false, variant, ...featured }: FeaturedP
             </h3>
           </div>
 
-          {isMain && (
-            <p className="md:text-base lg:text-lg xl:text-2xl text-gray-500 line-clamp-4 lg:line-clamp-5 xl:line-clamp-6">
-              {variant.product.description
-                .replace(/<[^>]*>/g, ' ')
-                .replace(/\s+/g, ' ')
-                .trim()}
-            </p>
-          )}
-
           <div
             className={cn('flex items-center gap-0.5 md:gap-4 w-fit flex-col md:flex-row', {
               'md:flex-col md:gap-0.5': !isMain,
