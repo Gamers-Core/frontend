@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useLocale, useTranslations } from 'next-intl';
-import { Checkmark, PencilEdit02Icon } from '@hugeicons/core-free-icons';
+import { Checkmark, PencilEdit02Icon, WorkIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { toast } from 'sonner';
 
@@ -111,13 +111,15 @@ const AddressItem = ({ onSetDefault, isPending, ...address }: AddressItemProps) 
     <Field orientation="horizontal">
       <RadioGroupItem value={address.id.toString()} id={`address_${address.id.toString()}`} />
       <FieldContent className="flex flex-col">
-        <FieldTitle className="font-cairo text-sm font-medium">
+        <FieldTitle className="font-cairo text-sm font-medium flex gap-2">
           {address.districtName}, {address.cityName}
+          {address.isWorkAddress && <HugeiconsIcon icon={WorkIcon} className="size-4 ms-auto" />}
         </FieldTitle>
 
         <FieldDescription className="flex flex-col text-xs">
           <span className="font-cairo">{address.nameAr}</span>
           <span>{address.phoneNumber}</span>
+          {address.secondaryPhoneNumber && <span>{address.secondaryPhoneNumber}</span>}
         </FieldDescription>
       </FieldContent>
     </Field>

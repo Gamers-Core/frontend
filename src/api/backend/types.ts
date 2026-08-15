@@ -99,12 +99,16 @@ export interface UserReview {
 export interface Address {
   id: number;
   phoneNumber: string;
+  secondaryPhoneNumber: string | null;
   detailedAddress: string;
   districtName: string;
+  districtId: string;
   cityName: string;
+  cityId: string;
   cityDropOff: string;
   nameAr: string;
   isDefault: boolean;
+  isWorkAddress: boolean;
 }
 
 export interface BasicUser {
@@ -213,9 +217,11 @@ export interface Order {
     id: number;
     nameAr: string;
     phoneNumber: string;
+    secondaryPhoneNumber: string | null;
     detailedAddress: string;
     districtName: string;
     cityName: string;
+    isWorkAddress: boolean;
   };
   history: OrderStatusHistory[];
   createdAt: string;

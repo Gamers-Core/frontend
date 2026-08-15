@@ -8,10 +8,15 @@ const schema = (t: TranslationFn) =>
       .string()
       .min(1, t('address_phone_required'))
       .regex(/^(010|011|012|015)\d{8}$/, t('address_phone_invalid')),
+    secondaryPhoneNumber: z
+      .string()
+      .regex(/^(010|011|012|015)\d{8}$/, t('address_phone_invalid'))
+      .optional(),
     detailedAddress: z.string().min(1, t('address_detailed_required')),
     districtId: z.string().min(1, t('address_zone_required')),
     cityId: z.string().min(1, t('address_city_required')),
     nameAr: z.string().min(1, t('address_name_ar_required')),
+    isWorkAddress: z.boolean(),
   });
 
 export const addressSchema = (t: TranslationFn, isEdit = false) => (isEdit ? schema(t).partial() : schema(t));

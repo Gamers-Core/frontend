@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Checkmark, PencilEdit02Icon, PlusSignFreeIcons, Trash } from '@hugeicons/core-free-icons';
+import { Checkmark, PencilEdit02Icon, PlusSignFreeIcons, Trash, WorkIcon } from '@hugeicons/core-free-icons';
 import { toast } from 'sonner';
 import { useState } from 'react';
 
@@ -86,8 +86,12 @@ const AddressItem = ({ openDialog, ...address }: AddressItemProps) => {
       <AddressField label="address_city" value={address.cityName} className="font-cairo" />
       <AddressField label="address_detailed" value={address.detailedAddress} className="font-cairo" />
       <AddressField label="address_phone" value={address.phoneNumber} />
-
+      {address.secondaryPhoneNumber && (
+        <AddressField label="address_secondary_phone" value={address.secondaryPhoneNumber} />
+      )}
       <div className="absolute p-2 top-2 inset-e-2 flex gap-2">
+        {address.isWorkAddress && <HugeiconsIcon icon={WorkIcon} className="size-4 m-auto" />}
+
         <Button
           variant={address.isDefault ? 'default' : 'outline'}
           isDisabled={address.isDefault || defaultAddressMutation.isPending}
@@ -97,7 +101,12 @@ const AddressItem = ({ openDialog, ...address }: AddressItemProps) => {
         <Button
           variant="outline"
           icon={<HugeiconsIcon icon={PencilEdit02Icon} className="rtl:rotate-y-180" />}
-          onClick={() => openDialog({ id: address.id, defaultValues: address })}
+          onClick={() =>
+            openDialog({
+              id: address.id,
+              defaultValues: { ...address, secondaryPhoneNumber: address.secondaryPhoneNumber || undefined },
+            })
+          }
         />
         <Button
           variant="destructive"
