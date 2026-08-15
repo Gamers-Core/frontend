@@ -101,7 +101,9 @@ export interface Address {
   phoneNumber: string;
   detailedAddress: string;
   districtName: string;
+  districtId: string;
   cityName: string;
+  cityId: string;
   cityDropOff: string;
   nameAr: string;
   isDefault: boolean;
