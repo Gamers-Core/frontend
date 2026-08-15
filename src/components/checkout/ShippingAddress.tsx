@@ -119,7 +119,7 @@ const AddressItem = ({ onSetDefault, isPending, ...address }: AddressItemProps) 
         <FieldDescription className="flex flex-col text-xs">
           <span className="font-cairo">{address.nameAr}</span>
           <span>{address.phoneNumber}</span>
-          <span>{address.secondaryPhoneNumber}</span>
+          {address.secondaryPhoneNumber && <span>{address.secondaryPhoneNumber}</span>}
         </FieldDescription>
       </FieldContent>
     </Field>
