@@ -23,11 +23,14 @@ import {
   DialogHeader,
   DialogTitle,
   Field,
+  FieldContent,
   FieldError,
   FieldGroup,
+  FieldLabel,
   Input,
   Label,
   Spinner,
+  Switch,
   Textarea,
 } from '../ui';
 import { Button } from '../Button';
@@ -44,6 +47,7 @@ const defaultAddressValues: AddressSchema = {
   districtId: '',
   detailedAddress: '',
   phoneNumber: '',
+  isWorkAddress: false,
 };
 
 export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialogModeParams & Disclosure) => {
@@ -72,6 +76,7 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
 
     form.reset(defaultValues);
     setCityId(defaultValues?.cityId);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValues, form.reset]);
 
@@ -118,14 +123,11 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
           <DialogHeader>
             <DialogTitle>{t(isCreateMode ? 'address_create_title' : 'address_update_title')}</DialogTitle>
 
-            <DialogDescription>
-              <div className="text-destructive">{t('address_description')}</div>
-
-              <div className="font-semibold">{t('address_explain')}</div>
-            </DialogDescription>
+            <DialogDescription className="text-destructive">{t('address_description')}</DialogDescription>
+            <DialogDescription className="font-semibold">{t('address_explain')}</DialogDescription>
           </DialogHeader>
 
-          <FieldGroup className="flex md:flex-row gap-4">
+          <FieldGroup className="flex md:flex-row">
             <Controller
               name="nameAr"
               control={form.control}
@@ -149,7 +151,9 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                 </Field>
               )}
             />
+          </FieldGroup>
 
+          <FieldGroup className="flex md:flex-row gap-4">
             <Controller
               name="phoneNumber"
               control={form.control}
@@ -164,6 +168,33 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                     placeholder="01234567899"
                     aria-invalid={fieldState.invalid}
                     {...field}
+                  />
+
+                  {fieldState.invalid && (
+                    <FieldError className="text-sm/normal md:text-sm/relaxed" errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+
+            <Controller
+              name="secondaryPhoneNumber"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field>
+                  <Label htmlFor="secondaryPhoneNumber">
+                    {t('address_secondary_phone')} ({t('optional')})
+                  </Label>
+
+                  <Input
+                    id="secondaryPhoneNumber"
+                    type="text"
+                    autoComplete="phone"
+                    placeholder="01234567899"
+                    aria-invalid={fieldState.invalid}
+                    {...field}
+                    value={field.value || ''}
+                    onChange={(e) => field.onChange(e.target.value || undefined)}
                   />
 
                   {fieldState.invalid && (
@@ -307,6 +338,24 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
                     <FieldError className="text-sm/normal md:text-sm/relaxed" errors={[fieldState.error]} />
                   )}
                 </Field>
+              )}
+            />
+          </FieldGroup>
+
+          <FieldGroup className="flex md:flex-row gap-4">
+            <Controller
+              name="isWorkAddress"
+              control={form.control}
+              render={({ field }) => (
+                <FieldLabel htmlFor="address_work_address">
+                  <Field orientation="horizontal">
+                    <FieldContent className="flex flex-col text-base font-medium">
+                      {t('address_work_address')}
+                    </FieldContent>
+
+                    <Switch checked={field.value ?? false} onCheckedChange={field.onChange} id="address_work_address" />
+                  </Field>
+                </FieldLabel>
               )}
             />
           </FieldGroup>

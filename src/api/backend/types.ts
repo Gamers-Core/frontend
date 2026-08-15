@@ -99,6 +99,7 @@ export interface UserReview {
 export interface Address {
   id: number;
   phoneNumber: string;
+  secondaryPhoneNumber: string | null;
   detailedAddress: string;
   districtName: string;
   districtId: string;
@@ -107,6 +108,7 @@ export interface Address {
   cityDropOff: string;
   nameAr: string;
   isDefault: boolean;
+  isWorkAddress: boolean;
 }
 
 export interface BasicUser {

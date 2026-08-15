@@ -74,6 +74,8 @@
   "address_zone_empty": "لم يتم العثور على مناطق.",
   "address_detailed": " (العربية فقط) العنوان التفصيلي",
   "address_phone": "رقم الهاتف",
+  "address_secondary_phone": "رقم الهاتف الثانوي",
+  "address_work_address": "عنوان عمل",
   "address_set_default_success": "تم تعيين العنوان الافتراضي بنجاح",
   "address_empty": "ليس لديك عناوين محفوظة. يرجى إضافة عنوان إلى ملفك الشخصي.",
   "address_phone_required": "رقم الهاتف مطلوب",

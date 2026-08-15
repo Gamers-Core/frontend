@@ -74,6 +74,8 @@
   "address_zone_empty": "No zones found.",
   "address_detailed": "Detailed Address (Arabic only)",
   "address_phone": "Phone Number",
+  "address_secondary_phone": "Secondary Phone Number",
+  "address_work_address": "Work Address",
   "address_set_default_success": "Default address set successfully",
   "address_empty": "You have no saved addresses. Please add an address to your profile.",
   "address_phone_required": "Phone number is required",
