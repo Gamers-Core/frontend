@@ -163,8 +163,8 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
 
                   <Input
                     id="phoneNumber"
-                    type="text"
-                    autoComplete="phone"
+                    type="tel"
+                    autoComplete="tel"
                     placeholder="01234567899"
                     aria-invalid={fieldState.invalid}
                     {...field}
@@ -188,8 +188,8 @@ export const AddressDialog = ({ id, defaultValues, ...disclosure }: AddressDialo
 
                   <Input
                     id="secondaryPhoneNumber"
-                    type="text"
-                    autoComplete="phone"
+                    type="tel"
+                    autoComplete="tel"
                     placeholder="01234567899"
                     aria-invalid={fieldState.invalid}
                     {...field}
