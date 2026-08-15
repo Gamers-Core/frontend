@@ -217,9 +217,11 @@ export interface Order {
     id: number;
     nameAr: string;
     phoneNumber: string;
+    secondaryPhoneNumber: string | null;
     detailedAddress: string;
     districtName: string;
     cityName: string;
+    isWorkAddress: boolean;
   };
   history: OrderStatusHistory[];
   createdAt: string;

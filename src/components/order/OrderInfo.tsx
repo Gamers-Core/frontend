@@ -28,6 +28,9 @@ export const OrderInfo = ({ orderNumber }: OrderShippingInfoProps) => {
             <p className="text-base text-muted-foreground font-cairo">{shippingAddress.districtName}</p>
             <p className="text-base text-muted-foreground font-cairo">{shippingAddress.cityName}</p>
             <p className="text-base text-muted-foreground line-clamp-2 font-cairo">{shippingAddress.detailedAddress}</p>
+            {shippingAddress.isWorkAddress && (
+              <p className="text-base text-muted-foreground font-cairo">{t('address_work_address')}</p>
+            )}
           </div>
         </div>
 
@@ -47,6 +50,9 @@ export const OrderInfo = ({ orderNumber }: OrderShippingInfoProps) => {
           <div>
             <p className="text-base text-muted-foreground font-cairo">{shippingAddress.nameAr}</p>
             <p className="text-base text-muted-foreground">{shippingAddress.phoneNumber}</p>
+            {shippingAddress.secondaryPhoneNumber && (
+              <p className="text-base text-muted-foreground">{shippingAddress.secondaryPhoneNumber}</p>
+            )}
           </div>
         </div>
 
