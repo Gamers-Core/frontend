@@ -90,10 +90,10 @@ interface ModalFooterProps {
   className?: string;
 }
 
-export const ModalFooter = (props: ModalFooterProps) => {
+export const ModalFooter = ({ className, ...props }: ModalFooterProps) => {
   const isMobile = useIsMobile();
 
   const Component = isMobile ? DrawerFooter : DialogFooter;
 
-  return <Component {...props} className="p-0" />;
+  return <Component {...props} className={cn('p-0', className)} />;
 };
