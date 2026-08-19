@@ -39,7 +39,7 @@ export const AnnouncementModal = () => {
       }}
     >
       {appSettingsQuery.data.announcement.media.length > 0 && (
-        <MediaCarousel media={appSettingsQuery.data.announcement.media} />
+        <MediaCarousel media={appSettingsQuery.data.announcement.media} className="flex-none" />
       )}
 
       <AnnouncementHTML html={appSettingsQuery.data.announcement.message} />
