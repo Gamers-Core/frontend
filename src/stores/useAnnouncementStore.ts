@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { isClient } from '@/helpers';
 
-const DEFAULT_INTERVAL_MS = 6;
+const DEFAULT_INTERVAL_HOURS = 6;
 
 interface AnnouncementStoreState {
   lastShownAt: number | null;
@@ -11,7 +11,7 @@ interface AnnouncementStoreState {
 
 interface AnnouncementStoreActions {
   markAsShown: () => void;
-  shouldShow: (interval?: number) => boolean;
+  shouldShow: (intervalHours?: number) => boolean;
 }
 
 type AnnouncementStore = AnnouncementStoreState & AnnouncementStoreActions;
@@ -25,12 +25,12 @@ export const useAnnouncementStore = create<AnnouncementStore>()(
     (set, get) => ({
       ...defaultState,
       markAsShown: () => set({ lastShownAt: Date.now() }),
-      shouldShow: (interval = DEFAULT_INTERVAL_MS) => {
+      shouldShow: (intervalHours = DEFAULT_INTERVAL_HOURS) => {
         const { lastShownAt } = get();
 
         if (!lastShownAt) return true;
 
-        return Date.now() - lastShownAt >= interval * 60 * 60 * 1000;
+        return Date.now() - lastShownAt >= intervalHours * 60 * 60 * 1000;
       },
     }),
     {
