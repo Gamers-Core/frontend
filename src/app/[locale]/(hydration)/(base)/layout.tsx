@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 
 import { useCartQuery, useMeQuery } from '@/hooks';
+import { AnnouncementModal } from '@/components';
 
 export default async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const queryClient = new QueryClient();
@@ -27,5 +28,11 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
 
   if (!!me) await Promise.all([queryClient.prefetchQuery(useCartQuery)]);
 
-  return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <AnnouncementModal />
+
+      {children}
+    </HydrationBoundary>
+  );
 }

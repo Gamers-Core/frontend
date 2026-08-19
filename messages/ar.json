@@ -228,6 +228,8 @@
   "countdown_minute": "{count, plural, =0 {دقيقة} one {دقيقة} two {دقيقتان} few {دقائق} many {دقيقة} other {دقيقة}}",
   "countdown_second": "{count, plural, =0 {ثانية} one {ثانية} two {ثانيتان} few {ثوانٍ} many {ثانية} other {ثانية}}",
   "maintenance_back_in": "سنعود بعد",
+  "announcement_title": "إعلان",
+  "announcement_description": "تحقق من أحدث إعلان لدينا",
   "contact_us": "اتصل بنا",
   "validate_discount_variant_external_id_required": "معرف المتغير الخارجي مطلوب",
   "validate_discount_quantity_required": "الكمية مطلوبة",

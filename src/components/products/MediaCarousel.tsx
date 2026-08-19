@@ -21,7 +21,7 @@ type MediaSlide = Slide & {
 
 interface MediaCarouselProps {
   media: MediaType[];
-  variantExternalId: string | null;
+  variantExternalId?: string | null;
   className?: string;
 }
 
@@ -75,22 +75,24 @@ export const MediaCarousel = ({ media, variantExternalId, className }: MediaCaro
           })}
         </CarouselContent>
 
-        <div className="absolute inset-x-0 bottom-3 flex items-center justify-center">
-          {media.map((_, index) => (
-            <Button
-              variant="ghost"
-              key={index}
-              onClick={() => scrollTo(index)}
-              className="p-1 size-auto hover:bg-transparent hover:dark:bg-transparent"
-            >
-              <div
-                className={cn('rounded-full size-2.5 bg-muted-foreground/80', {
-                  'bg-transparent backdrop-invert-100 ': selected === index,
-                })}
-              />
-            </Button>
-          ))}
-        </div>
+        {media.length > 1 && (
+          <div className="absolute inset-x-0 bottom-3 flex items-center justify-center">
+            {media.map((_, index) => (
+              <Button
+                variant="ghost"
+                key={index}
+                onClick={() => scrollTo(index)}
+                className="p-1 size-auto hover:bg-transparent hover:dark:bg-transparent"
+              >
+                <div
+                  className={cn('rounded-full size-2.5 bg-muted-foreground/80', {
+                    'bg-transparent backdrop-invert-100 ': selected === index,
+                  })}
+                />
+              </Button>
+            ))}
+          </div>
+        )}
       </Carousel>
 
       <LightboxCarousel
