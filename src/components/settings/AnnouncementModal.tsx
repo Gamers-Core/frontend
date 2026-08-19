@@ -27,6 +27,8 @@ export const AnnouncementModal = () => {
   )
     return null;
 
+  const media = appSettingsQuery.data.announcement.media;
+
   return (
     <Modal
       title={t('announcement_title')}
@@ -38,9 +40,7 @@ export const AnnouncementModal = () => {
         announcementDisclosure.onOpenChange(isOpen);
       }}
     >
-      {appSettingsQuery.data.announcement.media.length > 0 && (
-        <MediaCarousel media={appSettingsQuery.data.announcement.media} className="flex-none" />
-      )}
+      {media && media.length > 0 && <MediaCarousel media={media} className="flex-none" />}
 
       <AnnouncementHTML html={appSettingsQuery.data.announcement.message} />
     </Modal>
