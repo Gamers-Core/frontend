@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import { useAppSettingsQuery, useDisclosure } from '@/hooks';
+import { useAnnouncementStore } from '@/stores';
 
 import { Modal } from '../Modal';
 import { HTMLRender } from '../HTMLRender';
@@ -11,8 +12,13 @@ import { MediaCarousel } from '../products';
 export const AnnouncementModal = () => {
   const t = useTranslations();
 
-  const announcementDisclosure = useDisclosure({ defaultIsOpen: true });
+  const shouldShowAnnouncement = useAnnouncementStore((state) => state.shouldShow);
+  const markAsShown = useAnnouncementStore((state) => state.markAsShown);
+
   const appSettingsQuery = useAppSettingsQuery();
+  const announcementDisclosure = useDisclosure({
+    defaultIsOpen: shouldShowAnnouncement(appSettingsQuery.data?.announcement.intervalHours),
+  });
 
   if (
     !appSettingsQuery.data ||
@@ -22,7 +28,16 @@ export const AnnouncementModal = () => {
     return null;
 
   return (
-    <Modal {...announcementDisclosure} title={t('announcement_title')} description={t('announcement_description')}>
+    <Modal
+      title={t('announcement_title')}
+      description={t('announcement_description')}
+      {...announcementDisclosure}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) markAsShown();
+
+        announcementDisclosure.onOpenChange(isOpen);
+      }}
+    >
       {appSettingsQuery.data.announcement.media.length > 0 && (
         <MediaCarousel media={appSettingsQuery.data.announcement.media} />
       )}

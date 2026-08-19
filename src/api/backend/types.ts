@@ -280,6 +280,7 @@ export interface AppSettings {
     enabled: boolean;
     message: string;
     media: Media<'image' | 'video'>[];
+    intervalHours: number;
   };
 }
 
