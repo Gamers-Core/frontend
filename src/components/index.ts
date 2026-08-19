@@ -26,3 +26,4 @@ export * from './MaintenanceMode';
 export * from './ContactSupportButton';
 export * from './DiscountValidation';
 export * from './PixelPageView';
+export * from './Modal';
