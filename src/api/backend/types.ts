@@ -276,6 +276,11 @@ export interface AppSettings {
     message: string;
     countdown?: string;
   };
+  announcement: {
+    enabled: boolean;
+    message: string;
+    media: Media<'image' | 'video'>[];
+  };
 }
 
 export interface Discount {

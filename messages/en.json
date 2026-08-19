@@ -228,6 +228,8 @@
   "countdown_minute": "{count, plural, one {minute} other {minutes}}",
   "countdown_second": "{count, plural, one {second} other {seconds}}",
   "maintenance_back_in": "We'll be back in",
+  "announcement_title": "Announcement",
+  "announcement_description": "Check out our latest announcement",
   "contact_us": "Contact Us",
   "validate_discount_variant_external_id_required": "Variant external ID is required",
   "validate_discount_quantity_required": "Quantity is required",
