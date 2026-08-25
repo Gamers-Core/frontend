@@ -53,7 +53,7 @@ const UserReviewCard = ({ facebookURL, image }: UserReview) => {
       target="_blank"
       className="flex items-center justify-center p-2 flex-1 md:min-w-110 md:max-w-160 bg-border rounded-lg"
     >
-      <div className="rounded-lg overflow-hidden">
+      <div className="rounded-lg overflow-hidden w-full">
         <Image image={image} alt="user Review" loading="eager" fetchPriority="high" className="w-full" />
       </div>
     </Link>
