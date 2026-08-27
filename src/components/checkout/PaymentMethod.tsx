@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { CheckoutSchema, paymentMethods } from '@/api';
+import { CheckoutSchema, defaultPaymentMethod, paymentMethods } from '@/api';
 
 import {
   AccordionContent,
@@ -39,8 +39,12 @@ export const PaymentMethod = () => {
               <RadioGroup
                 dir={locale === 'ar' ? 'rtl' : 'ltr'}
                 value={field.value}
-                onValueChange={field.onChange}
-                defaultValue={paymentMethods[0]}
+                onValueChange={(value) => {
+                  field.onChange(value);
+
+                  form.setValue('discountCode', undefined);
+                }}
+                defaultValue={defaultPaymentMethod}
               >
                 {paymentMethods.map((method) => (
                   <FieldLabel key={method}>

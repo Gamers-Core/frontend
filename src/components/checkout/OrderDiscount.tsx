@@ -13,8 +13,12 @@ export const OrderDiscount = () => {
 
   const form = useFormContext<CheckoutSchema>();
 
+  const paymentMethod = form.watch('paymentMethod');
+
   return (
     <DiscountValidation
+      key={paymentMethod}
+      paymentMethod={paymentMethod}
       onSuccess={(discount) => {
         if (!discount || !discount.code) return;
 

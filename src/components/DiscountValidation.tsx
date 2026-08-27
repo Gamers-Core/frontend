@@ -4,25 +4,26 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { useDiscountQuery } from '@/hooks';
-import { BackendError, Discount } from '@/api';
+import { BackendError, Discount, PaymentMethod } from '@/api';
 
 import { Button } from './Button';
 import { Field, FieldError, Input } from './ui';
 
 interface DiscountValidationProps {
+  paymentMethod?: PaymentMethod;
   onClear?: () => void;
   onSuccess?: (data: Discount | null) => void;
   onError?: (error: BackendError) => void;
 }
 
-export const DiscountValidation = ({ onSuccess, onError, onClear }: DiscountValidationProps) => {
+export const DiscountValidation = ({ paymentMethod, onSuccess, onError, onClear }: DiscountValidationProps) => {
   const t = useTranslations();
 
   const [value, setValue] = useState('');
   const [code, setCode] = useState<string | undefined>();
   const [error, setError] = useState<BackendError | null>(null);
 
-  const discountQuery = useDiscountQuery(code);
+  const discountQuery = useDiscountQuery(code, paymentMethod);
 
   const canSubmit = value.length > 0 && (!discountQuery.isPending || !discountQuery.isEnabled);
 
