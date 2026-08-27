@@ -14,9 +14,10 @@ const queryFn = <C extends string | undefined>({
   queryKey: [, paymentMethod, code],
 }: QueryFunctionContext<QueryKey<C>>) => {
   return gamersCore
-    .get<DiscountQueryResult<C>, AxiosResponse<DiscountQueryResult<C>>, { code: C }>('/discounts', {
-      params: { code, paymentMethod },
-    })
+    .get<DiscountQueryResult<C>, AxiosResponse<DiscountQueryResult<C>>, { code: C; paymentMethod?: PaymentMethod }>(
+      '/discounts',
+      { params: { code, paymentMethod } },
+    )
     .then((res) => res.data)
     .catch((error) => {
       throw error.response?.data;
