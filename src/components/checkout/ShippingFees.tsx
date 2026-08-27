@@ -16,10 +16,11 @@ export const ShippingFees = () => {
   const form = useFormContext<CheckoutSchema>();
 
   const addressId = Number(form.watch('addressId'));
-  const isCOD = form.watch('paymentMethod') === 'cod';
+  const paymentMethod = form.watch('paymentMethod');
+  const isCOD = paymentMethod === 'cod';
   const canOpenPackage = form.watch('canOpenPackage');
 
-  const discountQuery = useDiscountQuery<string | undefined>(form.watch('discountCode'), form.watch('paymentMethod'));
+  const discountQuery = useDiscountQuery<string | undefined>(form.watch('discountCode'), paymentMethod);
 
   const cartQuery = useCartQuery();
   const addressesQuery = useAddressesQuery();
