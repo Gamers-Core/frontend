@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 
 import {
   Accordion,
@@ -16,7 +17,7 @@ import {
   ShippingOptions,
 } from '@/components';
 import { useAddressesQuery, useCartQuery, useDiscountQuery } from '@/hooks';
-import { redirect } from 'next/navigation';
+import { defaultPaymentMethod } from '@/api';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -33,7 +34,10 @@ export default async function Checkout() {
   const [cart, addresses] = await Promise.all([
     queryClient.fetchQuery(useCartQuery),
     queryClient.fetchQuery(useAddressesQuery),
-    queryClient.prefetchQuery({ ...useDiscountQuery, queryKey: useDiscountQuery.queryKey(undefined) }),
+    queryClient.prefetchQuery({
+      ...useDiscountQuery,
+      queryKey: useDiscountQuery.queryKey(undefined, defaultPaymentMethod),
+    }),
   ]);
 
   if (cart.items.length === 0) return redirect('/');

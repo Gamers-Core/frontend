@@ -19,7 +19,7 @@ export const ShippingFees = () => {
   const isCOD = form.watch('paymentMethod') === 'cod';
   const canOpenPackage = form.watch('canOpenPackage');
 
-  const discountQuery = useDiscountQuery<string | undefined>(form.watch('discountCode'));
+  const discountQuery = useDiscountQuery<string | undefined>(form.watch('discountCode'), form.watch('paymentMethod'));
 
   const cartQuery = useCartQuery();
   const addressesQuery = useAddressesQuery();

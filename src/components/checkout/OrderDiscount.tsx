@@ -15,6 +15,7 @@ export const OrderDiscount = () => {
 
   return (
     <DiscountValidation
+      paymentMethod={form.getValues('paymentMethod')}
       onSuccess={(discount) => {
         if (!discount || !discount.code) return;
 
