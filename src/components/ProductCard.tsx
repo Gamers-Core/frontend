@@ -84,3 +84,23 @@ export const ProductCard = ({
     </Link>
   );
 };
+
+interface ProductCardSkeletonProps {
+  className?: string;
+}
+
+const Skeleton = ({ className }: ProductCardSkeletonProps) => (
+  <div className={cn('flex flex-col gap-4 min-w-60 md:min-w-75 w-60 md:w-75 animate-pulse', className)}>
+    <div className="aspect-square rounded-lg bg-muted dark:bg-border" />
+
+    <div className="flex flex-col gap-2">
+      <div className="h-3.5 w-28 rounded bg-muted dark:bg-border" />
+
+      <div className="h-5 w-40 rounded bg-muted dark:bg-border" />
+
+      <div className="h-4 w-20 rounded bg-muted dark:bg-border" />
+    </div>
+  </div>
+);
+
+ProductCard.Skeleton = Skeleton;

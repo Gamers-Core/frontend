@@ -30,6 +30,15 @@ export type BackendError<E extends ValidationErrors | AppError = ValidationError
   status: number;
 } & E;
 
+export interface Pagination<T> {
+  data: T[];
+  meta: { itemsPerPage: number; totalItems: number; currentPage: number; totalPages: number };
+}
+
+export interface PaginationParams {
+  limit?: number;
+}
+
 export type MediaType = (typeof mediaTypes)[number];
 
 export interface Media<T extends MediaType = MediaType> {

@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-import { useBrandsQuery, useCategoriesQuery, useProductsQuery } from '@/hooks';
+import { useBrandsQuery, useCategoriesQuery, useProductsInfiniteQuery } from '@/hooks';
 import { PagePropsWithSearchParams } from '@/app/types';
 import { SearchOptions, SearchResults } from '@/components';
 import { SearchSchema } from '@/api';
@@ -25,7 +25,11 @@ export default async function SearchPage({ searchParams }: PageParams) {
   const queryClient = new QueryClient();
 
   await Promise.allSettled([
-    queryClient.prefetchQuery({ ...useProductsQuery, queryKey: useProductsQuery.queryKey(params) }),
+    queryClient.prefetchInfiniteQuery({
+      queryKey: useProductsInfiniteQuery.queryKey(params),
+      queryFn: useProductsInfiniteQuery.queryFn,
+      initialPageParam: 1,
+    }),
     queryClient.prefetchQuery(useBrandsQuery),
     queryClient.prefetchQuery(useCategoriesQuery),
   ]);
