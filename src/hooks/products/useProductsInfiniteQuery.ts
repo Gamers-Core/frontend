@@ -3,23 +3,23 @@ import { AxiosResponse } from 'axios';
 
 import { BackendError, gamersCore, SearchSchema, SearchResponse, Pagination, PaginationParams } from '@/api';
 
-const queryKey = (searchOptions: ProductsInfiniteQueryParams = {}) =>
-  ['products', ...Object.entries(searchOptions).sort(([a], [b]) => a.localeCompare(b))] as const;
+const queryKey = (params: ProductsInfiniteQueryParams = {}) =>
+  ['products', ...Object.entries(params).sort(([a], [b]) => a.localeCompare(b))] as const;
 
 type QueryKey = ReturnType<typeof queryKey>;
 
 const queryFn = ({ queryKey: [, ...paramsArr], pageParam }: QueryFunctionContext<QueryKey>) =>
   gamersCore
     .get<Pagination<SearchResponse>, AxiosResponse<Pagination<SearchResponse>>>('/products', {
-      params: { page: pageParam, limit: 11, ...Object.fromEntries(paramsArr) },
+      params: { limit: 11, ...Object.fromEntries(paramsArr), page: pageParam },
     })
     .then((res) => res.data);
 
 type ProductsInfiniteQueryParams = SearchSchema & PaginationParams;
 
-export const useProductsInfiniteQuery = (searchOptions: ProductsInfiniteQueryParams = {}) =>
+export const useProductsInfiniteQuery = (params: ProductsInfiniteQueryParams = {}) =>
   useInfiniteQuery<Pagination<SearchResponse>, BackendError, InfiniteData<Pagination<SearchResponse>>, QueryKey>({
-    queryKey: queryKey(searchOptions),
+    queryKey: queryKey(params),
     queryFn,
     staleTime: 1000 * 60 * 5, // 5 minutes
     getNextPageParam: (lastPage) =>

@@ -11,7 +11,7 @@ type QueryKey = ReturnType<typeof queryKey>;
 const queryFn = ({ queryKey: [, ...paramsArr], pageParam }: QueryFunctionContext<QueryKey>) =>
   gamersCore
     .get<Pagination<Order>, AxiosResponse<Pagination<Order>>>('/orders', {
-      params: { page: pageParam, limit: 8, ...Object.fromEntries(paramsArr) },
+      params: { limit: 8, ...Object.fromEntries(paramsArr), page: pageParam },
     })
     .then((res) => res.data);
 

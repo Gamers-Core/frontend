@@ -36,7 +36,6 @@ export interface Pagination<T> {
 }
 
 export interface PaginationParams {
-  page?: number;
   limit?: number;
 }
 
