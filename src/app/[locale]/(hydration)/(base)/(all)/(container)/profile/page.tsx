@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { ProfileAddresses, ProfileHeader, ProfileInfo, ProfileOrders } from '@/components';
-import { useAddressCitiesQuery, useAddressesQuery, useMeQuery, useOrdersQuery } from '@/hooks';
+import { useAddressCitiesQuery, useAddressesQuery, useMeQuery, useOrdersInfiniteQuery } from '@/hooks';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -25,7 +25,11 @@ export default async function Page() {
     }),
     queryClient.prefetchQuery(useAddressesQuery),
     queryClient.prefetchQuery(useAddressCitiesQuery),
-    queryClient.prefetchQuery(useOrdersQuery),
+    queryClient.prefetchInfiniteQuery({
+      queryKey: useOrdersInfiniteQuery.queryKey(),
+      queryFn: useOrdersInfiniteQuery.queryFn,
+      initialPageParam: 1,
+    }),
   ]);
 
   return (

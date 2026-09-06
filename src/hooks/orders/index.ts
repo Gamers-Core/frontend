@@ -1,2 +1,2 @@
-export * from './useOrdersQuery';
+export * from './useOrdersInfiniteQuery';
 export * from './useOrderQuery';

@@ -1,30 +1,52 @@
 'use client';
 
+import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Order, getOrderStatuses, statusesStyleMap } from '@/api';
-import { useFormatCurrency, useFormatDate, useFormatNumber, useOrdersQuery } from '@/hooks';
+import { useFormatCurrency, useFormatDate, useFormatNumber, useOrdersInfiniteQuery } from '@/hooks';
 import { cn } from '@/lib/utils';
 
 import { Link } from '../Link';
-import { Separator } from '../ui';
+import { Separator, Spinner } from '../ui';
 import { Image } from '../Image';
+import { InfiniteScrollTrigger } from '../InfiniteScrollTrigger';
 
 export const ProfileOrders = () => {
   const t = useTranslations();
 
-  const orderQuery = useOrdersQuery();
+  const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null);
 
-  if (!orderQuery.data) return null;
+  const orderQuery = useOrdersInfiniteQuery();
+
+  const orders = useMemo(() => orderQuery.data?.pages.flatMap((page) => page.data) ?? [], [orderQuery.data]);
+
+  if (orderQuery.isPending) return null;
 
   return (
     <section className="p-4 flex flex-col flex-1 gap-4 bg-sidebar-border rounded-lg min-h-124 max-h-200">
       <h3 className="text-xl">{t('orders_title')}</h3>
 
-      <div className="flex flex-col md:flex-row gap-4 md:overflow-x-auto overflow-y-auto flex-1">
-        {orderQuery.data.length ? (
-          orderQuery.data.map((order) => <OrderItem key={order.orderNumber} {...order} />)
+      <div
+        ref={setScrollContainer}
+        className="flex flex-col md:flex-row gap-4 md:overflow-x-auto overflow-y-auto flex-1"
+      >
+        {orders.length ? (
+          <>
+            {orders.map((order) => (
+              <OrderItem key={order.orderNumber} {...order} />
+            ))}
+
+            <InfiniteScrollTrigger
+              onLoadMore={orderQuery.fetchNextPage}
+              hasMore={!!orderQuery.hasNextPage}
+              isLoading={orderQuery.isFetchingNextPage}
+              root={scrollContainer}
+            />
+
+            {orderQuery.isFetchingNextPage && <Spinner className="size-6 m-auto md:m-0 shrink-0" />}
+          </>
         ) : (
           <p className="text-muted-foreground m-auto text-center">{t('orders_empty')}</p>
         )}
