@@ -27,3 +27,4 @@ export * from './DiscountValidation';
 export * from './PixelPageView';
 export * from './Modal';
 export * from './settings';
+export * from './InfiniteScrollTrigger';
