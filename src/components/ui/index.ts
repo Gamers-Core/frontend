@@ -18,3 +18,4 @@ export * from './switch';
 export * from './skeleton';
 export * from './input-group';
 export * from './combobox';
+export * from './tooltip';

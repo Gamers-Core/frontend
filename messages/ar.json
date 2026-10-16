@@ -238,5 +238,6 @@
   "discount_applied": "تم تطبيق الخصم: {code}",
   "remove": "إزالة",
   "discount": "الخصم",
-  "free_shipping": "شحن مجاني"
+  "free_shipping": "شحن مجاني",
+  "feature_not_available": "هذه الميزة غير متاحة حاليًا. يرجى المحاولة مرة أخرى لاحقًا."
 }

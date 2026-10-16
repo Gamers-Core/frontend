@@ -1,9 +1,11 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { CheckoutSchema } from '@/api';
+import { useIsMobile } from '@/hooks';
 
 import {
   AccordionContent,
@@ -16,12 +18,19 @@ import {
   FieldLabel,
   FieldTitle,
   Switch,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from '../ui';
 
 export const ShippingOptions = () => {
   const t = useTranslations();
+  const locale = useLocale();
 
   const form = useFormContext<CheckoutSchema>();
+
+  const isMobile = useIsMobile();
+  const [tooltipOpen, setTooltipOpen] = useState(false);
 
   return (
     <AccordionItem asChild value="shipping_options">
@@ -36,23 +45,38 @@ export const ShippingOptions = () => {
           render={({ field }) => (
             <AccordionContent>
               <FieldGroup className="w-full">
-                <FieldLabel htmlFor="shipping_options_can_open_package">
-                  <Field orientation="horizontal">
-                    <FieldContent className="flex flex-col">
-                      <FieldTitle className="text-base font-medium">{t('can_open_package')}</FieldTitle>
+                <Tooltip open={tooltipOpen} onOpenChange={setTooltipOpen}>
+                  <TooltipTrigger
+                    asChild
+                    onClick={() => {
+                      if (isMobile) setTooltipOpen((prev) => !prev);
+                    }}
+                  >
+                    <FieldLabel htmlFor="shipping_options_can_open_package" className="cursor-not-allowed">
+                      <Field orientation="horizontal">
+                        <FieldContent className="flex flex-col opacity-50">
+                          <FieldTitle className="text-base font-medium">{t('can_open_package')}</FieldTitle>
 
-                      <FieldDescription className="flex flex-col text-sm">
-                        {t('can_open_package_description')}
-                      </FieldDescription>
-                    </FieldContent>
+                          <FieldDescription className="flex flex-col text-sm">
+                            {t('can_open_package_description')}
+                          </FieldDescription>
+                        </FieldContent>
 
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      id="shipping_options_can_open_package"
-                    />
-                  </Field>
-                </FieldLabel>
+                        <Switch
+                          disabled
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          id="shipping_options_can_open_package"
+                          className="pointer-events-none"
+                        />
+                      </Field>
+                    </FieldLabel>
+                  </TooltipTrigger>
+
+                  <TooltipContent side={isMobile ? 'bottom' : locale === 'ar' ? 'left' : 'right'} align="center">
+                    {t('feature_not_available')}
+                  </TooltipContent>
+                </Tooltip>
               </FieldGroup>
             </AccordionContent>
           )}

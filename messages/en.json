@@ -238,5 +238,6 @@
   "discount_applied": "Applied Discount: {code}",
   "remove": "Remove",
   "discount": "Discount",
-  "free_shipping": "Free Shipping"
+  "free_shipping": "Free Shipping",
+  "feature_not_available": "This feature is currently unavailable. Please try again later."
 }

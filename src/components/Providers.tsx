@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { Locale } from '@/i18n';
 import { useAuthStore } from '@/stores';
 
-import { Toaster } from './ui';
+import { Toaster, TooltipProvider } from './ui';
 import { GoToTopButton } from './GoToTopButton';
 import { ContactSupportButton } from './ContactSupportButton';
 
@@ -33,7 +33,7 @@ export const Providers = ({ children, locale, messages, isLoggedIn = false }: Pr
     <NextThemesProvider enableColorScheme attribute="class" defaultTheme="system" enableSystem>
       <NextIntlClientProvider messages={messages} locale={locale} timeZone="UTC">
         <QueryClientProvider client={queryClient}>
-          {children}
+          <TooltipProvider>{children}</TooltipProvider>
 
           <GoToTopButton />
           <ContactSupportButton />
