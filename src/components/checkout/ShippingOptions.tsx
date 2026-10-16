@@ -48,8 +48,14 @@ export const ShippingOptions = () => {
                 <Tooltip open={tooltipOpen} onOpenChange={setTooltipOpen}>
                   <TooltipTrigger
                     asChild
-                    onClick={() => {
-                      if (isMobile) setTooltipOpen((prev) => !prev);
+                    onPointerDown={(e) => {
+                      if (isMobile) e.preventDefault();
+                    }}
+                    onClick={(e) => {
+                      if (isMobile) {
+                        e.preventDefault();
+                        setTooltipOpen((prev) => !prev);
+                      }
                     }}
                   >
                     <FieldLabel htmlFor="shipping_options_can_open_package" className="cursor-not-allowed">
