@@ -15,7 +15,7 @@ export interface OrderStatusItem {
   status: OrderStatus;
   date: Date;
   label: `status_${OrderStatus}`;
-  style: 'default' | 'success' | 'error' | 'warning' | 'info';
+  style: keyof typeof statusesStyleMap;
   icon: IconSvgElement;
 }
 
@@ -26,7 +26,7 @@ interface StatusMapItem {
 
 const statusMap: Record<OrderStatus, StatusMapItem> = {
   pending: { style: 'default', icon: ClockIcon },
-  confirmed: { style: 'success', icon: CheckmarkCircleIcon },
+  confirmed: { style: 'confirmed', icon: CheckmarkCircleIcon },
   'on-hold': { style: 'warning', icon: ExclamationMarkBigIcon },
   'on-progress': { style: 'info', icon: ProgressIcon },
   shipped: { style: 'info', icon: ShippingTruck01Icon },
@@ -39,6 +39,7 @@ const statusMap: Record<OrderStatus, StatusMapItem> = {
 export const statusesStyleMap = {
   default: 'text-muted-foreground',
   success: 'text-green-500',
+  confirmed: 'text-teal-500',
   error: 'text-red-500',
   warning: 'text-yellow-500',
   info: 'text-blue-500',
